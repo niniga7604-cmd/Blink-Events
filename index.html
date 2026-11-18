@@ -310,9 +310,15 @@
       box-shadow: 0 0 20px rgba(245, 217, 139, 0.14);
     }
     .city-tag {
-      font-size: 0.74rem; color: var(--rose); font-weight: 500;
-      padding: 5px 12px; border-radius: 999px;
+      display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; width: 100%; max-width: 600px;
+      font-size: 0.78rem; line-height: 1.35; color: var(--rose); font-weight: 500;
+      padding: 10px 16px; border-radius: 14px;
       background: rgba(232, 155, 174, 0.08); border: 1px dashed var(--rose-line);
+      text-align: center;
+    }
+    .city-tag strong {
+      color: var(--gold-soft); font-weight: 600;
     }
     .branch-tabs {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;
@@ -906,8 +912,11 @@
               <span>Vashi Sector 10A Branch</span>
             </button>
           </div>
-          <div style="text-align: center; margin-top: 16px;">
-            <span class="city-tag" id="branchExpansionNote">✨ Active: Kurla East Branch &nbsp;&bull;&nbsp; + More Mumbai Branches Coming Soon</span>
+          <div style="text-align: center; margin-top: 14px;">
+            <div class="city-tag" id="branchExpansionNote">
+              <span>✨ <strong>Active: Kurla East Branch</strong></span>
+              <span>More Mumbai Branches Coming Soon</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1437,8 +1446,7 @@
             'Board Games',
             '2 Fries'
           ]
-        }
-,
+        },
         vashi_small_heart: {
           id: 'vashi_small_heart',
           category: 'love_paradise',
@@ -1729,9 +1737,12 @@
         });
         var expNote = document.getElementById('branchExpansionNote');
         if (expNote) {
-          expNote.textContent = state.branch === 'Vashi'
-            ? '✨ Active: Vashi Sector 10A Branch  •  + More Navi Mumbai Branches Coming Soon'
-            : '✨ Active: Kurla East Branch  •  + More Mumbai Branches Coming Soon';
+          expNote.innerHTML = '';
+          var line1 = h('span', '', '✨ ');
+          line1.appendChild(h('strong', '', state.branch === 'Vashi' ? 'Active: Vashi Sector 10A Branch' : 'Active: Kurla East Branch'));
+          var line2 = h('span', '', state.branch === 'Vashi' ? 'More Navi Mumbai Branches Coming Soon' : 'More Mumbai Branches Coming Soon');
+          expNote.appendChild(line1);
+          expNote.appendChild(line2);
         }
         var reelLink = document.getElementById('packageReelLink');
         if (reelLink) {
@@ -2828,7 +2839,6 @@
       /* =========================================================
          14. BOOTSTRAP
          ========================================================= */
-      
       // Load logo.png if hosted alongside index.html; otherwise keep inline SVG crest
       (function () {
         if (window.location.protocol === 'about:') return;
@@ -2845,21 +2855,6 @@
         probe.src = 'logo.png';
       })();
 
-      // Load logo.png if hosted alongside index.html; otherwise keep inline SVG crest
-      (function () {
-        if (window.location.protocol === 'about:') return;
-        var probe = new Image();
-        probe.onload = function () {
-          document.querySelectorAll('.js-crest-img').forEach(function (img) {
-            img.src = 'logo.png';
-            img.style.display = 'block';
-          });
-          document.querySelectorAll('.js-crest-svg').forEach(function (svg) {
-            svg.style.display = 'none';
-          });
-        };
-        probe.src = 'logo.png';
-      })();
       renderBranchUI();
       populatePackageDropdown();
       selectPackage('paradise_1');
