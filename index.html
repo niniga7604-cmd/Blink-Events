@@ -1,0 +1,2870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BLINK EVENTS | Private Celebration &amp; Party Venue Booking — Kurla &amp; Vashi</title>
+  <meta name="description" content="Book private celebration halls at BLINK EVENTS in Kurla East &amp; Vashi, Navi Mumbai. Couples Love Paradise &amp; Group Celebration packages with live hourly slot booking.">
+  <meta name="theme-color" content="#060608">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BLINK EVENTS">
+  <meta property="og:title" content="BLINK EVENTS | Private Celebration &amp; Party Venue Booking">
+  <meta property="og:description" content="Luxury private celebration venues in Kurla &amp; Vashi. Pick your hourly slot, customize add-ons, and reserve with an instant digital pass.">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS — BLINK EVENTS LUXURY PALETTE
+       ========================================================= */
+    :root {
+      --bg: #060608;
+      --bg-alt: #0c0c10;
+      --card: #131317;
+      --card-elev: #191920;
+      --gold: #D4AF37;
+      --gold-soft: #F5D98B;
+      --rose: #E89BAE;
+      --pink: #F472B6;
+      --text: #FFFFFF;
+      --text-muted: #B4B4BE;
+      --line: rgba(212, 175, 55, 0.24);
+      --line-strong: rgba(212, 175, 55, 0.58);
+      --rose-line: rgba(232, 155, 174, 0.35);
+      --green: #4ADE80;
+      --amber: #FBBF24;
+      --error: #FB7185;
+
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-script: "Great Vibes", cursive;
+      --font-head: "Poppins", system-ui, -apple-system, sans-serif;
+      --font-body: "Montserrat", system-ui, -apple-system, sans-serif;
+
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --nav-h: 72px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      --ease: cubic-bezier(.2, .7, .2, 1);
+    }
+
+    /* =========================================================
+       BASE & RESET
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-h) + 12px);
+      -webkit-text-size-adjust: 100%;
+      background: var(--bg);
+    }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(900px 500px at 85% -5%, rgba(244, 114, 182, 0.08), transparent 60%),
+        radial-gradient(800px 500px at 10% 25%, rgba(212, 175, 55, 0.07), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    img, svg { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.22; margin: 0; }
+    p { margin: 0; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    button, input, select { font-family: inherit; }
+    :focus-visible { outline: 2.5px solid var(--gold-soft); outline-offset: 3px; border-radius: 6px; }
+
+    .container { width: min(1140px, 100% - 32px); margin-inline: auto; }
+    .section { padding: 68px 0; position: relative; }
+    .section--alt { background: var(--bg-alt); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .section__head { text-align: center; max-width: 700px; margin: 0 auto 38px; }
+    .section__kicker {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+    .section__head h2 { font-size: clamp(1.65rem, 4.4vw, 2.45rem); font-weight: 700; letter-spacing: -0.01em; }
+    .section__head p { color: var(--text-muted); margin-top: 10px; font-size: 0.95rem; }
+    .gold-rule { width: 72px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--gold), var(--rose), var(--pink)); margin: 16px auto 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 48px; padding: 12px 24px;
+      font-family: var(--font-head); font-weight: 600; font-size: 0.94rem;
+      border: 1.5px solid transparent; border-radius: 999px; cursor: pointer;
+      transition: transform .22s var(--ease), box-shadow .22s var(--ease), background .22s, border-color .22s;
+      text-align: center; -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn--gold {
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      color: #140f03;
+      box-shadow: 0 10px 26px rgba(212, 175, 55, 0.26);
+    }
+    .btn--gold:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(212, 175, 55, 0.38); }
+    .btn--rose {
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      color: #fff;
+      box-shadow: 0 10px 26px rgba(244, 114, 182, 0.28);
+    }
+    .btn--rose:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(244, 114, 182, 0.4); }
+    .btn--ghost {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--gold-soft);
+      border-color: var(--line-strong);
+    }
+    .btn--ghost:hover { background: rgba(212, 175, 55, 0.12); border-color: var(--gold); transform: translateY(-2px); }
+    .btn[disabled] { opacity: 0.55; cursor: not-allowed; transform: none !important; }
+    .btn[hidden] { display: none; }
+
+    /* =========================================================
+       LOGO CREST
+       ========================================================= */
+    .crest-wrap {
+      width: 48px; height: 48px; flex: none; position: relative;
+      display: grid; place-items: center; border-radius: 50%;
+    }
+    .crest-wrap img, .crest-wrap svg { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .crest-wrap--lg { width: 88px; height: 88px; }
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+    .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--nav-h);
+      background: rgba(6, 6, 8, 0.86);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
+    .brand__txt { line-height: 1.1; }
+    .brand__name {
+      display: block; font-family: var(--font-head); font-weight: 700;
+      font-size: 1.05rem; letter-spacing: 0.14em;
+      background: linear-gradient(135deg, #fff, var(--gold-soft), var(--gold));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .brand__sub {
+      display: block; font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.12em; color: var(--rose); text-transform: uppercase; margin-top: 2px;
+    }
+    .nav__links { display: none; align-items: center; gap: 22px; font-size: 0.9rem; font-weight: 500; }
+    .nav__links a:not(.btn) { color: var(--text-muted); transition: color .2s; padding: 6px 0; }
+    .nav__links a:not(.btn):hover, .nav__links a.is-active { color: var(--gold-soft); }
+    .nav__actions { display: flex; align-items: center; gap: 8px; flex: none; }
+    .mb-btn {
+      display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 14px;
+      border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-soft); font-family: var(--font-head); font-weight: 600; font-size: 0.8rem;
+      cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s;
+    }
+    .mb-btn:hover { background: rgba(212, 175, 55, 0.2); border-color: var(--gold); }
+    .nav__toggle {
+      width: 42px; height: 42px; border-radius: 11px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line); cursor: pointer; position: relative; color: var(--gold-soft);
+    }
+    .nav__toggle span, .nav__toggle span::before, .nav__toggle span::after {
+      content: ""; position: absolute; left: 11px; width: 18px; height: 2px; background: currentColor; border-radius: 2px;
+      transition: transform .28s var(--ease), opacity .2s, top .28s var(--ease);
+    }
+    .nav__toggle span { top: 20px; }
+    .nav__toggle span::before { top: -6px; left: 0; }
+    .nav__toggle span::after { top: 6px; left: 0; }
+    .nav__toggle[aria-expanded="true"] span { background: transparent; }
+    .nav__toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+    .nav__toggle[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
+
+    .nav__drawer {
+      position: absolute; top: var(--nav-h); left: 0; right: 0;
+      background: rgba(13, 13, 17, 0.98); border-bottom: 1px solid var(--line);
+      padding: 8px 20px 20px; display: flex; flex-direction: column; gap: 4px;
+      max-height: 0; overflow: hidden; visibility: hidden; opacity: 0;
+      transition: max-height .35s var(--ease), opacity .25s, visibility .25s;
+    }
+    .nav__drawer.is-open { max-height: 420px; visibility: visible; opacity: 1; }
+    .nav__drawer a:not(.btn), .nav__drawer button.nav__mb {
+      padding: 13px 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-muted); font-size: 0.96rem; font-weight: 500;
+      background: none; border-left: 0; border-right: 0; border-top: 0; text-align: left; cursor: pointer;
+    }
+    .nav__drawer .btn { margin-top: 12px; width: 100%; }
+
+    @media (min-width: 900px) {
+      .nav__toggle, .nav__drawer { display: none; }
+      .nav__links { display: flex; }
+    }
+    @media (max-width: 440px) {
+      .mb-btn__label { display: none; }
+      .brand__name { font-size: 0.9rem; letter-spacing: 0.1em; }
+    }
+
+    /* =========================================================
+       HERO SECTION
+       ========================================================= */
+    .hero {
+      position: relative;
+      padding: calc(var(--nav-h) + 42px) 0 54px;
+      overflow: hidden;
+      background:
+        radial-gradient(780px 440px at 82% 14%, rgba(232, 155, 174, 0.22), transparent 65%),
+        radial-gradient(720px 440px at 14% 84%, rgba(245, 217, 139, 0.20), transparent 65%),
+        linear-gradient(180deg, #060608 0%, #100c13 55%, #060608 100%);
+    }
+    .hero__grid {
+      display: grid; gap: 32px; align-items: center;
+    }
+    @media (min-width: 880px) {
+      .hero__grid { grid-template-columns: 1.15fr 0.85fr; gap: 44px; }
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 14px; border-radius: 999px;
+      background: rgba(232, 155, 174, 0.1);
+      border: 1px solid var(--rose-line);
+      color: var(--rose); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4.4rem);
+      font-weight: 700; line-height: 1.04; letter-spacing: 0.02em;
+      background: linear-gradient(180deg, #ffffff 10%, var(--gold-soft) 65%, var(--gold) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 14px;
+    }
+    .hero__desc { color: #dadade; font-size: clamp(0.96rem, 2.5vw, 1.08rem); max-width: 560px; margin-bottom: 22px; }
+    .hero__highlights {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px;
+    }
+    .hero__pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(19, 19, 23, 0.9); border: 1px solid var(--line);
+      font-size: 0.84rem; color: var(--gold-soft); font-weight: 500;
+    }
+    .hero__pill b { color: var(--pink); }
+    .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 520px) { .hero__ctas .btn { width: 100%; } }
+
+    .hero__card {
+      background:
+        radial-gradient(280px 180px at 50% 0%, rgba(245, 217, 139, 0.12), transparent 70%),
+        linear-gradient(160deg, rgba(28, 25, 34, 0.95), rgba(13, 13, 17, 0.98));
+      border: 1.5px solid rgba(245, 217, 139, 0.62);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      box-shadow: var(--shadow), 0 0 55px rgba(245, 217, 139, 0.15), 0 0 32px rgba(232, 155, 174, 0.1);
+      text-align: center;
+      display: grid; gap: 14px; justify-items: center;
+    }
+    .hero__card-title { font-family: var(--font-script); font-size: 2.2rem; color: var(--gold-soft); line-height: 1.1; }
+    .hero__card-sub { font-size: 0.86rem; color: var(--text-muted); max-width: 300px; }
+    .hero__stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%;
+      padding-top: 14px; border-top: 1px solid var(--line);
+    }
+    .hero__stat strong { display: block; font-family: var(--font-head); font-size: 1.15rem; color: var(--gold-soft); }
+    .hero__stat span { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* =========================================================
+       BRANCH SWITCHER & VENUE GALLERY
+       ========================================================= */
+    .branch-panel {
+      background: var(--card);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-xl);
+      padding: 26px 22px;
+      box-shadow: var(--shadow);
+    }
+    .city-bar {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 18px;
+    }
+    .city-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(245, 217, 139, 0.2), rgba(232, 155, 174, 0.12));
+      border: 1.5px solid var(--gold-soft);
+      color: var(--gold-soft); font-family: var(--font-head); font-size: 0.88rem; font-weight: 600;
+      box-shadow: 0 0 20px rgba(245, 217, 139, 0.14);
+    }
+    .city-tag {
+      font-size: 0.74rem; color: var(--rose); font-weight: 500;
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(232, 155, 174, 0.08); border: 1px dashed var(--rose-line);
+    }
+    .branch-tabs {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;
+      max-width: 820px; margin: 0 auto;
+    }
+    .branch-tab--coming {
+      border-style: dashed; border-color: rgba(232, 155, 174, 0.28);
+      background: rgba(11, 11, 14, 0.55); opacity: 0.72; cursor: not-allowed;
+    }
+    .branch-tab--coming strong { color: var(--rose); font-size: 0.92rem; }
+    .branch-tab {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 14px 16px; border-radius: var(--radius-lg);
+      background: #0b0b0e; border: 1.5px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted); cursor: pointer;
+      transition: all .22s var(--ease);
+    }
+    .branch-tab strong { font-family: var(--font-head); font-size: 1rem; color: #fff; }
+    .branch-tab span { font-size: 0.76rem; }
+    .branch-tab.is-active {
+      background: linear-gradient(155deg, rgba(212, 175, 55, 0.18), rgba(244, 114, 182, 0.08));
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.18);
+    }
+    .branch-tab.is-active strong { color: var(--gold-soft); }
+
+    .branch-info {
+      display: grid; gap: 16px; padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(6, 6, 8, 0.7); border: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+    @media (min-width: 760px) {
+      .branch-info { grid-template-columns: 1.4fr 1fr; align-items: center; }
+    }
+    .branch-info__title { font-size: 1.05rem; font-weight: 700; color: var(--gold-soft); margin-bottom: 6px; }
+    .branch-info__addr { color: #d6d6dc; font-size: 0.9rem; }
+    .branch-info__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    @media (min-width: 760px) { .branch-info__actions { justify-content: flex-end; } }
+    .branch-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 15px; border-radius: 999px;
+      background: rgba(212, 175, 55, 0.1); border: 1px solid var(--line-strong);
+      color: var(--gold-soft); font-size: 0.82rem; font-weight: 600;
+      transition: background .2s, border-color .2s;
+    }
+    .branch-chip:hover { background: rgba(212, 175, 55, 0.2); border-color: var(--gold); }
+
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+    }
+    @media (min-width: 760px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+    .gallery-slot {
+      position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius-md); overflow: hidden;
+      background: linear-gradient(145deg, #16161c, #0a0a0d);
+      border: 1px solid var(--line);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 14px; gap: 8px;
+    }
+    .gallery-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .gallery-slot__icon {
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(212, 175, 55, 0.1); border: 1px solid var(--line-strong); color: var(--gold-soft); font-size: 1.1rem;
+    }
+    .gallery-slot__label { font-family: var(--font-head); font-size: 0.8rem; font-weight: 600; color: var(--gold-soft); }
+    .gallery-slot__sub { font-size: 0.72rem; color: var(--text-muted); }
+    .pkg-gallery-box {
+      margin-top: 34px;
+      padding: 26px 22px;
+      background: var(--card);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+    .pkg-gallery-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .pkg-gallery-head h3 {
+      font-size: 1.18rem;
+      color: var(--gold-soft);
+    }
+    .pkg-gallery-sub {
+      font-size: 0.86rem;
+      color: var(--rose);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .pkg-gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 680px) {
+      .pkg-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .gallery-reel {
+      margin-top: 20px; text-align: center;
+    }
+    .gallery-reel a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 999px;
+      background: rgba(244, 114, 182, 0.1); border: 1px solid var(--rose-line);
+      color: var(--rose); font-family: var(--font-head); font-size: 0.86rem; font-weight: 600;
+      transition: background .2s, transform .2s;
+    }
+    .gallery-reel a:hover { background: rgba(244, 114, 182, 0.2); transform: translateY(-1px); }
+
+    /* =========================================================
+       PACKAGE CATEGORIES & CARDS
+       ========================================================= */
+    .pkg-tabs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      max-width: 580px; margin: 0 auto 32px;
+    }
+    .pkg-tab {
+      padding: 13px 16px; border-radius: 999px;
+      background: var(--card); border: 1.5px solid var(--line);
+      color: var(--text-muted); font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; transition: all .22s var(--ease);
+    }
+    .pkg-tab.is-active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(244, 114, 182, 0.16));
+      border-color: var(--gold); color: var(--gold-soft);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.16);
+    }
+    .pkg-cat-note {
+      text-align: center; color: var(--rose); font-size: 0.88rem; font-weight: 500;
+      margin: -18px auto 28px;
+    }
+    .packages-grid {
+      display: grid; grid-template-columns: 1fr; gap: 22px;
+    }
+    @media (min-width: 820px) { .packages-grid { grid-template-columns: repeat(3, 1fr); } }
+    .pkg-card {
+      position: relative;
+      background:
+        radial-gradient(260px 140px at 85% 0%, rgba(232, 155, 174, 0.08), transparent 70%),
+        linear-gradient(175deg, #16161c 0%, var(--card) 100%);
+      border: 1px solid rgba(245, 217, 139, 0.34);
+      border-radius: var(--radius-xl); padding: 28px 22px 24px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(245, 217, 139, 0.14);
+      transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
+    }
+    .pkg-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 217, 139, 0.72);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 28px rgba(232, 155, 174, 0.14);
+    }
+    .pkg-card.is-featured {
+      border: 1.5px solid var(--gold-soft);
+      background:
+        radial-gradient(280px 160px at 50% 0%, rgba(245, 217, 139, 0.14), transparent 72%),
+        linear-gradient(170deg, #211b14 0%, #131317 68%);
+      box-shadow: var(--shadow), 0 0 42px rgba(245, 217, 139, 0.2);
+    }
+    .pkg-card.is-selected {
+      border: 2px solid var(--pink);
+      box-shadow: 0 0 0 2px rgba(244, 114, 182, 0.25), var(--shadow);
+    }
+    .pkg-card__badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      padding: 4px 14px; border-radius: 999px; white-space: nowrap;
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      color: #fff; font-family: var(--font-head); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.08em;
+    }
+    .pkg-card__dur { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rose); }
+    .pkg-card__name { font-size: 1.25rem; font-weight: 700; color: #fff; margin-top: 4px; }
+    .pkg-card__price {
+      font-family: var(--font-head); font-weight: 800; font-size: 2.35rem; color: var(--gold-soft);
+      margin: 12px 0 4px; line-height: 1.1;
+    }
+    .pkg-card__meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pkg-card__list { display: grid; gap: 9px; margin-bottom: 22px; flex: 1; }
+    .pkg-card__list li { display: flex; gap: 9px; align-items: flex-start; font-size: 0.86rem; color: #e2e2e8; }
+    .pkg-card__list li::before {
+      content: "✓"; flex: none; width: 18px; height: 18px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 700;
+      background: rgba(212, 175, 55, 0.16); color: var(--gold-soft); margin-top: 2px;
+    }
+    .pkg-card .btn { width: 100%; }
+
+    /* =========================================================
+       BOOKING ENGINE & LIVE SUMMARY LAYOUT
+       ========================================================= */
+    .booking-layout {
+      display: grid; gap: 26px; align-items: start;
+    }
+    @media (min-width: 960px) {
+      .booking-layout { grid-template-columns: 1.25fr 0.75fr; }
+      .summary-sticky { position: sticky; top: calc(var(--nav-h) + 18px); }
+    }
+    .booking-card {
+      background: var(--card); border: 1px solid var(--line-strong);
+      border-radius: var(--radius-xl); padding: 26px 22px; box-shadow: var(--shadow);
+    }
+    .step-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.05rem; font-weight: 700; color: var(--gold-soft);
+      margin: 24px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+    }
+    .step-title:first-child { margin-top: 0; }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: #140f03;
+      font-size: 0.78rem; font-weight: 800; flex: none;
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 600px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field--full { grid-column: 1 / -1; }
+    .field label { font-family: var(--font-head); font-weight: 500; font-size: 0.85rem; color: var(--gold-soft); }
+    .field input[type="text"], .field input[type="tel"], .field input[type="date"], .field input[type="number"], .field select {
+      width: 100%; min-height: 48px; padding: 11px 14px; font-size: 0.96rem; color: #fff;
+      background: #09090c; border: 1.5px solid rgba(255, 255, 255, 0.14); border-radius: var(--radius-md);
+      color-scheme: dark; transition: border-color .2s, box-shadow .2s;
+    }
+    .field input:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18); }
+    .field.has-error input, .field.has-error select { border-color: var(--error); }
+    .field__error { min-height: 1.1em; font-size: 0.78rem; color: var(--error); }
+    .field__hint { font-size: 0.76rem; color: var(--text-muted); }
+
+    .inline-check {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-muted);
+      cursor: pointer; margin-top: 4px; user-select: none;
+    }
+    .inline-check input { width: 17px; height: 17px; accent-color: var(--gold); cursor: pointer; }
+
+    .stepper {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .stepper button {
+      width: 44px; height: 48px; border-radius: var(--radius-md); border: 1.5px solid var(--line-strong);
+      background: #09090c; color: var(--gold-soft); font-size: 1.25rem; font-weight: 700; cursor: pointer;
+    }
+    .stepper button:hover { background: rgba(212, 175, 55, 0.15); }
+    .stepper input { text-align: center; font-weight: 700; }
+
+    /* =========================================================
+       HOURLY SLOT BOOKING GRID (MOVIE-SEAT STYLE)
+       ========================================================= */
+    .slot-legend {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 0.76rem; color: var(--text-muted);
+    }
+    .slot-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+    .dot--avail { background: rgba(74, 222, 128, 0.25); border: 1.5px solid var(--green); }
+    .dot--sel { background: var(--gold); border: 1.5px solid var(--gold-soft); }
+    .dot--hold { background: rgba(251, 191, 36, 0.25); border: 1.5px solid var(--amber); }
+    .dot--booked { background: #2b2b33; border: 1.5px solid #52525e; }
+    .dot--unavail { background: #141418; border: 1.5px dashed #383842; }
+
+    .slot-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px;
+    }
+    @media (min-width: 560px) { .slot-grid { grid-template-columns: repeat(5, 1fr); } }
+    .slot-cell {
+      position: relative; min-height: 62px; padding: 8px 6px; border-radius: var(--radius-md);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+      font-family: var(--font-head); text-align: center; cursor: pointer;
+      border: 1.5px solid rgba(74, 222, 128, 0.45);
+      background: rgba(74, 222, 128, 0.08); color: #fff;
+      transition: transform .16s var(--ease), border-color .16s, background .16s, box-shadow .16s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .slot-cell:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--gold); background: rgba(212, 175, 55, 0.14); }
+    .slot-cell__time { font-size: 0.78rem; font-weight: 700; line-height: 1.15; }
+    .slot-cell__state { font-size: 0.65rem; font-weight: 600; color: var(--green); }
+
+    .slot-cell.is-selected {
+      background: linear-gradient(145deg, var(--gold-soft), var(--gold));
+      border-color: #fff; color: #140f03;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+    }
+    .slot-cell.is-selected .slot-cell__state { color: #2b1f04; font-weight: 700; }
+
+    .slot-cell.is-booked {
+      background: #23232a; border-color: #3f3f4a; color: #7a7a88; cursor: not-allowed;
+    }
+    .slot-cell.is-booked .slot-cell__state { color: #8c8c9a; }
+
+    .slot-cell.is-hold {
+      background: rgba(251, 191, 36, 0.12); border-color: var(--amber); color: #fde68a; cursor: not-allowed;
+    }
+    .slot-cell.is-hold .slot-cell__state { color: var(--amber); }
+
+    .slot-cell.is-unavailable {
+      background: #0d0d11; border: 1.5px dashed #2e2e38; color: #5c5c69; cursor: not-allowed;
+    }
+    .slot-cell.is-unavailable .slot-cell__state { color: #5c5c69; }
+
+    .slot-selected-bar {
+      margin-top: 12px; padding: 11px 14px; border-radius: var(--radius-md);
+      background: rgba(212, 175, 55, 0.08); border: 1px solid var(--line);
+      font-size: 0.85rem; color: var(--gold-soft);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+
+    /* =========================================================
+       SMART OPTIONAL ADD-ONS
+       ========================================================= */
+    .addons-grid {
+      display: grid; grid-template-columns: 1fr; gap: 10px;
+    }
+    @media (min-width: 560px) { .addons-grid { grid-template-columns: 1fr 1fr; } }
+    .addon-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 12px 14px; border-radius: var(--radius-md);
+      background: #09090c; border: 1.5px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer; transition: border-color .2s, background .2s;
+    }
+    .addon-item:hover { border-color: var(--line-strong); }
+    .addon-item.is-checked { border-color: var(--gold); background: rgba(212, 175, 55, 0.08); }
+    .addon-item.is-included {
+      border-color: rgba(74, 222, 128, 0.45);
+      background: rgba(74, 222, 128, 0.06);
+      cursor: default;
+    }
+    .addon-item__left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .addon-item__left input { width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
+    .addon-item__name { font-size: 0.86rem; font-weight: 600; color: #fff; }
+    .addon-item__price { font-family: var(--font-head); font-size: 0.84rem; font-weight: 700; color: var(--gold-soft); white-space: nowrap; }
+    .addon-item.is-included .addon-item__price { color: var(--green); font-size: 0.78rem; }
+
+    /* =========================================================
+       TERMS & CONDITIONS
+       ========================================================= */
+    .terms-box {
+      margin-top: 20px; padding: 16px; border-radius: var(--radius-md);
+      background: #09090c; border: 1px solid var(--line);
+    }
+    .terms-box h4 { font-size: 0.88rem; color: var(--gold-soft); margin-bottom: 8px; }
+    .terms-list { display: grid; gap: 6px; font-size: 0.79rem; color: var(--text-muted); margin-bottom: 12px; padding-left: 16px; list-style: disc; }
+    .terms-accept {
+      display: flex; align-items: flex-start; gap: 10px; font-size: 0.84rem; font-weight: 600; color: #fff; cursor: pointer;
+    }
+    .terms-accept input { width: 19px; height: 19px; margin-top: 2px; accent-color: var(--gold); flex: none; cursor: pointer; }
+
+    /* =========================================================
+       LIVE PRICE SUMMARY CARD
+       ========================================================= */
+    .summary-card {
+      background: linear-gradient(180deg, #17171d, #101014);
+      border: 1.5px solid var(--gold);
+      border-radius: var(--radius-xl); padding: 24px 20px;
+      box-shadow: var(--shadow), 0 0 40px rgba(212, 175, 55, 0.1);
+    }
+    .summary-card h3 { font-size: 1.15rem; color: var(--gold-soft); margin-bottom: 14px; }
+    .summary-rows { display: grid; gap: 10px; font-size: 0.88rem; }
+    .summary-row { display: flex; justify-content: space-between; gap: 10px; color: #d6d6de; }
+    .summary-row b { font-family: var(--font-head); color: #fff; }
+    .summary-divider { border-top: 1px dashed var(--line-strong); margin: 10px 0; }
+    .summary-total { font-size: 1rem; font-weight: 700; color: var(--gold-soft); }
+    .summary-total b { font-size: 1.15rem; color: var(--gold-soft); }
+    .summary-paybox {
+      margin-top: 14px; padding: 14px; border-radius: var(--radius-md);
+      background: rgba(212, 175, 55, 0.08); border: 1px solid var(--line-strong);
+      display: grid; gap: 8px;
+    }
+    .summary-balance {
+      margin-top: 12px; padding: 12px 14px; border-radius: var(--radius-md);
+      background: rgba(244, 114, 182, 0.08); border: 1px solid var(--rose-line);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      font-size: 0.9rem; font-weight: 600; color: var(--rose);
+    }
+    .summary-balance b { font-family: var(--font-head); font-size: 1.15rem; color: var(--pink); }
+    .policy-note {
+      margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+      background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.35);
+      font-size: 0.74rem; color: #fde68a; line-height: 1.45;
+    }
+    .form-status { text-align: center; font-size: 0.86rem; margin-top: 12px; min-height: 1.3em; color: var(--gold-soft); }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    .footer { background: #040406; border-top: 1px solid var(--line); padding: 48px 0 26px; }
+    .footer__grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+    @media (min-width: 760px) { .footer__grid { grid-template-columns: 1.3fr 1fr 1.2fr; } }
+    .footer h4 { font-size: 0.92rem; color: var(--gold-soft); margin-bottom: 12px; }
+    .footer p, .footer li { color: var(--text-muted); font-size: 0.88rem; }
+    .footer ul { display: grid; gap: 8px; }
+    .footer a:hover { color: var(--gold-soft); }
+    .footer__bottom {
+      margin-top: 34px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07);
+      text-align: center; color: var(--text-muted); font-size: 0.82rem;
+    }
+
+    /* =========================================================
+       MODALS: MY BOOKINGS, CONFIRMATION, IN-PAGE ALERT
+       ========================================================= */
+    html.mb-lock, html.mb-lock body { overflow: hidden; }
+    .mb-overlay {
+      position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 12px;
+      background: rgba(0, 0, 0, 0.76); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      opacity: 0; transition: opacity .24s var(--ease);
+    }
+    .mb-overlay[hidden] { display: none; }
+    .mb-overlay.is-open { opacity: 1; }
+    .mb-panel {
+      position: relative; width: min(500px, 100%); max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px);
+      display: flex; flex-direction: column; overflow: hidden; outline: none;
+      background: linear-gradient(180deg, #1a1a20, #111115); border: 1px solid var(--line-strong); border-radius: 22px;
+      box-shadow: var(--shadow); transform: translateY(20px) scale(.98); transition: transform .28s var(--ease);
+    }
+    .mb-overlay.is-open .mb-panel { transform: none; }
+    .mb-panel__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 16px 14px 20px; border-bottom: 1px solid var(--line); }
+    .mb-panel__head h2 { font-size: 1.22rem; color: var(--gold-soft); }
+    .mb-panel__head p { color: var(--text-muted); font-size: 0.8rem; margin-top: 3px; }
+    .mb-close {
+      flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--line); color: var(--gold-soft);
+    }
+    .mb-close--float { position: absolute; top: 12px; right: 12px; z-index: 2; }
+    .mb-panel__body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px; display: grid; gap: 14px; align-content: start; }
+    .mb-panel__foot { padding: 12px 18px; border-top: 1px solid var(--line); color: var(--text-muted); font-size: 0.75rem; text-align: center; }
+
+    .bk-card { background: #191920; border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 12px; }
+    .bk-card__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .bk-id { font-family: var(--font-head); font-weight: 800; font-size: 1.15rem; color: var(--gold-soft); }
+    .bk-chip { font-size: 0.68rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; color: var(--green); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.35); }
+    .bk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; margin: 0; }
+    .bk-grid .is-full { grid-column: 1 / -1; }
+    .bk-grid dt { font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .bk-grid dd { margin: 2px 0 0; font-family: var(--font-head); font-weight: 600; font-size: 0.86rem; overflow-wrap: anywhere; }
+    .bk-pay { border: 1px dashed var(--line-strong); border-radius: 12px; padding: 11px 13px; display: grid; gap: 6px; background: rgba(212, 175, 55, 0.06); }
+    .bk-pay__row { display: flex; justify-content: space-between; font-size: 0.84rem; color: #e6e6eb; }
+    .bk-pay__row--due { border-top: 1px solid var(--line); padding-top: 7px; margin-top: 2px; color: var(--gold-soft); font-weight: 600; }
+    .bk-pay__row--due b { color: var(--pink); font-size: 1.02rem; }
+    .bk-actions { display: grid; gap: 9px; }
+    .bk-actions .btn { width: 100%; min-height: 46px; font-size: 0.86rem; }
+
+    .cf-body { padding-top: 24px; justify-items: center; text-align: center; }
+    .cf-badge { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; color: var(--green); background: rgba(74, 222, 128, 0.1); border: 2px solid rgba(74, 222, 128, 0.55); }
+    .cf-id { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid var(--line-strong); background: #0c0c10; }
+    .cf-id span { display: block; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .cf-id b { font-family: var(--font-head); font-weight: 800; font-size: 1.7rem; color: var(--gold-soft); }
+    .cf-summary { width: 100%; margin: 0; display: grid; gap: 7px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); text-align: left; }
+    .cf-summary div { display: flex; justify-content: space-between; gap: 10px; font-size: 0.85rem; }
+    .cf-summary dt { color: var(--text-muted); }
+    .cf-summary dd { margin: 0; font-family: var(--font-head); font-weight: 600; text-align: right; }
+
+    .mb-toast {
+      position: fixed; left: 50%; bottom: 20px; z-index: 400; max-width: min(440px, calc(100% - 28px));
+      transform: translate(-50%, 16px); opacity: 0; pointer-events: none; text-align: center;
+      padding: 12px 18px; border-radius: 12px; font-size: 0.86rem; color: #fff; background: #191920;
+      border: 1px solid var(--line-strong); box-shadow: var(--shadow); transition: opacity .24s, transform .24s;
+    }
+    .mb-toast.is-show { opacity: 1; transform: translate(-50%, 0); }
+    .mb-toast.is-error { border-color: var(--error); }
+  </style>
+</head>
+<body>
+  <!-- ================= NAVIGATION ================= -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="brand" aria-label="BLINK EVENTS home">
+        <span class="crest-wrap" aria-hidden="true">
+          <img class="js-crest-img" alt="BLINK EVENTS Crest" style="display:none">
+          <svg class="js-crest-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <linearGradient id="goldGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F5D98B"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#B8860B"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="57" fill="#060608" stroke="url(#goldGradNav)" stroke-width="2.5"/>
+            <circle cx="60" cy="60" r="51" fill="none" stroke="url(#goldGradNav)" stroke-width="1"/>
+            <!-- Blush rose floral leaves top-left & bottom-right -->
+            <g fill="#E89BAE" opacity="0.9">
+              <path d="M22 36 C16 24, 28 16, 36 26 C28 30, 26 32, 22 36 Z"/>
+              <path d="M16 46 C12 36, 22 30, 28 38 C22 41, 20 43, 16 46 Z"/>
+              <path d="M98 84 C104 96, 92 104, 84 94 C92 90, 94 88, 98 84 Z"/>
+              <path d="M104 74 C108 84, 98 90, 92 82 C98 79, 100 77, 104 74 Z"/>
+            </g>
+            <text x="60" y="57" text-anchor="middle" fill="url(#goldGradNav)" font-family="Cormorant Garamond, Georgia, serif" font-size="32" font-weight="700">Be</text>
+            <text x="60" y="81" text-anchor="middle" fill="#F5D98B" font-family="Great Vibes, cursive" font-size="17">Blink Events</text>
+          </svg>
+        </span>
+        <span class="brand__txt">
+          <span class="brand__name">BLINK EVENTS</span>
+        </span>
+      </a>
+
+      <nav class="nav__links" aria-label="Main navigation">
+        <a href="#branches">Branches</a>
+        <a href="#packages">Packages</a>
+        <a href="#book">Book Slot</a>
+        <a href="#contact">Contact</a>
+        <a href="#book" class="btn btn--gold">Reserve Now</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button type="button" class="mb-btn js-open-bookings" id="myBookingsBtn" aria-haspopup="dialog" aria-label="My Bookings, 0 saved">
+          <span aria-hidden="true">🎟️</span>
+          <span class="mb-btn__label">My Bookings</span>
+          <span>(<span class="js-mb-count">0</span>)</span>
+        </button>
+        <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navDrawer" aria-label="Open menu"><span></span></button>
+      </div>
+    </div>
+
+    <div class="nav__drawer" id="navDrawer">
+      <a href="#branches">Branches &amp; Gallery</a>
+      <a href="#packages">Packages</a>
+      <a href="#book">Hourly Slot Booking</a>
+      <a href="#contact">Contact</a>
+      <button type="button" class="nav__mb js-open-bookings">🎟️ My Bookings (<span class="js-mb-count">0</span>)</button>
+      <a href="#book" class="btn btn--gold">Reserve Your Slot</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <div class="container hero__grid">
+        <div>
+          <span class="hero__badge">✨ Private Celebration Venues &bull; Mumbai &amp; Navi Mumbai</span>
+          <h1>Celebrate Every Moment in Luxury</h1>
+          <p class="hero__desc">Private theatre screenings, romantic Love Paradise suites, and grand group celebration halls in Kurla East and Vashi. Pick your branch, choose your hourly slot, and confirm instantly.</p>
+          <div class="hero__highlights">
+            <span class="hero__pill">❤️ Love Paradise from <b>₹1,500</b></span>
+            <span class="hero__pill">👑 Group Packs from <b>₹1,499</b></span>
+            <span class="hero__pill">🔒 Venue Advance <b>₹750</b></span>
+          </div>
+          <div class="hero__ctas">
+            <a href="#book" class="btn btn--gold">Book Your Hourly Slot</a>
+            <a href="#packages" class="btn btn--ghost">Explore Packages</a>
+          </div>
+        </div>
+
+        <div class="hero__card">
+          <div class="crest-wrap crest-wrap--lg" aria-hidden="true">
+            <img class="js-crest-img" alt="BLINK EVENTS Crest" style="display:none">
+            <svg class="js-crest-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="goldGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#F5D98B"/>
+                  <stop offset="50%" stop-color="#D4AF37"/>
+                  <stop offset="100%" stop-color="#B8860B"/>
+                </linearGradient>
+              </defs>
+              <circle cx="60" cy="60" r="57" fill="#060608" stroke="url(#goldGradHero)" stroke-width="2.5"/>
+              <circle cx="60" cy="60" r="51" fill="none" stroke="url(#goldGradHero)" stroke-width="1"/>
+              <g fill="#E89BAE" opacity="0.9">
+                <path d="M22 36 C16 24, 28 16, 36 26 C28 30, 26 32, 22 36 Z"/>
+                <path d="M16 46 C12 36, 22 30, 28 38 C22 41, 20 43, 16 46 Z"/>
+                <path d="M98 84 C104 96, 92 104, 84 94 C92 90, 94 88, 98 84 Z"/>
+                <path d="M104 74 C108 84, 98 90, 92 82 C98 79, 100 77, 104 74 Z"/>
+              </g>
+              <text x="60" y="57" text-anchor="middle" fill="url(#goldGradHero)" font-family="Cormorant Garamond, Georgia, serif" font-size="32" font-weight="700">Be</text>
+              <text x="60" y="81" text-anchor="middle" fill="#F5D98B" font-family="Great Vibes, cursive" font-size="17">Blink Events</text>
+            </svg>
+          </div>
+          <div class="hero__card-title">Blink Events</div>
+          <p class="hero__card-sub">Private celebrations crafted with metallic gold elegance, custom decor, and instant digital booking passes.</p>
+          <div class="hero__stats">
+            <div class="hero__stat"><strong>2</strong><span>Branches</span></div>
+            <div class="hero__stat"><strong>9 AM–12 AM</strong><span>Hourly Slots</span></div>
+            <div class="hero__stat"><strong>Instant</strong><span>PNG Pass</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BRANCH SWITCHER ================= -->
+    <section class="section section--alt" id="branches">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__kicker">Select Your Venue</span>
+          <h2>Choose Your City</h2>
+          <div class="gold-rule"></div>
+          <p>Select your preferred city to view tailored packages and live hourly availability.</p>
+        </div>
+
+        <div class="branch-panel">
+          <div class="branch-tabs" role="tablist" aria-label="City Switcher" style="grid-template-columns: repeat(2, 1fr); max-width: 600px;">
+            <button type="button" class="branch-tab is-active" id="branchTabKurla" data-branch="Kurla" role="tab" aria-selected="true">
+              <strong>🏙️ Mumbai</strong>
+              <span>Kurla East Branch</span>
+            </button>
+            <button type="button" class="branch-tab" id="branchTabVashi" data-branch="Vashi" role="tab" aria-selected="false">
+              <strong>🏙️ Navi Mumbai</strong>
+              <span>Vashi Sector 10A Branch</span>
+            </button>
+          </div>
+          <div style="text-align: center; margin-top: 16px;">
+            <span class="city-tag" id="branchExpansionNote">✨ Active: Kurla East Branch &nbsp;&bull;&nbsp; + More Mumbai Branches Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PACKAGES ================= -->
+    <section class="section" id="packages">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__kicker">Curated Experiences</span>
+          <h2>Select Your Package</h2>
+          <div class="gold-rule"></div>
+          <p>Choose between intimate Love Paradise suites for couples or spacious Celebration Packages for friends and family.</p>
+        </div>
+
+        <div class="pkg-tabs" role="tablist" aria-label="Package Categories">
+          <button type="button" class="pkg-tab is-active" id="catTabLove" data-category="love_paradise" role="tab" aria-selected="true">❤️ LOVE PARADISE</button>
+          <button type="button" class="pkg-tab" id="catTabCeleb" data-category="celebration" role="tab" aria-selected="false">👑 CELEBRATION PACKAGES</button>
+        </div>
+        <p class="pkg-cat-note" id="pkgCatNote">Couples Packages &bull; Base Guests: 2 &bull; Extra Guest: ₹300 per person</p>
+
+        <div class="packages-grid" id="packagesGrid"></div>
+
+        <div class="pkg-gallery-box" id="selectedPackageGallery">
+          <div class="pkg-gallery-head">
+            <div>
+              <h3>Selected Package Theme &amp; Decor Photos</h3>
+              <p class="pkg-gallery-sub" id="selectedPkgGalleryName">Paradise 1</p>
+            </div>
+          </div>
+          <div class="pkg-gallery-grid" id="packageGalleryGrid"></div>
+          <div class="gallery-reel">
+            <a id="packageReelLink" href="https://www.instagram.com/blinkevents_kurla" target="_blank" rel="noopener noreferrer">
+              Watch Venue Reel on Instagram ↗
+            </a>
+          </div>
+          <a href="#book" class="btn btn--gold" style="width:100%; margin-top:16px;">Book This Package &amp; Pick Hourly Slot ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTERACTIVE BOOKING ENGINE ================= -->
+    <section class="section section--alt" id="book">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__kicker">Live Availability &amp; Checkout</span>
+          <h2>Book Your Celebration Slot</h2>
+          <div class="gold-rule"></div>
+          <p>Select your date, consecutive hourly slot, optional add-ons, and confirm with ₹770 online advance.</p>
+        </div>
+
+        <div class="booking-layout">
+          <form class="booking-card" id="bookingForm" novalidate>
+            <div class="step-title"><span class="step-num">1</span> Branch, Package &amp; Guest Details</div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="branchSelect">Selected Branch</label>
+                <select id="branchSelect" name="branch">
+                  <option value="Kurla">Kurla — Mass Metropolis, Kurla East</option>
+                  <option value="Vashi">Vashi — Elite CHS, Sector 10A</option>
+                </select>
+                <span class="field__error" id="branchErr"></span>
+              </div>
+
+              <div class="field">
+                <label for="packageSelect">Selected Package</label>
+                <select id="packageSelect" name="packageId" required></select>
+                <span class="field__error" id="packageErr"></span>
+              </div>
+
+              <div class="field">
+                <label for="celebrationType">Celebration Type</label>
+                <select id="celebrationType" name="celebrationType" required>
+                  <option value="" disabled selected>Select celebration type</option>
+                  <option>Birthday</option>
+                  <option>Anniversary</option>
+                  <option>Proposal</option>
+                  <option>Bride-to-Be</option>
+                  <option>Movie Date</option>
+                  <option>Friends Party</option>
+                  <option>Other</option>
+                </select>
+                <span class="field__error" id="celebrationTypeErr"></span>
+              </div>
+
+              <div class="field">
+                <label for="totalPersons">Total Persons (<span id="baseGuestsHint">Min 2</span>)</label>
+                <div class="stepper">
+                  <button type="button" id="guestsMinus" aria-label="Decrease guests">−</button>
+                  <input type="number" id="totalPersons" name="totalPersons" min="2" max="50" value="2" required>
+                  <button type="button" id="guestsPlus" aria-label="Increase guests">+</button>
+                </div>
+                <span class="field__hint" id="extraGuestHint">Base guests included; extra guests billed at venue balance.</span>
+                <span class="field__error" id="totalPersonsErr"></span>
+              </div>
+            </div>
+
+            <div class="step-title"><span class="step-num">2</span> Date &amp; Interactive Hourly Slot Grid</div>
+            <div class="form-grid">
+              <div class="field field--full">
+                <label for="bookingDate">Celebration Date</label>
+                <input type="date" id="bookingDate" name="bookingDate" required>
+                <span class="field__error" id="bookingDateErr"></span>
+              </div>
+
+              <div class="field field--full">
+                <label>Select Start Hour (Operating Hours: 09:00 AM – 12:00 AM Midnight)</label>
+                <div class="slot-legend">
+                  <span><i class="dot dot--avail"></i> Available</span>
+                  <span><i class="dot dot--sel"></i> Selected</span>
+                  <span><i class="dot dot--hold"></i> Temp. Reserved</span>
+                  <span><i class="dot dot--booked"></i> Booked</span>
+                  <span><i class="dot dot--unavail"></i> Unavailable</span>
+                </div>
+                <div class="slot-grid" id="slotGrid" role="group" aria-label="Hourly slot grid"></div>
+                <div class="slot-selected-bar" id="slotSelectedBar">
+                  <span id="slotSelectedText">Select a date and starting hour to reserve consecutive hours.</span>
+                  <strong id="slotDurationTag">1 Hour</strong>
+                </div>
+                <span class="field__error" id="slotErr"></span>
+              </div>
+            </div>
+
+            <div class="step-title"><span class="step-num">3</span> Smart Optional Add-Ons</div>
+            <div class="addons-grid" id="addonsGrid"></div>
+
+            <div class="step-title"><span class="step-num">4</span> Customer Details &amp; Terms</div>
+            <div class="form-grid">
+              <div class="field field--full">
+                <label for="customerName">Full Name</label>
+                <input type="text" id="customerName" name="customerName" placeholder="Enter your full name" autocomplete="name" required>
+                <span class="field__error" id="customerNameErr"></span>
+              </div>
+
+              <div class="field">
+                <label for="contactNumber">Contact Number</label>
+                <input type="tel" id="contactNumber" name="contactNumber" placeholder="10-digit Indian mobile" autocomplete="tel" inputmode="tel" required>
+                <span class="field__error" id="contactNumberErr"></span>
+              </div>
+
+              <div class="field">
+                <label for="whatsappNumber">WhatsApp Number</label>
+                <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="10-digit WhatsApp number" inputmode="tel" required>
+                <label class="inline-check">
+                  <input type="checkbox" id="sameAsContact"> Same as Contact Number
+                </label>
+                <span class="field__error" id="whatsappNumberErr"></span>
+              </div>
+            </div>
+
+            <div class="terms-box">
+              <h4>Mandatory Venue Terms &amp; Conditions</h4>
+              <ul class="terms-list">
+                <li>Valid Government ID is mandatory for all guests at check-in.</li>
+                <li>The venue is intended for celebration purposes only and not for intimate gatherings.</li>
+                <li>Customers are liable for any property or decor damage.</li>
+                <li>Alcohol, cigarettes, outside food, sparkle candles, party bombs, and snow spray are strictly prohibited.</li>
+                <li>Veg-only food policy applies inside the venue.</li>
+                <li>Booking advance (₹750) is non-refundable.</li>
+                <li>For guest safety and security, the venue premises are monitored by CCTV surveillance.</li>
+              </ul>
+              <label class="terms-accept">
+                <input type="checkbox" id="termsAccept" required>
+                <span>I have read and accept all BLINK EVENTS Terms &amp; Conditions.</span>
+              </label>
+              <span class="field__error" id="termsErr"></span>
+            </div>
+
+            <div style="margin-top: 20px;">
+              <button type="submit" class="btn btn--rose" id="submitBtn" style="width: 100%; min-height: 54px;">
+                Pay ₹770 Online &amp; Confirm Booking
+              </button>
+            </div>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- LIVE PRICE SUMMARY -->
+          <aside class="summary-sticky" aria-label="Live Price Summary">
+            <div class="summary-card">
+              <h3>Live Price Summary</h3>
+              <div class="summary-rows">
+                <div class="summary-row"><span>Branch</span><b id="sumBranch">Kurla</b></div>
+                <div class="summary-row"><span>Package</span><b id="sumPackage">Paradise 1 (1 Hr)</b></div>
+                <div class="summary-row"><span>Slot</span><b id="sumSlot">Not selected</b></div>
+                <div class="summary-row"><span>Guests</span><b id="sumGuests">2 (Base: 2)</b></div>
+                <div class="summary-divider"></div>
+                <div class="summary-row"><span>Package Price</span><b id="sumPkgPrice">₹1,500</b></div>
+                <div class="summary-row"><span>Add-ons Total</span><b id="sumAddons">₹0</b></div>
+                <div class="summary-row"><span>Extra Guest Charge</span><b id="sumExtraGuests">₹0</b></div>
+                <div class="summary-divider"></div>
+                <div class="summary-row summary-total"><span>Total Booking Value</span><b id="sumTotal">₹1,500</b></div>
+              </div>
+
+              <div class="summary-paybox">
+                <div class="summary-row" style="color: var(--gold-soft); font-weight: 700;">
+                  <span>Online Advance Payable</span><b id="sumOnlinePay" style="color: var(--gold-soft);">₹770</b>
+                </div>
+              </div>
+
+              <div class="summary-balance">
+                <span>Balance Payable at Venue</span>
+                <b id="sumBalance">₹750</b>
+              </div>
+
+              <p class="policy-note" id="paymentPolicyNote" style="background: transparent; border: none; color: var(--text-muted); padding: 4px 2px 0; font-size: 0.74rem;">
+                Online advance includes standard payment processing charges.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__kicker">Get In Touch</span>
+          <h2>Visit or Message BLINK EVENTS</h2>
+          <div class="gold-rule"></div>
+        </div>
+
+        <div class="packages-grid" style="grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); max-width: 920px; margin: 0 auto;">
+          <div class="pkg-card">
+            <span class="pkg-card__dur">Branch A</span>
+            <h3 class="pkg-card__name">Kurla Branch (Mumbai)</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 10px 0 12px;">Shop 45, 49, Mass Metropolis, Eastern Express Hwy, Near Kurla Signal, Kurla East, Mumbai - 400071</p>
+            <p style="font-size: 0.85rem; margin-bottom: 6px; color: #e2e2e8;">Phone / WhatsApp: <a href="tel:+919137913083" style="color: var(--gold-soft); font-weight: 600;">+91 91379 13083</a></p>
+            <p style="font-size: 0.85rem; margin-bottom: 18px;">Instagram: <a href="https://www.instagram.com/blinkevents_kurla" target="_blank" rel="noopener noreferrer" style="color: var(--rose); font-weight: 600;">@blinkevents_kurla ↗</a></p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
+              <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Mass+Metropolis+Kurla+East+Mumbai+400071" target="_blank" rel="noopener noreferrer" style="padding: 10px 12px; font-size: 0.84rem;">📍 Open in Maps</a>
+              <a class="btn btn--gold" href="https://wa.me/919137913083" target="_blank" rel="noopener noreferrer" style="padding: 10px 12px; font-size: 0.84rem;">💬 WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="pkg-card">
+            <span class="pkg-card__dur">Branch B</span>
+            <h3 class="pkg-card__name">Vashi Branch (Navi Mumbai)</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 10px 0 12px;">Elite CHS, Plot No. 85, Juhu Nagar, Sector 10A, Vashi, Navi Mumbai - 400703</p>
+            <p style="font-size: 0.85rem; margin-bottom: 6px; color: #e2e2e8;">Phone / WhatsApp: <a href="tel:+919137913083" style="color: var(--gold-soft); font-weight: 600;">+91 91379 13083</a></p>
+            <p style="font-size: 0.85rem; margin-bottom: 18px;">Instagram: <a href="https://www.instagram.com/blinkevent_vashi?xtok=MThzMnAyZzl1ZWtpdA==" target="_blank" rel="noopener noreferrer" style="color: var(--rose); font-weight: 600;">@blinkevent_vashi ↗</a></p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
+              <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Elite+CHS+Plot+85+Sector+10A+Vashi+Navi+Mumbai+400703" target="_blank" rel="noopener noreferrer" style="padding: 10px 12px; font-size: 0.84rem;">📍 Open in Maps</a>
+              <a class="btn btn--gold" href="https://wa.me/919137913083" target="_blank" rel="noopener noreferrer" style="padding: 10px 12px; font-size: 0.84rem;">💬 WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer" style="padding: 36px 0 28px; text-align: center;">
+    <div class="container" style="display: grid; gap: 14px; justify-items: center;">
+      <div class="brand" style="justify-content: center;">
+        <span class="brand__name">BLINK EVENTS</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 520px;">Private celebration halls and romantic Love Paradise experiences in Kurla East &amp; Vashi, Navi Mumbai.</p>
+      <nav aria-label="Footer navigation" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; font-size: 0.86rem; color: var(--gold-soft); font-weight: 500;">
+        <a href="#branches">Branches</a>
+        <span aria-hidden="true">&bull;</span>
+        <a href="#packages">Packages</a>
+        <span aria-hidden="true">&bull;</span>
+        <a href="#book">Book Slot</a>
+        <span aria-hidden="true">&bull;</span>
+        <a href="#contact">Venues</a>
+      </nav>
+      <p class="footer__bottom" style="margin-top: 8px; padding-top: 16px; width: 100%;">© 2026 Blink Events. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ================= MY BOOKINGS DRAWER ================= -->
+  <div class="mb-overlay" id="mbOverlay" hidden>
+    <div class="mb-panel" role="dialog" aria-modal="true" aria-labelledby="mbTitle" tabindex="-1">
+      <div class="mb-panel__head">
+        <div>
+          <h2 id="mbTitle">🎟️ My Bookings</h2>
+          <p id="mbSub">Your confirmed BLINK EVENTS bookings appear here</p>
+        </div>
+        <button type="button" class="mb-close" id="mbClose" aria-label="Close My Bookings">✕</button>
+      </div>
+      <div class="mb-panel__body" id="mbList"></div>
+      <div class="mb-panel__foot" id="mbFoot">Saved in this browser on this device.</div>
+    </div>
+  </div>
+
+  <!-- ================= BOOKING CONFIRMED MODAL ================= -->
+  <div class="mb-overlay" id="cfOverlay" hidden>
+    <div class="mb-panel" id="cfPanel" role="dialog" aria-modal="true" aria-labelledby="cfTitle" tabindex="-1">
+      <button type="button" class="mb-close mb-close--float" id="cfClose" aria-label="Close confirmation">✕</button>
+      <div class="mb-panel__body cf-body">
+        <div class="cf-badge" aria-hidden="true">✓</div>
+        <h2 id="cfTitle">Booking Confirmed!</h2>
+        <div class="cf-id"><span>Booking ID</span><b id="cfBookingId">BLINK-0000</b></div>
+        <dl class="cf-summary" id="cfSummary"></dl>
+        <div class="bk-actions" style="width: 100%;">
+          <button type="button" class="btn btn--gold" id="cfDownload">📥 Download Digital Booking Pass (PNG)</button>
+          <button type="button" class="btn btn--ghost" id="cfWhatsApp">📲 Send Copy on WhatsApp</button>
+          <button type="button" class="btn btn--ghost" id="cfShare" hidden>📤 Share Pass Image</button>
+          <button type="button" class="btn btn--ghost" id="cfView">🎟️ View My Bookings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= IN-PAGE NOTICE MODAL ================= -->
+  <div class="mb-overlay" id="noticeOverlay" hidden>
+    <div class="mb-panel" role="dialog" aria-modal="true" aria-labelledby="noticeTitle" tabindex="-1" style="max-width: 420px;">
+      <div class="mb-panel__head">
+        <div><h2 id="noticeTitle">Notice</h2></div>
+        <button type="button" class="mb-close" id="noticeClose" aria-label="Close notice">✕</button>
+      </div>
+      <div class="mb-panel__body">
+        <p id="noticeMessage" style="font-size: 0.92rem; color: #e4e4ec; line-height: 1.55;"></p>
+        <button type="button" class="btn btn--gold" id="noticeOk" style="width: 100%;">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-toast" id="mbToast" role="status" aria-live="polite"></div>
+
+  <!-- Firebase v8 + Razorpay Checkout -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* =========================================================
+         1. CENTRALIZED CONFIGURATION
+         ========================================================= */
+      var BRAND = {
+        name: 'BLINK EVENTS',
+        instagramHandle: '@blinkevents_kurla',
+        instagramUrl: 'https://www.instagram.com/blinkevents_kurla',
+        phoneDisplay: '+91 91379 13083',
+        whatsappUrl: 'https://wa.me/919137913083'
+      };
+
+      var PAYMENT_CONFIG = {
+        razorpayKey: 'rzp_test_TyPqbXmV5yrlSJ',
+        venueAdvance: 750,
+        gatewayFee: 20,
+        expectedOnlineTotal: 770,
+        currency: 'INR',
+        holdTtlMs: 5 * 60 * 1000 // 5-minute atomic temporary hold during checkout
+      };
+
+      /*
+       * SECURITY ARCHITECTURE:
+       * Set enabled: true and configure your deployed Firebase Cloud Functions URLs
+       * (from functions_index.js) for production server-side order creation and
+       * HMAC-SHA256 signature verification.
+       */
+      var BACKEND_CONFIG = {
+        enabled: false,
+        createOrderUrl: '',
+        verifyPaymentUrl: ''
+      };
+
+      var BOOKINGS_NODE = 'aryx_demo_bookings';
+      var LOCKS_NODE = 'slot_locks';
+      var HISTORY_KEY = 'aryx_booking_history_v1';
+
+      var ADDONS = [
+        { id: 'fog_smoke',       name: 'Fog / Smoke Entry',     price: 500 },
+        { id: 'bubble_entry',    name: 'Bubble Entry',          price: 300 },
+        { id: 'screen_setup',    name: 'Projector / Screen',    price: 500 },
+        { id: 'telephone_booth', name: 'Telephone Booth',       price: 500 },
+        { id: 'hanging_photo',   name: 'Hanging Photos',        price: 300 },
+        { id: 'cake_half_kg',    name: 'Half Kg Cake',          price: 450 },
+        { id: 'flower_bouquet',  name: 'Flower Bouquet',        price: 400 },
+        { id: 'letter_name',     name: 'Letter Light Name',     price: 300 },
+        { id: 'letter_digit',    name: 'Letter Light Digit',    price: 300 },
+        { id: 'iphone_shoot',    name: 'iPhone Shoot',          price: 400 },
+        { id: 'reel_edit',       name: 'Reel Edit (Per Reel)',  price: 500 },
+        { id: 'candle_decor',    name: 'Candle Decorations',    price: 500 },
+        { id: 'rose_decor',      name: 'Rose Decorations',      price: 1000 }
+      ];
+
+      var PACKAGES = {
+        paradise_1: {
+          id: 'paradise_1',
+          category: 'love_paradise',
+          name: 'Paradise 1',
+          price: 1500,
+          durationHours: 1,
+          baseGuests: 2,
+          extraGuestRate: 300,
+          badge: '',
+          featured: false,
+          includedAddons: [],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Birthday Setup',
+            'Red Romantic Setup',
+            'Aesthetic Mirror Wall',
+            'Sofa Seating',
+            'Party Speakers',
+            'Complimentary Snacks Hamper'
+          ]
+        },
+        paradise_2: {
+          id: 'paradise_2',
+          category: 'love_paradise',
+          name: 'Paradise 2',
+          price: 2500,
+          durationHours: 2,
+          baseGuests: 2,
+          extraGuestRate: 300,
+          badge: '',
+          featured: true,
+          includedAddons: ['cake_half_kg'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Paradise 1',
+            'Movie Screening',
+            'Half Kg Cake'
+          ]
+        },
+        paradise_3: {
+          id: 'paradise_3',
+          category: 'love_paradise',
+          name: 'Paradise 3',
+          price: 4000,
+          durationHours: 3,
+          baseGuests: 2,
+          extraGuestRate: 300,
+          badge: 'ALL-INCLUSIVE',
+          featured: false,
+          includedAddons: ['fog_smoke', 'hanging_photo', 'cake_half_kg', 'candle_decor'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Paradise 2',
+            'Smoke Entry',
+            'Letter Light Name',
+            'Candle Decor',
+            'Hanging Photos (12)',
+            'Flower Bouquet',
+            '2 French Fries'
+          ]
+        },
+        silver: {
+          id: 'silver',
+          category: 'celebration',
+          name: 'Silver Package',
+          price: 1499,
+          durationHours: 1,
+          baseGuests: 4,
+          extraGuestRate: 199,
+          badge: '',
+          featured: false,
+          includedAddons: [],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Balloon Decoration',
+            'Letter Lights Name',
+            'Movie Screening',
+            'Sound Access',
+            'Snacks Hamper'
+          ]
+        },
+        golden: {
+          id: 'golden',
+          category: 'celebration',
+          name: 'Golden Package',
+          price: 2999,
+          durationHours: 2,
+          baseGuests: 6,
+          extraGuestRate: 250,
+          badge: '',
+          featured: true,
+          includedAddons: ['telephone_booth', 'cake_half_kg'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Silver',
+            'Telephone Decoration',
+            'Half Kg Cake'
+          ]
+        },
+        diamond: {
+          id: 'diamond',
+          category: 'celebration',
+          name: 'Diamond Package',
+          price: 4500,
+          durationHours: 3,
+          baseGuests: 8,
+          extraGuestRate: 299,
+          badge: 'GRAND GROUP PACK',
+          featured: false,
+          includedAddons: ['fog_smoke', 'bubble_entry', 'telephone_booth', 'hanging_photo', 'cake_half_kg'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Golden',
+            'Bouquet',
+            'Hanging Photo (8 Pics)',
+            'Surprise Video',
+            'Message Box',
+            'Smoke Entry',
+            'Bubble Entry',
+            'Board Games',
+            '2 Fries'
+          ]
+        }
+,
+        vashi_small_heart: {
+          id: 'vashi_small_heart',
+          category: 'love_paradise',
+          name: 'Small Heart',
+          price: 2999,
+          durationHours: 2,
+          baseGuests: 2,
+          extraGuestRate: 299,
+          badge: '',
+          featured: false,
+          includedAddons: ['candle_decor', 'rose_decor', 'cake_half_kg'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Red Heart Theme',
+            'Red Balloon Decor',
+            'Candle Light Setup',
+            'Rose Decor',
+            'Music (Speakers)',
+            'Half Kg Cake'
+          ]
+        },
+        vashi_big_heart: {
+          id: 'vashi_big_heart',
+          category: 'love_paradise',
+          name: 'Big Heart',
+          price: 4999,
+          durationHours: 3,
+          baseGuests: 2,
+          extraGuestRate: 299,
+          badge: 'SPECIAL OFFER',
+          featured: true,
+          includedAddons: ['candle_decor', 'rose_decor', 'hanging_photo', 'fog_smoke', 'bubble_entry', 'letter_name', 'iphone_shoot', 'cake_half_kg', 'flower_bouquet'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Small Heart',
+            'Hanging Photos Decor',
+            'Smoke & Bubble Entry',
+            'Letter Light Name',
+            'iPhone Video Shoot',
+            'Non-Alcoholic Fruit Wine (1)',
+            'Flower Bouquet',
+            'Food Worth ₹1,000 Included'
+          ]
+        },
+        vashi_zone_1: {
+          id: 'vashi_zone_1',
+          category: 'celebration',
+          name: 'Zone 1',
+          price: 1799,
+          durationHours: 1,
+          baseGuests: 4,
+          extraGuestRate: 299,
+          badge: '',
+          featured: false,
+          includedAddons: [],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Birthday Decor (Flower & Balloon)',
+            'Old Bombay Theme (Chetak 1970 Scooter)',
+            'Rainy Flowers Theme',
+            'Sofa Seating',
+            'Party Speakers',
+            'Complimentary Snacks Hamper'
+          ]
+        },
+        vashi_zone_2: {
+          id: 'vashi_zone_2',
+          category: 'celebration',
+          name: 'Zone 2',
+          price: 2999,
+          durationHours: 2,
+          baseGuests: 5,
+          extraGuestRate: 299,
+          badge: '',
+          featured: true,
+          includedAddons: ['letter_name', 'cake_half_kg'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Zone 1',
+            'Letter Light Name',
+            'Half Kg Cake'
+          ]
+        },
+        vashi_zone_3: {
+          id: 'vashi_zone_3',
+          category: 'celebration',
+          name: 'Zone 3',
+          price: 5999,
+          durationHours: 3,
+          baseGuests: 8,
+          extraGuestRate: 299,
+          badge: 'ALL-INCLUSIVE ZONE',
+          featured: false,
+          includedAddons: ['screen_setup', 'letter_name', 'letter_digit', 'fog_smoke', 'bubble_entry', 'hanging_photo', 'flower_bouquet', 'cake_half_kg'],
+          gallery: [
+            { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Theme Photo 2', imageUrl: null },
+            { label: 'Theme Photo 3', imageUrl: null }
+          ],
+          features: [
+            'Everything in Zone 2',
+            'Movie Screening',
+            'Letter Light Digit',
+            'Smoke & Bubble Entry',
+            'Hanging Photos Decor',
+            'Flower Bouquet',
+            '2 French Fries'
+          ]
+        }
+      };
+
+      var KURLA_PACKAGE_ORDER = ['paradise_1', 'paradise_2', 'paradise_3', 'silver', 'golden', 'diamond'];
+      var VASHI_PACKAGE_ORDER = ['vashi_small_heart', 'vashi_big_heart', 'vashi_zone_1', 'vashi_zone_2', 'vashi_zone_3'];
+
+      var BRANCHES = {
+        Kurla: {
+          id: 'Kurla',
+          name: 'BLINK EVENTS — Kurla Branch',
+          shortName: 'Kurla',
+          address: 'Shop 45, 49, Mass Metropolis, Eastern Express Hwy, Near Kurla Signal, Kurla East, Mumbai - 400071',
+          phone: '+91 91379 13083',
+          whatsapp: 'https://wa.me/919137913083',
+          maps: 'https://www.google.com/maps/search/?api=1&query=Mass+Metropolis+Kurla+East+Mumbai+400071',
+          instagramHandle: '@blinkevents_kurla',
+          instagramUrl: 'https://www.instagram.com/blinkevents_kurla',
+          packages: KURLA_PACKAGE_ORDER,
+          gallery: [
+            { label: 'Hall Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Hall Photo 2 (Upload Pending)', imageUrl: null },
+            { label: 'Hall Photo 3 (Upload Pending)', imageUrl: null },
+            { label: 'Hall Photo 4 (Upload Pending)', imageUrl: null }
+          ]
+        },
+        Vashi: {
+          id: 'Vashi',
+          name: 'BLINK EVENTS — Vashi Branch',
+          shortName: 'Vashi',
+          address: 'Elite CHS, Plot No. 85, Juhu Nagar, Sector 10A, Vashi, Navi Mumbai - 400703',
+          phone: '+91 91379 13083',
+          whatsapp: 'https://wa.me/919137913083',
+          maps: 'https://www.google.com/maps/search/?api=1&query=Elite+CHS+Plot+85+Sector+10A+Vashi+Navi+Mumbai+400703',
+          instagramHandle: '@blinkevent_vashi',
+          instagramUrl: 'https://www.instagram.com/blinkevent_vashi?xtok=MThzMnAyZzl1ZWtpdA==',
+          packages: VASHI_PACKAGE_ORDER,
+          gallery: [
+            { label: 'Hall Photo 1 (Upload Pending)', imageUrl: null },
+            { label: 'Hall Photo 2 (Upload Pending)', imageUrl: null },
+            { label: 'Hall Photo 3 (Upload Pending)', imageUrl: null },
+            { label: 'Hall Photo 4 (Upload Pending)', imageUrl: null }
+          ]
+        }
+      };
+
+      /* =========================================================
+         2. FIREBASE INITIALIZATION (PRESERVED)
+         ========================================================= */
+      var db = null;
+      try {
+        var firebaseConfig = {
+          apiKey: 'AIzaSyDiGopFOIBanHJROTXL-0sIDAoIVwUSf_w',
+          authDomain: 'football-manager-be26f.firebaseapp.com',
+          databaseURL: 'https://football-manager-be26f-default-rtdb.firebaseio.com',
+          projectId: 'football-manager-be26f'
+        };
+        if (window.firebase) {
+          if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+          db = firebase.database();
+        }
+      } catch (err) {
+        console.error('Firebase init failed:', err);
+      }
+
+      /* =========================================================
+         3. APPLICATION STATE
+         ========================================================= */
+      var state = {
+        branch: 'Kurla',
+        category: 'love_paradise',
+        packageId: 'paradise_1',
+        bookingDate: '',
+        selectedStartHour: null,
+        selectedAddons: {},
+        totalPersons: 2,
+        slotLocks: {},
+        legacyBookings: [],
+        processing: false,
+        activeLockRef: null,
+        activeBookingsRef: null
+      };
+
+      /* =========================================================
+         4. UTILITIES & DOM HELPERS
+         ========================================================= */
+      function pad(n) { return n < 10 ? '0' + n : String(n); }
+      function todayISO() {
+        var d = new Date();
+        return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      }
+      function money(n) {
+        return '\u20B9' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+      function formatDate(iso) {
+        if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return 'Not selected';
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var p = iso.split('-');
+        return parseInt(p[2], 10) + ' ' + months[parseInt(p[1], 10) - 1] + ' ' + p[0];
+      }
+      function formatHour12(hour24) {
+        if (hour24 === 24 || hour24 === 0) return '12:00 AM';
+        if (hour24 === 12) return '12:00 PM';
+        return hour24 > 12 ? pad(hour24 - 12) + ':00 PM' : pad(hour24) + ':00 AM';
+      }
+      function formatSlotRange(startHour, duration) {
+        return formatHour12(startHour) + ' – ' + formatHour12(startHour + duration);
+      }
+      function normalizePhone(raw) {
+        var digits = String(raw || '').replace(/[\s\-().]/g, '');
+        if (digits.indexOf('+91') === 0) digits = digits.slice(3);
+        else if (digits.indexOf('91') === 0 && digits.length === 12) digits = digits.slice(2);
+        else if (digits.charAt(0) === '0' && digits.length === 11) digits = digits.slice(1);
+        return /^[6-9]\d{9}$/.test(digits) ? digits : null;
+      }
+      function fmtPhone(m) {
+        var d = normalizePhone(m);
+        return d ? '+91 ' + d.slice(0, 5) + ' ' + d.slice(5) : (m || 'Not available');
+      }
+      function h(tag, cls, text) {
+        var el = document.createElement(tag);
+        if (cls) el.className = cls;
+        if (text !== undefined && text !== null) el.textContent = text;
+        return el;
+      }
+
+      /* ---------- In-page notice & toast (no alert/confirm) ---------- */
+      var toastTimer = null;
+      function toast(msg, isError) {
+        var el = document.getElementById('mbToast');
+        if (!el) return;
+        el.textContent = msg;
+        el.classList.toggle('is-error', !!isError);
+        el.classList.add('is-show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { el.classList.remove('is-show'); }, isError ? 5500 : 3800);
+      }
+      function showNotice(title, msg) {
+        document.getElementById('noticeTitle').textContent = title || 'Notice';
+        document.getElementById('noticeMessage').textContent = msg || '';
+        openModal(document.getElementById('noticeOverlay'));
+      }
+
+      /* =========================================================
+         5. NAVIGATION
+         ========================================================= */
+      var navToggle = document.getElementById('navToggle');
+      var navDrawer = document.getElementById('navDrawer');
+      function setMenu(open) {
+        navDrawer.classList.toggle('is-open', open);
+        navToggle.setAttribute('aria-expanded', String(open));
+      }
+      navToggle.addEventListener('click', function () { setMenu(!navDrawer.classList.contains('is-open')); });
+      navDrawer.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+
+      /* =========================================================
+         6. BRANCH SWITCHER & GALLERY
+         ========================================================= */
+      function renderBranchUI() {
+        var br = BRANCHES[state.branch];
+        document.querySelectorAll('.branch-tab').forEach(function (tab) {
+          var active = tab.getAttribute('data-branch') === state.branch;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+        var expNote = document.getElementById('branchExpansionNote');
+        if (expNote) {
+          expNote.textContent = state.branch === 'Vashi'
+            ? '✨ Active: Vashi Sector 10A Branch  •  + More Navi Mumbai Branches Coming Soon'
+            : '✨ Active: Kurla East Branch  •  + More Mumbai Branches Coming Soon';
+        }
+        var reelLink = document.getElementById('packageReelLink');
+        if (reelLink) {
+          reelLink.href = br.instagramUrl;
+        }
+        document.getElementById('branchSelect').value = state.branch;
+      }
+
+      function switchBranch(branchId) {
+        if (!BRANCHES[branchId] || state.branch === branchId) return;
+        state.branch = branchId;
+        state.selectedStartHour = null;
+        renderBranchUI();
+        populatePackageDropdown();
+        selectPackage(BRANCHES[branchId].packages[0]);
+        subscribeAvailability();
+        updatePriceSummary();
+      }
+
+      document.querySelectorAll('.branch-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () { switchBranch(tab.getAttribute('data-branch')); });
+      });
+      document.getElementById('branchSelect').addEventListener('change', function (e) {
+        switchBranch(e.target.value);
+      });
+
+      /* =========================================================
+         7. PACKAGES & SMART ADD-ONS
+         ========================================================= */
+      function populatePackageDropdown() {
+        var sel = document.getElementById('packageSelect');
+        sel.innerHTML = '';
+        BRANCHES[state.branch].packages.forEach(function (pid) {
+          var p = PACKAGES[pid];
+          var opt = document.createElement('option');
+          opt.value = p.id;
+          opt.textContent = p.name + ' (' + p.durationHours + ' Hr' + (p.durationHours > 1 ? 's' : '') + ') — ' + money(p.price);
+          sel.appendChild(opt);
+        });
+        sel.value = state.packageId;
+      }
+
+      function renderPackages() {
+        var isVashi = state.branch === 'Vashi';
+        document.getElementById('catTabLove').textContent = isVashi ? '❤️ DINNER DATE (COUPLES)' : '❤️ LOVE PARADISE';
+        document.getElementById('catTabCeleb').textContent = isVashi ? '👑 FRIENDS & FAMILY ZONE' : '👑 CELEBRATION PACKAGES';
+        document.querySelectorAll('.pkg-tab').forEach(function (t) {
+          var active = t.getAttribute('data-category') === state.category;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', String(active));
+        });
+        if (isVashi) {
+          document.getElementById('pkgCatNote').textContent = state.category === 'love_paradise'
+            ? 'Couples Dinner Date \u2022 Base Guests: 2 \u2022 Extra Guest: \u20B9299 per person'
+            : 'Friends & Family Zone \u2022 Base Guests: 4–8 \u2022 Extra Guest: \u20B9299 per person';
+        } else {
+          document.getElementById('pkgCatNote').textContent = state.category === 'love_paradise'
+            ? 'Couples Packages \u2022 Base Guests: 2 \u2022 Extra Guest: \u20B9300 per person'
+            : 'Group & Family Packages \u2022 Base Guests: 4–8 \u2022 Extra Guest: \u20B9199–\u20B9299 per person';
+        }
+
+        var grid = document.getElementById('packagesGrid');
+        grid.innerHTML = '';
+        BRANCHES[state.branch].packages.forEach(function (pid) {
+          var p = PACKAGES[pid];
+          if (p.category !== state.category) return;
+          var card = h('article', 'pkg-card' + (p.featured ? ' is-featured' : '') + (state.packageId === p.id ? ' is-selected' : ''));
+          if (p.badge) card.appendChild(h('span', 'pkg-card__badge', p.badge));
+          card.appendChild(h('span', 'pkg-card__dur', p.durationHours + ' Hour' + (p.durationHours > 1 ? 's' : '')));
+          card.appendChild(h('h3', 'pkg-card__name', p.name));
+          card.appendChild(h('div', 'pkg-card__price', money(p.price)));
+          card.appendChild(h('div', 'pkg-card__meta', 'Base Guests: ' + p.baseGuests + ' \u2022 Extra: ' + money(p.extraGuestRate) + '/person'));
+
+          var ul = h('ul', 'pkg-card__list');
+          p.features.forEach(function (f) { ul.appendChild(h('li', '', f)); });
+          card.appendChild(ul);
+
+          var btn = h('button', 'btn ' + (state.packageId === p.id ? 'btn--gold' : 'btn--ghost'), state.packageId === p.id ? 'Selected ✓' : 'Select ' + p.name);
+          btn.type = 'button';
+          btn.addEventListener('click', function () {
+            selectPackage(p.id);
+            document.getElementById('selectedPackageGallery').scrollIntoView({ behavior: 'smooth' });
+          });
+          card.appendChild(btn);
+          grid.appendChild(card);
+        });
+      }
+
+      function renderAddons() {
+        var pkg = PACKAGES[state.packageId];
+        var grid = document.getElementById('addonsGrid');
+        grid.innerHTML = '';
+        ADDONS.forEach(function (addon) {
+          var isIncluded = pkg.includedAddons.indexOf(addon.id) !== -1;
+          var isChecked = isIncluded || !!state.selectedAddons[addon.id];
+          if (isIncluded && state.selectedAddons[addon.id]) {
+            delete state.selectedAddons[addon.id];
+          }
+          var label = h('label', 'addon-item' + (isIncluded ? ' is-included' : (isChecked ? ' is-checked' : '')));
+          var left = h('span', 'addon-item__left');
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.checked = isChecked;
+          cb.disabled = isIncluded;
+          cb.setAttribute('data-addon', addon.id);
+          cb.addEventListener('change', function () {
+            if (isIncluded) return;
+            if (cb.checked) state.selectedAddons[addon.id] = true;
+            else delete state.selectedAddons[addon.id];
+            renderAddons();
+            updatePriceSummary();
+          });
+          left.appendChild(cb);
+          left.appendChild(h('span', 'addon-item__name', addon.name));
+          label.appendChild(left);
+          label.appendChild(h('span', 'addon-item__price', isIncluded ? 'Included ✓ (₹0)' : money(addon.price)));
+          grid.appendChild(label);
+        });
+      }
+
+      function renderPackageGallery() {
+        var pkg = PACKAGES[state.packageId];
+        var br = BRANCHES[state.branch] || BRANCHES.Kurla;
+        var titleEl = document.getElementById('selectedPkgGalleryName');
+        var grid = document.getElementById('packageGalleryGrid');
+        var reelLink = document.getElementById('packageReelLink');
+        if (reelLink) reelLink.href = br.instagramUrl;
+        if (!grid) return;
+        grid.innerHTML = '';
+        if (!pkg) {
+          if (titleEl) titleEl.textContent = 'Select a package above to preview theme photos';
+          return;
+        }
+        if (titleEl) titleEl.textContent = pkg.name + ' (' + br.shortName + ' Branch)';
+        var slots = Array.isArray(pkg.gallery) && pkg.gallery.length ? pkg.gallery : [
+          { label: 'Theme Photo 1 (Upload Pending)', imageUrl: null },
+          { label: 'Theme Photo 2', imageUrl: null },
+          { label: 'Theme Photo 3', imageUrl: null }
+        ];
+        slots.forEach(function (slot, idx) {
+          var box = h('div', 'gallery-slot');
+          if (slot.imageUrl) {
+            var img = document.createElement('img');
+            img.src = slot.imageUrl;
+            img.alt = pkg.name + ' Theme Photo ' + (idx + 1);
+            box.appendChild(img);
+          } else {
+            box.appendChild(h('div', 'gallery-slot__icon', '✨'));
+            box.appendChild(h('div', 'gallery-slot__label', slot.label || ('Theme Photo ' + (idx + 1))));
+          }
+          grid.appendChild(box);
+        });
+      }
+
+      function selectPackage(pkgId) {
+        var p = PACKAGES[pkgId];
+        if (!p) return;
+        state.packageId = p.id;
+        state.category = p.category;
+        state.selectedStartHour = null;
+
+        var personsInput = document.getElementById('totalPersons');
+        personsInput.min = p.baseGuests;
+        if (state.totalPersons < p.baseGuests) state.totalPersons = p.baseGuests;
+        personsInput.value = state.totalPersons;
+        document.getElementById('baseGuestsHint').textContent = 'Min ' + p.baseGuests;
+        document.getElementById('extraGuestHint').textContent = 'Base ' + p.baseGuests + ' included; extra guests at ' + money(p.extraGuestRate) + '/person.';
+
+        document.getElementById('packageSelect').value = p.id;
+        renderPackages();
+        renderPackageGallery();
+        renderAddons();
+        renderSlotGrid();
+        updatePriceSummary();
+      }
+
+      document.querySelectorAll('.pkg-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          state.category = tab.getAttribute('data-category');
+          renderPackages();
+        });
+      });
+      document.getElementById('packageSelect').addEventListener('change', function (e) {
+        selectPackage(e.target.value);
+      });
+
+      /* =========================================================
+         8. INTERACTIVE HOURLY SLOT BOOKING GRID + FIREBASE LOCKS
+         ========================================================= */
+      function parseLegacySlotHours(slotStr) {
+        var map = {
+          '11 AM - 2 PM': [11, 12, 13],
+          '3 PM - 6 PM': [15, 16, 17],
+          '7 PM - 10 PM': [19, 20, 21]
+        };
+        if (map[slotStr]) return map[slotStr];
+        return [];
+      }
+
+      function getHourState(hour) {
+        var now = Date.now();
+        // 1. Check atomic slot_locks
+        var lock = state.slotLocks && state.slotLocks[pad(hour)];
+        if (lock) {
+          if (lock.status === 'confirmed') return { status: 'booked' };
+          if (lock.status === 'hold' && lock.expiresAt > now) {
+            return { status: 'hold', expiresAt: lock.expiresAt };
+          }
+        }
+        // 2. Check legacy confirmed records in aryx_demo_bookings
+        for (var i = 0; i < state.legacyBookings.length; i++) {
+          var b = state.legacyBookings[i];
+          var bBranch = b.branch || 'Kurla';
+          if (bBranch !== state.branch) continue;
+          if ((b.bookingStatus === 'confirmed' || b.status === 'confirmed')) {
+            if (typeof b.startHour === 'number' && typeof b.durationHours === 'number') {
+              if (hour >= b.startHour && hour < b.startHour + b.durationHours) return { status: 'booked' };
+            } else if (b.slot) {
+              var hrs = parseLegacySlotHours(b.slot);
+              if (hrs.indexOf(hour) !== -1) return { status: 'booked' };
+            }
+          }
+        }
+        // 3. Past hour check if bookingDate is today
+        if (state.bookingDate === todayISO()) {
+          var currentHour = new Date().getHours();
+          if (hour <= currentHour) return { status: 'unavailable', reason: 'Past' };
+        }
+        return { status: 'available' };
+      }
+
+      function canStartPackageAt(startHour, duration) {
+        if (startHour + duration > 24) return false;
+        for (var hIdx = startHour; hIdx < startHour + duration; hIdx++) {
+          if (getHourState(hIdx).status !== 'available') return false;
+        }
+        return true;
+      }
+
+      function renderSlotGrid() {
+        var grid = document.getElementById('slotGrid');
+        var pkg = PACKAGES[state.packageId];
+        var dur = pkg.durationHours;
+        grid.innerHTML = '';
+
+        if (!state.bookingDate) {
+          document.getElementById('slotSelectedText').textContent = 'Choose a celebration date above to view live hourly availability.';
+          document.getElementById('slotDurationTag').textContent = dur + ' Hr' + (dur > 1 ? 's' : '');
+        }
+
+        for (var hour = 9; hour <= 23; hour++) {
+          (function (hr) {
+            var hs = getHourState(hr);
+            var isSelected = state.selectedStartHour !== null && hr >= state.selectedStartHour && hr < state.selectedStartHour + dur;
+            var canStart = state.bookingDate && canStartPackageAt(hr, dur);
+
+            var btn = h('button', 'slot-cell');
+            btn.type = 'button';
+
+            var stateLabel = 'Available';
+            if (isSelected) {
+              btn.classList.add('is-selected');
+              stateLabel = 'Selected';
+            } else if (hs.status === 'booked') {
+              btn.classList.add('is-booked');
+              btn.disabled = true;
+              stateLabel = 'Booked';
+            } else if (hs.status === 'hold') {
+              btn.classList.add('is-hold');
+              btn.disabled = true;
+              var secs = Math.max(0, Math.ceil((hs.expiresAt - Date.now()) / 1000));
+              stateLabel = 'Hold ' + Math.floor(secs / 60) + ':' + pad(secs % 60);
+            } else if (!state.bookingDate || hs.status === 'unavailable' || !canStart) {
+              btn.classList.add('is-unavailable');
+              btn.disabled = true;
+              stateLabel = !state.bookingDate ? 'Pick Date' : (hs.reason === 'Past' ? 'Past' : 'Fits < ' + dur + 'h');
+            }
+
+            btn.appendChild(h('span', 'slot-cell__time', formatHour12(hr)));
+            btn.appendChild(h('span', 'slot-cell__state', stateLabel));
+
+            btn.addEventListener('click', function () {
+              if (!state.bookingDate) {
+                toast('Please select a celebration date first.', true);
+                return;
+              }
+              if (!canStartPackageAt(hr, dur)) return;
+              state.selectedStartHour = hr;
+              document.getElementById('slotErr').textContent = '';
+              renderSlotGrid();
+              updatePriceSummary();
+            });
+
+            grid.appendChild(btn);
+          })(hour);
+        }
+
+        if (state.selectedStartHour !== null) {
+          if (!canStartPackageAt(state.selectedStartHour, dur)) {
+            state.selectedStartHour = null;
+          }
+        }
+        var barText = document.getElementById('slotSelectedText');
+        if (state.selectedStartHour !== null) {
+          barText.textContent = 'Selected: ' + formatSlotRange(state.selectedStartHour, dur) + ' (' + formatDate(state.bookingDate) + ')';
+        } else if (state.bookingDate) {
+          barText.textContent = 'Tap any available start hour for your ' + dur + '-hour package.';
+        }
+        document.getElementById('slotDurationTag').textContent = dur + ' Hour' + (dur > 1 ? 's' : '');
+      }
+
+      function subscribeAvailability() {
+        if (state.activeLockRef) { state.activeLockRef.off(); state.activeLockRef = null; }
+        if (state.activeBookingsRef) { state.activeBookingsRef.off(); state.activeBookingsRef = null; }
+        state.slotLocks = {};
+        state.legacyBookings = [];
+
+        if (!db || !state.bookingDate) {
+          renderSlotGrid();
+          return;
+        }
+
+        state.activeLockRef = db.ref(LOCKS_NODE + '/' + state.branch + '/' + state.bookingDate);
+        state.activeLockRef.on('value', function (snap) {
+          state.slotLocks = snap.val() || {};
+          renderSlotGrid();
+        });
+
+        state.activeBookingsRef = db.ref(BOOKINGS_NODE);
+        state.activeBookingsRef.on('value', function (snap) {
+          var list = [];
+          snap.forEach(function (child) {
+            var v = child.val();
+            if (!v) return;
+            var d = v.bookingDate || v.date;
+            if (d === state.bookingDate) list.push(v);
+          });
+          state.legacyBookings = list;
+          renderSlotGrid();
+        });
+      }
+
+      setInterval(function () {
+        if (state.bookingDate) renderSlotGrid();
+      }, 15000);
+
+      /* =========================================================
+         9. LIVE PRICE SUMMARY & CALCULATION
+         ========================================================= */
+      function computePricing() {
+        var pkg = PACKAGES[state.packageId];
+        var persons = Math.max(pkg.baseGuests, state.totalPersons || pkg.baseGuests);
+        var extraGuests = Math.max(0, persons - pkg.baseGuests);
+        var extraGuestCharge = extraGuests * pkg.extraGuestRate;
+
+        var selectedAddonObjs = [];
+        var addonsTotal = 0;
+        ADDONS.forEach(function (a) {
+          if (pkg.includedAddons.indexOf(a.id) !== -1) return;
+          if (state.selectedAddons[a.id]) {
+            selectedAddonObjs.push(a);
+            addonsTotal += a.price;
+          }
+        });
+
+        var totalBookingValue = pkg.price + addonsTotal + extraGuestCharge;
+        var venueAdvance = PAYMENT_CONFIG.venueAdvance;
+        var gatewayFee = PAYMENT_CONFIG.gatewayFee;
+        var onlinePaymentAmount = venueAdvance + gatewayFee;
+        var balanceAtVenue = Math.max(0, totalBookingValue - venueAdvance);
+
+        return {
+          pkg: pkg,
+          persons: persons,
+          extraGuests: extraGuests,
+          extraGuestCharge: extraGuestCharge,
+          selectedAddonObjs: selectedAddonObjs,
+          addonsTotal: addonsTotal,
+          totalBookingValue: totalBookingValue,
+          venueAdvance: venueAdvance,
+          gatewayFee: gatewayFee,
+          onlinePaymentAmount: onlinePaymentAmount,
+          balanceAtVenue: balanceAtVenue
+        };
+      }
+
+      function updatePriceSummary() {
+        var c = computePricing();
+        document.getElementById('sumBranch').textContent = state.branch;
+        document.getElementById('sumPackage').textContent = c.pkg.name + ' (' + c.pkg.durationHours + ' Hr' + (c.pkg.durationHours > 1 ? 's' : '') + ')';
+        document.getElementById('sumSlot').textContent = state.selectedStartHour !== null
+          ? formatSlotRange(state.selectedStartHour, c.pkg.durationHours)
+          : 'Not selected';
+        document.getElementById('sumGuests').textContent = c.persons + ' (Base: ' + c.pkg.baseGuests + (c.extraGuests ? ', +' + c.extraGuests + ' extra' : '') + ')';
+        document.getElementById('sumPkgPrice').textContent = money(c.pkg.price);
+        document.getElementById('sumAddons').textContent = money(c.addonsTotal);
+        document.getElementById('sumExtraGuests').textContent = money(c.extraGuestCharge);
+        document.getElementById('sumTotal').textContent = money(c.totalBookingValue);
+        document.getElementById('sumOnlinePay').textContent = money(c.onlinePaymentAmount);
+        document.getElementById('sumBalance').textContent = money(c.balanceAtVenue);
+
+        var submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Pay ' + money(c.onlinePaymentAmount) + ' Online & Confirm Booking';
+
+        var policyEl = document.getElementById('paymentPolicyNote');
+        if (policyEl) {
+          policyEl.textContent = 'Online advance includes standard payment processing charges.';
+        }
+      }
+
+      /* =========================================================
+         10. FORM INTERACTIONS & VALIDATION
+         ========================================================= */
+      var dateInput = document.getElementById('bookingDate');
+      dateInput.min = todayISO();
+      dateInput.addEventListener('change', function () {
+        state.bookingDate = dateInput.value;
+        state.selectedStartHour = null;
+        document.getElementById('bookingDateErr').textContent = '';
+        subscribeAvailability();
+        updatePriceSummary();
+      });
+
+      var personsInput = document.getElementById('totalPersons');
+      function setPersons(val) {
+        var minG = PACKAGES[state.packageId].baseGuests;
+        var n = parseInt(val, 10);
+        if (isNaN(n) || n < minG) n = minG;
+        if (n > 50) n = 50;
+        state.totalPersons = n;
+        personsInput.value = n;
+        document.getElementById('totalPersonsErr').textContent = '';
+        updatePriceSummary();
+      }
+      document.getElementById('guestsMinus').addEventListener('click', function () { setPersons(state.totalPersons - 1); });
+      document.getElementById('guestsPlus').addEventListener('click', function () { setPersons(state.totalPersons + 1); });
+      personsInput.addEventListener('change', function () { setPersons(personsInput.value); });
+
+      var contactInput = document.getElementById('contactNumber');
+      var waInput = document.getElementById('whatsappNumber');
+      var sameCheck = document.getElementById('sameAsContact');
+      sameCheck.addEventListener('change', function () {
+        if (sameCheck.checked) {
+          waInput.value = contactInput.value;
+          waInput.readOnly = true;
+          document.getElementById('whatsappNumberErr').textContent = '';
+        } else {
+          waInput.readOnly = false;
+        }
+      });
+      contactInput.addEventListener('input', function () {
+        if (sameCheck.checked) waInput.value = contactInput.value;
+      });
+
+      function validateForm() {
+        var ok = true;
+        function setErr(id, msg) {
+          document.getElementById(id).textContent = msg || '';
+          if (msg) ok = false;
+        }
+
+        var name = document.getElementById('customerName').value.trim();
+        setErr('customerNameErr', name.length < 2 ? 'Please enter your full name.' : '');
+
+        var contact = normalizePhone(contactInput.value);
+        setErr('contactNumberErr', !contact ? 'Enter a valid 10-digit Indian mobile number.' : '');
+
+        var wa = normalizePhone(waInput.value);
+        setErr('whatsappNumberErr', !wa ? 'Enter a valid 10-digit WhatsApp number.' : '');
+
+        var cType = document.getElementById('celebrationType').value;
+        setErr('celebrationTypeErr', !cType ? 'Please select a celebration type.' : '');
+
+        setErr('bookingDateErr', (!state.bookingDate || state.bookingDate < todayISO()) ? 'Please select today or a future date.' : '');
+
+        var pkg = PACKAGES[state.packageId];
+        if (state.selectedStartHour === null || !canStartPackageAt(state.selectedStartHour, pkg.durationHours)) {
+          setErr('slotErr', 'Please select an available hourly slot.');
+        } else {
+          setErr('slotErr', '');
+        }
+
+        if (state.totalPersons < pkg.baseGuests) {
+          setErr('totalPersonsErr', 'Minimum guests for ' + pkg.name + ' is ' + pkg.baseGuests + '.');
+        } else {
+          setErr('totalPersonsErr', '');
+        }
+
+        var termsOk = document.getElementById('termsAccept').checked;
+        setErr('termsErr', !termsOk ? 'You must accept the Terms & Conditions to proceed.' : '');
+
+        if (!ok) return null;
+        return {
+          customerName: name,
+          contactNumber: contact,
+          whatsappNumber: wa,
+          celebrationType: cType
+        };
+      }
+
+      /* =========================================================
+         11. ATOMIC SLOT HOLD + RAZORPAY CHECKOUT + CONFIRMATION
+         ========================================================= */
+      function acquireSlotHold(branch, date, startHour, duration, bookingId) {
+        var ref = db.ref(LOCKS_NODE + '/' + branch + '/' + date);
+        var now = Date.now();
+        return ref.transaction(function (current) {
+          var map = current ? Object.assign({}, current) : {};
+          for (var hIdx = startHour; hIdx < startHour + duration; hIdx++) {
+            var key = pad(hIdx);
+            var existing = map[key];
+            if (existing) {
+              if (existing.status === 'confirmed') return undefined; // abort
+              if (existing.status === 'hold' && existing.expiresAt > now && existing.bookingId !== bookingId) return undefined; // abort
+            }
+          }
+          for (var hSet = startHour; hSet < startHour + duration; hSet++) {
+            map[pad(hSet)] = {
+              status: 'hold',
+              bookingId: bookingId,
+              expiresAt: now + PAYMENT_CONFIG.holdTtlMs
+            };
+          }
+          return map;
+        }).then(function (res) {
+          if (!res.committed) {
+            var err = new Error('slot-taken');
+            err.code = 'slot-taken';
+            throw err;
+          }
+        });
+      }
+
+      function releaseSlotHold(branch, date, startHour, duration, bookingId) {
+        if (!db) return Promise.resolve();
+        var ref = db.ref(LOCKS_NODE + '/' + branch + '/' + date);
+        return ref.transaction(function (current) {
+          if (!current) return current;
+          var map = Object.assign({}, current);
+          for (var hIdx = startHour; hIdx < startHour + duration; hIdx++) {
+            var key = pad(hIdx);
+            if (map[key] && map[key].status === 'hold' && map[key].bookingId === bookingId) {
+              delete map[key];
+            }
+          }
+          return map;
+        });
+      }
+
+      function confirmSlotLock(branch, date, startHour, duration, bookingId) {
+        var ref = db.ref(LOCKS_NODE + '/' + branch + '/' + date);
+        return ref.transaction(function (current) {
+          var map = current ? Object.assign({}, current) : {};
+          for (var hIdx = startHour; hIdx < startHour + duration; hIdx++) {
+            var key = pad(hIdx);
+            if (map[key] && map[key].status === 'confirmed' && map[key].bookingId !== bookingId) {
+              return undefined;
+            }
+            map[key] = { status: 'confirmed', bookingId: bookingId };
+          }
+          return map;
+        });
+      }
+
+      function generateBookingId() {
+        return 'BLINK-' + Math.floor(100000 + Math.random() * 900000);
+      }
+
+      document.getElementById('bookingForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (state.processing) return;
+
+        var clean = validateForm();
+        if (!clean) {
+          toast('Please complete all required fields.', true);
+          return;
+        }
+        if (!db) {
+          showNotice('Service Unavailable', 'Booking database is currently unavailable. Please contact ' + BRAND.phoneDisplay + '.');
+          return;
+        }
+        if (typeof Razorpay === 'undefined') {
+          showNotice('Payment Unavailable', 'Razorpay could not be loaded. Please check your internet connection and refresh.');
+          return;
+        }
+
+        var pricing = computePricing();
+        var startHour = state.selectedStartHour;
+        var duration = pricing.pkg.durationHours;
+        var pendingId = generateBookingId();
+        var slotStr = formatSlotRange(startHour, duration);
+        var statusEl = document.getElementById('formStatus');
+
+        state.processing = true;
+        document.getElementById('submitBtn').disabled = true;
+        statusEl.textContent = 'Reserving slot hold\u2026';
+
+        acquireSlotHold(state.branch, state.bookingDate, startHour, duration, pendingId)
+          .then(function () {
+            if (BACKEND_CONFIG.enabled && BACKEND_CONFIG.createOrderUrl) {
+              statusEl.textContent = 'Creating secure payment order\u2026';
+              return fetch(BACKEND_CONFIG.createOrderUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  branch: state.branch,
+                  bookingDate: state.bookingDate,
+                  startHour: startHour,
+                  packageId: pricing.pkg.id,
+                  totalPersons: pricing.persons,
+                  selectedAddons: pricing.selectedAddonObjs.map(function (a) { return a.id; }),
+                  pendingBookingId: pendingId
+                })
+              }).then(function (r) { return r.json(); });
+            }
+            return { orderId: null, amount: pricing.onlinePaymentAmount * 100, currency: 'INR' };
+          })
+          .then(function (orderData) {
+            var paid = false;
+            var rzpOptions = {
+              key: PAYMENT_CONFIG.razorpayKey,
+              amount: orderData.amount || pricing.onlinePaymentAmount * 100,
+              currency: orderData.currency || 'INR',
+              name: BRAND.name + ' (' + state.branch + ')',
+              description: pricing.pkg.name + ' \u2022 ' + slotStr + ' (' + formatDate(state.bookingDate) + ')',
+              prefill: { name: clean.customerName, contact: clean.contactNumber },
+              theme: { color: '#D4AF37' },
+              handler: function (response) {
+                paid = true;
+                var nowIso = new Date().toISOString();
+                var record = {
+                  bookingId: pendingId,
+                  branch: state.branch,
+                  customerName: clean.customerName,
+                  contactNumber: clean.contactNumber,
+                  whatsappNumber: clean.whatsappNumber,
+                  celebrationType: clean.celebrationType,
+                  bookingDate: state.bookingDate,
+                  date: state.bookingDate,
+                  startHour: startHour,
+                  startTime: formatHour12(startHour),
+                  endTime: formatHour12(startHour + duration),
+                  slot: slotStr,
+                  durationHours: duration,
+                  packageId: pricing.pkg.id,
+                  packageName: pricing.pkg.name,
+                  packagePrice: pricing.pkg.price,
+                  baseGuests: pricing.pkg.baseGuests,
+                  totalPersons: pricing.persons,
+                  extraGuests: pricing.extraGuests,
+                  extraGuestRate: pricing.pkg.extraGuestRate,
+                  extraGuestCharge: pricing.extraGuestCharge,
+                  selectedAddons: pricing.selectedAddonObjs.map(function (a) { return a.name; }),
+                  addonsTotal: pricing.addonsTotal,
+                  totalBookingValue: pricing.totalBookingValue,
+                  venueAdvance: pricing.venueAdvance,
+                  gatewayFee: pricing.gatewayFee,
+                  onlinePaymentAmount: pricing.onlinePaymentAmount,
+                  balanceAtVenue: pricing.balanceAtVenue,
+                  razorpayOrderId: response.razorpay_order_id || orderData.orderId || '',
+                  razorpayPaymentId: response.razorpay_payment_id || '',
+                  paymentStatus: BACKEND_CONFIG.enabled ? 'paid_verified' : 'paid_client_unverified_demo',
+                  bookingStatus: 'confirmed',
+                  status: 'confirmed',
+                  createdAt: nowIso,
+                  updatedAt: nowIso
+                };
+
+                statusEl.textContent = 'Finalizing confirmation\u2026';
+
+                var verifyPromise = (BACKEND_CONFIG.enabled && BACKEND_CONFIG.verifyPaymentUrl)
+                  ? fetch(BACKEND_CONFIG.verifyPaymentUrl, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature,
+                        bookingPayload: record
+                      })
+                    }).then(function (r) { return r.json(); })
+                  : db.ref(BOOKINGS_NODE + '/' + pendingId).set(record).then(function () { return { verified: true }; });
+
+                verifyPromise
+                  .then(function () {
+                    return confirmSlotLock(state.branch, state.bookingDate, startHour, duration, pendingId);
+                  })
+                  .then(function () {
+                    saveBookingLocally(record);
+                    state.processing = false;
+                    document.getElementById('submitBtn').disabled = false;
+                    statusEl.textContent = '';
+                    state.selectedStartHour = null;
+                    renderSlotGrid();
+                    openConfirmation(record);
+                  })
+                  .catch(function (err) {
+                    console.error(err);
+                    state.processing = false;
+                    document.getElementById('submitBtn').disabled = false;
+                    statusEl.textContent = '';
+                    showNotice('Confirmation Issue', 'Payment ID ' + record.razorpayPaymentId + ' was captured. Please contact ' + BRAND.phoneDisplay + ' to finalize your slot.');
+                  });
+              },
+              modal: {
+                ondismiss: function () {
+                  if (paid) return;
+                  releaseSlotHold(state.branch, state.bookingDate, startHour, duration, pendingId);
+                  state.processing = false;
+                  document.getElementById('submitBtn').disabled = false;
+                  statusEl.textContent = '';
+                  toast('Payment cancelled. Your slot hold has been released.', true);
+                }
+              }
+            };
+            if (orderData.orderId) rzpOptions.order_id = orderData.orderId;
+            var rzp = new Razorpay(rzpOptions);
+            rzp.on('payment.failed', function (resp) {
+              releaseSlotHold(state.branch, state.bookingDate, startHour, duration, pendingId);
+              state.processing = false;
+              document.getElementById('submitBtn').disabled = false;
+              statusEl.textContent = '';
+              showNotice('Payment Failed', (resp && resp.error && resp.error.description) ? resp.error.description : 'Payment could not be completed. Slot hold released.');
+            });
+            rzp.open();
+          })
+          .catch(function (err) {
+            state.processing = false;
+            document.getElementById('submitBtn').disabled = false;
+            statusEl.textContent = '';
+            if (err && err.code === 'slot-taken') {
+              showNotice('Slot Unavailable', 'This slot was just reserved by another customer. Please choose another available hour.');
+            } else {
+              showNotice('Error', 'Could not initiate booking. Please try again.');
+            }
+          });
+      });
+
+      /* =========================================================
+         12. LOCAL BOOKING HISTORY & MODALS
+         ========================================================= */
+      function readHistory() {
+        try {
+          var raw = localStorage.getItem(HISTORY_KEY);
+          var arr = raw ? JSON.parse(raw) : [];
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+      function saveBookingLocally(rec) {
+        try {
+          var list = readHistory();
+          var exists = list.some(function (x) { return x.bookingId === rec.bookingId; });
+          if (!exists) {
+            list.unshift(rec);
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+          }
+          refreshCount();
+        } catch (e) { console.error(e); }
+      }
+      function refreshCount() {
+        var n = readHistory().length;
+        document.querySelectorAll('.js-mb-count').forEach(function (el) { el.textContent = String(n); });
+      }
+
+      var openStack = [];
+      function openModal(ov) {
+        if (!ov) return;
+        ov.hidden = false;
+        document.documentElement.classList.add('mb-lock');
+        openStack.push(ov);
+        requestAnimationFrame(function () { ov.classList.add('is-open'); });
+      }
+      function closeModal(ov) {
+        if (!ov) return;
+        ov.classList.remove('is-open');
+        openStack = openStack.filter(function (x) { return x !== ov; });
+        setTimeout(function () { ov.hidden = true; }, 260);
+        if (!openStack.length) document.documentElement.classList.remove('mb-lock');
+      }
+      document.getElementById('mbClose').addEventListener('click', function () { closeModal(document.getElementById('mbOverlay')); });
+      document.getElementById('cfClose').addEventListener('click', function () { closeModal(document.getElementById('cfOverlay')); });
+      document.getElementById('noticeClose').addEventListener('click', function () { closeModal(document.getElementById('noticeOverlay')); });
+      document.getElementById('noticeOk').addEventListener('click', function () { closeModal(document.getElementById('noticeOverlay')); });
+
+      function findBooking(id) {
+        var list = readHistory();
+        for (var i = 0; i < list.length; i++) if (list[i].bookingId === id) return list[i];
+        return null;
+      }
+
+      function renderBookingsList() {
+        var list = readHistory();
+        var body = document.getElementById('mbList');
+        body.innerHTML = '';
+        if (!list.length) {
+          body.appendChild(h('p', '', 'No confirmed bookings saved on this device yet.'));
+          return;
+        }
+        list.forEach(function (r) {
+          var card = h('article', 'bk-card');
+          var top = h('div', 'bk-card__top');
+          top.appendChild(h('span', 'bk-id', r.bookingId || 'BLINK'));
+          top.appendChild(h('span', 'bk-chip', 'Confirmed'));
+          card.appendChild(top);
+
+          var grid = h('dl', 'bk-grid');
+          var items = [
+            ['Branch', r.branch || 'Kurla'],
+            ['Customer', r.customerName || 'Guest'],
+            ['Package', r.packageName || 'Package'],
+            ['Guests', String(r.totalPersons || 2)],
+            ['Date', formatDate(r.bookingDate || r.date)],
+            ['Slot', r.slot || ((r.startTime || '') + ' – ' + (r.endTime || ''))]
+          ];
+          items.forEach(function (it) {
+            var d = document.createElement('div');
+            d.appendChild(h('dt', '', it[0]));
+            d.appendChild(h('dd', '', it[1]));
+            grid.appendChild(d);
+          });
+          card.appendChild(grid);
+
+          var pay = h('div', 'bk-pay');
+          var r1 = h('div', 'bk-pay__row'); r1.appendChild(h('span', '', 'Online Advance Paid')); r1.appendChild(h('b', '', money(r.onlinePaymentAmount || r.advancePaid || 770)));
+          var r2 = h('div', 'bk-pay__row bk-pay__row--due'); r2.appendChild(h('span', '', 'Balance Payable at Venue')); r2.appendChild(h('b', '', money(r.balanceAtVenue !== undefined ? r.balanceAtVenue : (r.balancePayable || 0))));
+          pay.appendChild(r1); pay.appendChild(r2);
+          card.appendChild(pay);
+
+          var acts = h('div', 'bk-actions');
+          var dl = h('button', 'btn btn--gold', '📥 Download Booking Pass (PNG)');
+          dl.type = 'button';
+          dl.addEventListener('click', function () { downloadPassPNG(r); });
+          var wa = h('button', 'btn btn--ghost', '📲 Send Copy on WhatsApp');
+          wa.type = 'button';
+          wa.addEventListener('click', function () { openWhatsAppCopy(r); });
+          acts.appendChild(dl); acts.appendChild(wa);
+          card.appendChild(acts);
+          body.appendChild(card);
+        });
+      }
+
+      document.querySelectorAll('.js-open-bookings').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setMenu(false);
+          renderBookingsList();
+          openModal(document.getElementById('mbOverlay'));
+        });
+      });
+
+      function openConfirmation(r) {
+        document.getElementById('cfBookingId').textContent = r.bookingId;
+        document.getElementById('cfPanel').setAttribute('data-id', r.bookingId);
+        var sum = document.getElementById('cfSummary');
+        sum.innerHTML = '';
+        [
+          ['Branch', r.branch],
+          ['Package', r.packageName],
+          ['Date', formatDate(r.bookingDate)],
+          ['Time', r.slot],
+          ['Guests', String(r.totalPersons)],
+          ['Online Advance Paid', money(r.onlinePaymentAmount || 770)],
+          ['Balance Payable at Venue', money(r.balanceAtVenue)]
+        ].forEach(function (row) {
+          var div = document.createElement('div');
+          div.appendChild(h('dt', '', row[0]));
+          div.appendChild(h('dd', '', row[1]));
+          sum.appendChild(div);
+        });
+        openModal(document.getElementById('cfOverlay'));
+      }
+
+      document.getElementById('cfDownload').addEventListener('click', function () {
+        var r = findBooking(document.getElementById('cfPanel').getAttribute('data-id'));
+        if (r) downloadPassPNG(r);
+      });
+      document.getElementById('cfWhatsApp').addEventListener('click', function () {
+        var r = findBooking(document.getElementById('cfPanel').getAttribute('data-id'));
+        if (r) openWhatsAppCopy(r);
+      });
+      document.getElementById('cfView').addEventListener('click', function () {
+        closeModal(document.getElementById('cfOverlay'));
+        renderBookingsList();
+        openModal(document.getElementById('mbOverlay'));
+      });
+
+      function openWhatsAppCopy(r) {
+        var br = BRANCHES[r.branch] || BRANCHES.Kurla;
+        var msg = [
+          '✨ *BLINK EVENTS — BOOKING CONFIRMED*',
+          'Booking ID: ' + r.bookingId,
+          'Branch: ' + br.shortName + ' (' + br.address + ')',
+          'Customer: ' + r.customerName,
+          'Package: ' + r.packageName,
+          'Date: ' + formatDate(r.bookingDate || r.date),
+          'Time: ' + (r.slot || ''),
+          'Guests: ' + (r.totalPersons || 2),
+          'Online Advance Paid: ' + money(r.onlinePaymentAmount || 770),
+          'Balance Payable at Venue: ' + money(r.balanceAtVenue || 0),
+          'Instagram: ' + (br.instagramHandle || BRAND.instagramHandle),
+          'Contact: ' + BRAND.phoneDisplay
+        ].join('\n');
+        window.open('https://wa.me/91' + (normalizePhone(r.whatsappNumber || r.contactNumber) || '9137913083') + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+      }
+
+      /* =========================================================
+         13. INSTANT PNG DIGITAL BOOKING PASS GENERATOR
+         ========================================================= */
+      function drawCrestOnCanvas(c, cx, cy, r) {
+        c.save();
+        // Jet black circle
+        c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2); c.fillStyle = '#060608'; c.fill();
+        // Double gold border
+        c.strokeStyle = '#D4AF37'; c.lineWidth = 3; c.stroke();
+        c.beginPath(); c.arc(cx, cy, r - 6, 0, Math.PI * 2);
+        c.strokeStyle = '#F5D98B'; c.lineWidth = 1.2; c.stroke();
+        // Blush rose leaves top-left & bottom-right
+        c.fillStyle = '#E89BAE';
+        c.beginPath(); c.ellipse(cx - r * 0.56, cy - r * 0.52, 8, 4, -0.7, 0, Math.PI * 2); c.fill();
+        c.beginPath(); c.ellipse(cx + r * 0.56, cy + r * 0.52, 8, 4, -0.7, 0, Math.PI * 2); c.fill();
+        // Gold Be monogram + Blink Events script
+        c.textAlign = 'center';
+        c.fillStyle = '#D4AF37';
+        c.font = '700 28px "Cormorant Garamond", Georgia, serif';
+        c.fillText('Be', cx, cy + 4);
+        c.fillStyle = '#F5D98B';
+        c.font = 'italic 600 13px "Cormorant Garamond", Georgia, serif';
+        c.fillText('Blink Events', cx, cy + 23);
+        c.restore();
+      }
+
+      function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+        var str = String(text || '');
+        var words = str.split(/\s+/);
+        var line = '';
+        var lines = [];
+
+        for (var i = 0; i < words.length; i++) {
+          var word = words[i];
+          var testLine = line ? line + ' ' + word : word;
+          if (ctx.measureText(testLine).width <= maxWidth) {
+            line = testLine;
+          } else {
+            if (line) {
+              lines.push(line);
+              line = '';
+            }
+            if (ctx.measureText(word).width > maxWidth) {
+              var chunk = '';
+              for (var k = 0; k < word.length; k++) {
+                var nextChunk = chunk + word[k];
+                if (ctx.measureText(nextChunk).width > maxWidth && chunk) {
+                  lines.push(chunk);
+                  chunk = word[k];
+                } else {
+                  chunk = nextChunk;
+                }
+              }
+              line = chunk;
+            } else {
+              line = word;
+            }
+          }
+        }
+        if (line) lines.push(line);
+        if (!lines.length) lines.push('');
+
+        for (var j = 0; j < lines.length; j++) {
+          ctx.fillText(lines[j], x, y + j * lineHeight);
+        }
+        return lines.length;
+      }
+
+      function downloadPassPNG(r) {
+        var W = 680, H = 1140, scale = 2;
+        var maxWidth = W - 112;
+        var lineHeight = 22;
+
+        // Pre-measure wrapped rows to ensure canvas height fits cleanly
+        var probeCv = document.createElement('canvas');
+        var probeCtx = probeCv.getContext('2d');
+        var br = BRANCHES[r.branch] || BRANCHES.Kurla;
+        var rows = [
+          ['Customer Name', r.customerName || 'Guest'],
+          ['Branch', (r.branch || 'Kurla') + ' Branch'],
+          ['Venue Address', br.address],
+          ['Booking Date', formatDate(r.bookingDate || r.date)],
+          ['Time Slot', r.slot || ((r.startTime || '') + ' - ' + (r.endTime || ''))],
+          ['Selected Package', r.packageName || 'Package'],
+          ['Total Persons', String(r.totalPersons || 2) + ' Guests'],
+          ['Online Advance Paid', money(r.onlinePaymentAmount || 770)],
+          ['Balance Payable at Venue', money(r.balanceAtVenue || 0)]
+        ];
+
+        probeCtx.font = '600 15px Poppins, sans-serif';
+        var totalExtraY = 0;
+        rows.forEach(function (row) {
+          var words = String(row[1] || '').split(/\s+/);
+          var line = '', count = 0;
+          words.forEach(function (w) {
+            var t = line ? line + ' ' + w : w;
+            if (probeCtx.measureText(t).width <= maxWidth) line = t;
+            else { count++; line = w; }
+          });
+          if (line) count++;
+          if (count > 1) totalExtraY += (count - 1) * lineHeight;
+        });
+        if (totalExtraY > 40) H += (totalExtraY - 40);
+
+        var cv = document.createElement('canvas');
+        cv.width = W * scale; cv.height = H * scale;
+        var c = cv.getContext('2d');
+        c.scale(scale, scale);
+
+        // Background
+        c.fillStyle = '#060608';
+        c.fillRect(0, 0, W, H);
+
+        // Outer metallic gold card border
+        c.strokeStyle = '#D4AF37';
+        c.lineWidth = 3;
+        c.strokeRect(20, 20, W - 40, H - 40);
+        c.strokeStyle = 'rgba(245, 217, 139, 0.35)';
+        c.lineWidth = 1;
+        c.strokeRect(30, 30, W - 60, H - 60);
+
+        // Crest
+        drawCrestOnCanvas(c, W / 2, 102, 52);
+
+        // Brand title & status
+        c.textAlign = 'center';
+        c.fillStyle = '#F5D98B';
+        c.font = '700 28px Poppins, sans-serif';
+        c.fillText('BLINK EVENTS', W / 2, 192);
+
+        c.fillStyle = '#4ADE80';
+        c.font = '700 14px Poppins, sans-serif';
+        c.fillText('✓ CONFIRMED DIGITAL BOOKING PASS', W / 2, 224);
+
+        // Booking ID Box
+        c.fillStyle = '#131317';
+        c.fillRect(54, 248, W - 108, 78);
+        c.strokeStyle = '#D4AF37';
+        c.lineWidth = 1.5;
+        c.strokeRect(54, 248, W - 108, 78);
+        c.fillStyle = '#B4B4BE';
+        c.font = '600 11px Montserrat, sans-serif';
+        c.fillText('BOOKING ID', W / 2, 274);
+        c.fillStyle = '#F5D98B';
+        c.font = '800 30px Poppins, sans-serif';
+        c.fillText(r.bookingId || 'BLINK-0000', W / 2, 312);
+
+        // Details rows with dynamic wrapping
+        var y = 372;
+        rows.forEach(function (row) {
+          c.textAlign = 'left';
+          c.fillStyle = '#B4B4BE';
+          c.font = '600 12px Montserrat, sans-serif';
+          c.fillText(row[0].toUpperCase(), 56, y);
+
+          c.fillStyle = row[0] === 'Balance Payable at Venue' ? '#F472B6' : '#FFFFFF';
+          c.font = '600 15px Poppins, sans-serif';
+          var lineCount = wrapText(c, String(row[1]), 56, y + 24, maxWidth, lineHeight);
+          var dividerY = y + 24 + (lineCount - 1) * lineHeight + 14;
+
+          c.strokeStyle = 'rgba(255,255,255,0.08)';
+          c.lineWidth = 1;
+          c.beginPath(); c.moveTo(56, dividerY); c.lineTo(W - 56, dividerY); c.stroke();
+          y = dividerY + 24;
+        });
+
+        // Footer
+        var footerY = Math.max(H - 120, y + 24);
+        c.textAlign = 'center';
+        c.fillStyle = '#E89BAE';
+        c.font = '600 14px Poppins, sans-serif';
+        c.fillText('Instagram: ' + (br.instagramHandle || BRAND.instagramHandle) + '  •  Contact: ' + BRAND.phoneDisplay, W / 2, footerY);
+        c.fillStyle = '#B4B4BE';
+        c.font = '500 12px Montserrat, sans-serif';
+        c.fillText('Present this confirmed pass at the venue reception. Valid Govt ID mandatory.', W / 2, footerY + 32);
+
+        cv.toBlob(function (blob) {
+          if (!blob) return;
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'BLINK-EVENTS-Pass-' + (r.bookingId || 'CONFIRMED') + '.png';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function () { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+          toast('Digital Booking Pass downloaded.');
+        }, 'image/png');
+      }
+
+      /* =========================================================
+         14. BOOTSTRAP
+         ========================================================= */
+      
+      // Load logo.png if hosted alongside index.html; otherwise keep inline SVG crest
+      (function () {
+        if (window.location.protocol === 'about:') return;
+        var probe = new Image();
+        probe.onload = function () {
+          document.querySelectorAll('.js-crest-img').forEach(function (img) {
+            img.src = 'logo.png';
+            img.style.display = 'block';
+          });
+          document.querySelectorAll('.js-crest-svg').forEach(function (svg) {
+            svg.style.display = 'none';
+          });
+        };
+        probe.src = 'logo.png';
+      })();
+
+      // Load logo.png if hosted alongside index.html; otherwise keep inline SVG crest
+      (function () {
+        if (window.location.protocol === 'about:') return;
+        var probe = new Image();
+        probe.onload = function () {
+          document.querySelectorAll('.js-crest-img').forEach(function (img) {
+            img.src = 'logo.png';
+            img.style.display = 'block';
+          });
+          document.querySelectorAll('.js-crest-svg').forEach(function (svg) {
+            svg.style.display = 'none';
+          });
+        };
+        probe.src = 'logo.png';
+      })();
+      renderBranchUI();
+      populatePackageDropdown();
+      selectPackage('paradise_1');
+      refreshCount();
+    })();
+  </script>
+</body>
+</html>
