@@ -566,6 +566,23 @@
     /* =========================================================
        HOURLY SLOT BOOKING GRID (MOVIE-SEAT STYLE)
        ========================================================= */
+    .room-indicator-wrap {
+      margin: 6px 0 12px;
+    }
+    .room-indicator {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 8px 16px; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.14), rgba(232, 155, 174, 0.08));
+      border: 1px solid var(--line-strong);
+      color: var(--gold-soft); font-family: var(--font-head);
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em;
+      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.12);
+    }
+    .room-indicator__dot {
+      width: 8px; height: 8px; border-radius: 50%; flex: none;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+    }
     .slot-legend {
       display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 0.76rem; color: var(--text-muted);
     }
@@ -1024,6 +1041,12 @@
 
               <div class="field field--full">
                 <label>Select Start Hour (Operating Hours: 09:00 AM – 12:00 AM Midnight)</label>
+                <div class="room-indicator-wrap">
+                  <div class="room-indicator" id="roomAvailabilityIndicator" role="status" aria-live="polite">
+                    <span class="room-indicator__dot" aria-hidden="true"></span>
+                    <span id="roomIndicatorText">Showing Live Availability: Kurla — Couples Room (Love Paradise)</span>
+                  </div>
+                </div>
                 <div class="slot-legend">
                   <span><i class="dot dot--avail"></i> Available</span>
                   <span><i class="dot dot--sel"></i> Selected</span>
@@ -1641,6 +1664,7 @@
       var state = {
         branch: 'Kurla',
         category: 'love_paradise',
+        roomType: 'couples',
         packageId: 'paradise_1',
         bookingDate: '',
         selectedStartHour: null,
@@ -1650,8 +1674,56 @@
         legacyBookings: [],
         processing: false,
         activeLockRef: null,
-        activeBookingsRef: null
+        activeBookingsRef: null,
+        availabilitySubToken: 0
       };
+
+      function getRoomType(category) {
+        if (category === 'love_paradise') {
+          return 'couples';
+        }
+        if (category === 'celebration') {
+          return 'family';
+        }
+        return null;
+      }
+
+      function getRoomLabel(roomType) {
+        if (roomType === 'couples') return 'Couples Room';
+        if (roomType === 'family') return 'Family Room';
+        return '';
+      }
+
+      function getSlotLockPath(branch, roomType, date) {
+        return LOCKS_NODE + '/' + branch + '/' + roomType + '/' + date;
+      }
+
+      function resolveBookingRoomLabel(r) {
+        if (!r) return 'Couples Room';
+        if (r.roomLabel) return r.roomLabel;
+        var rt = r.roomType ||
+          (r.category ? getRoomType(r.category) : null) ||
+          (r.packageId && PACKAGES[r.packageId] ? getRoomType(PACKAGES[r.packageId].category) : null);
+        return rt === 'family' ? 'Family Room' : 'Couples Room';
+      }
+
+      function renderRoomIndicator() {
+        var el = document.getElementById('roomIndicatorText');
+        if (!el) return;
+        var pkg = PACKAGES[state.packageId];
+        var roomType = pkg ? getRoomType(pkg.category) : state.roomType;
+        if (!roomType) {
+          el.textContent = 'Unavailable: Invalid package room mapping';
+          return;
+        }
+        var branchName = state.branch || 'Kurla';
+        if (roomType === 'couples') {
+          var catName = branchName === 'Vashi' ? 'Dinner Date' : 'Love Paradise';
+          el.textContent = 'Showing Live Availability: ' + branchName + ' — Couples Room (' + catName + ')';
+        } else {
+          el.textContent = 'Showing Live Availability: ' + branchName + ' — Family / Group Room';
+        }
+      }
 
       /* =========================================================
          4. UTILITIES & DOM HELPERS
@@ -1757,7 +1829,7 @@
         state.selectedStartHour = null;
         renderBranchUI();
         populatePackageDropdown();
-        selectPackage(BRANCHES[branchId].packages[0]);
+        selectPackage(BRANCHES[branchId].packages[0], true);
         subscribeAvailability();
         updatePriceSummary();
       }
@@ -1897,11 +1969,18 @@
         });
       }
 
-      function selectPackage(pkgId) {
+      function selectPackage(pkgId, skipSubscribe) {
         var p = PACKAGES[pkgId];
         if (!p) return;
+        var nextRoomType = getRoomType(p.category);
+        if (!nextRoomType) {
+          toast('Selected package does not map to a valid room.', true);
+          return;
+        }
+        var roomChanged = state.roomType !== nextRoomType;
         state.packageId = p.id;
         state.category = p.category;
+        state.roomType = nextRoomType;
         state.selectedStartHour = null;
 
         var personsInput = document.getElementById('totalPersons');
@@ -1915,7 +1994,12 @@
         renderPackages();
         renderPackageGallery();
         renderAddons();
-        renderSlotGrid();
+        renderRoomIndicator();
+        if (roomChanged && !skipSubscribe) {
+          subscribeAvailability();
+        } else {
+          renderSlotGrid();
+        }
         updatePriceSummary();
       }
 
@@ -1944,7 +2028,11 @@
 
       function getHourState(hour) {
         var now = Date.now();
-        // 1. Check atomic slot_locks
+        var currentPkg = PACKAGES[state.packageId];
+        var currentRoomType = currentPkg ? getRoomType(currentPkg.category) : null;
+        if (!currentRoomType) return { status: 'unavailable', reason: 'Invalid Room' };
+
+        // 1. Check atomic slot_locks (isolated by branch/roomType/date)
         var lock = state.slotLocks && state.slotLocks[pad(hour)];
         if (lock) {
           if (lock.status === 'confirmed') return { status: 'booked' };
@@ -1952,11 +2040,13 @@
             return { status: 'hold', expiresAt: lock.expiresAt };
           }
         }
-        // 2. Check legacy confirmed records in aryx_demo_bookings
+        // 2. Check legacy confirmed records in aryx_demo_bookings (room-aware)
         for (var i = 0; i < state.legacyBookings.length; i++) {
           var b = state.legacyBookings[i];
           var bBranch = b.branch || 'Kurla';
           if (bBranch !== state.branch) continue;
+          var bookingRoomType = b.roomType || (b.category === 'celebration' ? 'family' : 'couples');
+          if (bookingRoomType !== currentRoomType) continue;
           if ((b.bookingStatus === 'confirmed' || b.status === 'confirmed')) {
             if (typeof b.startHour === 'number' && typeof b.durationHours === 'number') {
               if (hour >= b.startHour && hour < b.startHour + b.durationHours) return { status: 'booked' };
@@ -2059,26 +2149,52 @@
         if (state.activeBookingsRef) { state.activeBookingsRef.off(); state.activeBookingsRef = null; }
         state.slotLocks = {};
         state.legacyBookings = [];
+        state.availabilitySubToken = (state.availabilitySubToken || 0) + 1;
 
-        if (!db || !state.bookingDate) {
+        var pkg = PACKAGES[state.packageId];
+        var roomType = pkg ? getRoomType(pkg.category) : null;
+        renderRoomIndicator();
+
+        if (!db || !state.bookingDate || !roomType) {
           renderSlotGrid();
           return;
         }
 
-        state.activeLockRef = db.ref(LOCKS_NODE + '/' + state.branch + '/' + state.bookingDate);
+        var subToken = state.availabilitySubToken;
+        var expectedBranch = state.branch;
+        var expectedRoomType = roomType;
+        var expectedDate = state.bookingDate;
+
+        state.activeLockRef = db.ref(getSlotLockPath(expectedBranch, expectedRoomType, expectedDate));
         state.activeLockRef.on('value', function (snap) {
+          var activePkg = PACKAGES[state.packageId];
+          var activeRoom = activePkg ? getRoomType(activePkg.category) : null;
+          if (subToken !== state.availabilitySubToken ||
+              state.branch !== expectedBranch ||
+              state.bookingDate !== expectedDate ||
+              activeRoom !== expectedRoomType) {
+            return;
+          }
           state.slotLocks = snap.val() || {};
           renderSlotGrid();
         });
 
         state.activeBookingsRef = db.ref(BOOKINGS_NODE);
         state.activeBookingsRef.on('value', function (snap) {
+          var activePkg = PACKAGES[state.packageId];
+          var activeRoom = activePkg ? getRoomType(activePkg.category) : null;
+          if (subToken !== state.availabilitySubToken ||
+              state.branch !== expectedBranch ||
+              state.bookingDate !== expectedDate ||
+              activeRoom !== expectedRoomType) {
+            return;
+          }
           var list = [];
           snap.forEach(function (child) {
             var v = child.val();
             if (!v) return;
             var d = v.bookingDate || v.date;
-            if (d === state.bookingDate) list.push(v);
+            if (d === expectedDate) list.push(v);
           });
           state.legacyBookings = list;
           renderSlotGrid();
@@ -2246,8 +2362,9 @@
       /* =========================================================
          11. ATOMIC SLOT HOLD + RAZORPAY CHECKOUT + CONFIRMATION
          ========================================================= */
-      function acquireSlotHold(branch, date, startHour, duration, bookingId) {
-        var ref = db.ref(LOCKS_NODE + '/' + branch + '/' + date);
+      function acquireSlotHold(branch, roomType, date, startHour, duration, bookingId) {
+        if (!roomType) return Promise.reject(new Error('invalid-room'));
+        var ref = db.ref(getSlotLockPath(branch, roomType, date));
         var now = Date.now();
         return ref.transaction(function (current) {
           var map = current ? Object.assign({}, current) : {};
@@ -2263,6 +2380,7 @@
             map[pad(hSet)] = {
               status: 'hold',
               bookingId: bookingId,
+              roomType: roomType,
               expiresAt: now + PAYMENT_CONFIG.holdTtlMs
             };
           }
@@ -2276,9 +2394,9 @@
         });
       }
 
-      function releaseSlotHold(branch, date, startHour, duration, bookingId) {
-        if (!db) return Promise.resolve();
-        var ref = db.ref(LOCKS_NODE + '/' + branch + '/' + date);
+      function releaseSlotHold(branch, roomType, date, startHour, duration, bookingId) {
+        if (!db || !roomType) return Promise.resolve();
+        var ref = db.ref(getSlotLockPath(branch, roomType, date));
         return ref.transaction(function (current) {
           if (!current) return current;
           var map = Object.assign({}, current);
@@ -2292,8 +2410,9 @@
         });
       }
 
-      function confirmSlotLock(branch, date, startHour, duration, bookingId) {
-        var ref = db.ref(LOCKS_NODE + '/' + branch + '/' + date);
+      function confirmSlotLock(branch, roomType, date, startHour, duration, bookingId) {
+        if (!roomType) return Promise.reject(new Error('invalid-room'));
+        var ref = db.ref(getSlotLockPath(branch, roomType, date));
         return ref.transaction(function (current) {
           var map = current ? Object.assign({}, current) : {};
           for (var hIdx = startHour; hIdx < startHour + duration; hIdx++) {
@@ -2301,7 +2420,7 @@
             if (map[key] && map[key].status === 'confirmed' && map[key].bookingId !== bookingId) {
               return undefined;
             }
-            map[key] = { status: 'confirmed', bookingId: bookingId };
+            map[key] = { status: 'confirmed', bookingId: bookingId, roomType: roomType };
           }
           return map;
         });
@@ -2330,6 +2449,14 @@
         }
 
         var pricing = computePricing();
+        var bookingBranch = state.branch;
+        var bookingDate = state.bookingDate;
+        var roomType = getRoomType(pricing.pkg.category);
+        if (!roomType) {
+          showNotice('Invalid Package', 'Selected package cannot be mapped to a valid room. Please reselect a package.');
+          return;
+        }
+        var roomLabel = roomType === 'couples' ? 'Couples Room' : 'Family Room';
         var startHour = state.selectedStartHour;
         var duration = pricing.pkg.durationHours;
         var pendingId = generateBookingId();
@@ -2340,7 +2467,7 @@
         document.getElementById('submitBtn').disabled = true;
         statusEl.textContent = 'Reserving slot hold\u2026';
 
-        acquireSlotHold(state.branch, state.bookingDate, startHour, duration, pendingId)
+        acquireSlotHold(bookingBranch, roomType, bookingDate, startHour, duration, pendingId)
           .then(function () {
             if (BACKEND_CONFIG.enabled && BACKEND_CONFIG.createOrderUrl) {
               statusEl.textContent = 'Creating secure payment order\u2026';
@@ -2348,8 +2475,10 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  branch: state.branch,
-                  bookingDate: state.bookingDate,
+                  branch: bookingBranch,
+                  roomType: roomType,
+                  roomLabel: roomLabel,
+                  bookingDate: bookingDate,
                   startHour: startHour,
                   packageId: pricing.pkg.id,
                   totalPersons: pricing.persons,
@@ -2366,8 +2495,8 @@
               key: PAYMENT_CONFIG.razorpayKey,
               amount: orderData.amount || pricing.onlinePaymentAmount * 100,
               currency: orderData.currency || 'INR',
-              name: BRAND.name + ' (' + state.branch + ')',
-              description: pricing.pkg.name + ' \u2022 ' + slotStr + ' (' + formatDate(state.bookingDate) + ')',
+              name: BRAND.name + ' (' + bookingBranch + ')',
+              description: pricing.pkg.name + ' (' + roomLabel + ') \u2022 ' + slotStr + ' (' + formatDate(bookingDate) + ')',
               prefill: { name: clean.customerName, contact: clean.contactNumber },
               theme: { color: '#D4AF37' },
               handler: function (response) {
@@ -2375,13 +2504,16 @@
                 var nowIso = new Date().toISOString();
                 var record = {
                   bookingId: pendingId,
-                  branch: state.branch,
+                  branch: bookingBranch,
+                  category: pricing.pkg.category,
+                  roomType: roomType,
+                  roomLabel: roomLabel,
                   customerName: clean.customerName,
                   contactNumber: clean.contactNumber,
                   whatsappNumber: clean.whatsappNumber,
                   celebrationType: clean.celebrationType,
-                  bookingDate: state.bookingDate,
-                  date: state.bookingDate,
+                  bookingDate: bookingDate,
+                  date: bookingDate,
                   startHour: startHour,
                   startTime: formatHour12(startHour),
                   endTime: formatHour12(startHour + duration),
@@ -2428,7 +2560,7 @@
 
                 verifyPromise
                   .then(function () {
-                    return confirmSlotLock(state.branch, state.bookingDate, startHour, duration, pendingId);
+                    return confirmSlotLock(bookingBranch, roomType, bookingDate, startHour, duration, pendingId);
                   })
                   .then(function () {
                     saveBookingLocally(record);
@@ -2450,7 +2582,7 @@
               modal: {
                 ondismiss: function () {
                   if (paid) return;
-                  releaseSlotHold(state.branch, state.bookingDate, startHour, duration, pendingId);
+                  releaseSlotHold(bookingBranch, roomType, bookingDate, startHour, duration, pendingId);
                   state.processing = false;
                   document.getElementById('submitBtn').disabled = false;
                   statusEl.textContent = '';
@@ -2461,7 +2593,7 @@
             if (orderData.orderId) rzpOptions.order_id = orderData.orderId;
             var rzp = new Razorpay(rzpOptions);
             rzp.on('payment.failed', function (resp) {
-              releaseSlotHold(state.branch, state.bookingDate, startHour, duration, pendingId);
+              releaseSlotHold(bookingBranch, roomType, bookingDate, startHour, duration, pendingId);
               state.processing = false;
               document.getElementById('submitBtn').disabled = false;
               statusEl.textContent = '';
@@ -2551,6 +2683,7 @@
           var grid = h('dl', 'bk-grid');
           var items = [
             ['Branch', r.branch || 'Kurla'],
+            ['Room', resolveBookingRoomLabel(r)],
             ['Customer', r.customerName || 'Guest'],
             ['Package', r.packageName || 'Package'],
             ['Guests', String(r.totalPersons || 2)],
@@ -2599,6 +2732,7 @@
         sum.innerHTML = '';
         [
           ['Branch', r.branch],
+          ['Room', resolveBookingRoomLabel(r)],
           ['Package', r.packageName],
           ['Date', formatDate(r.bookingDate)],
           ['Time', r.slot],
@@ -2634,6 +2768,7 @@
           '✨ *BLINK EVENTS — BOOKING CONFIRMED*',
           'Booking ID: ' + r.bookingId,
           'Branch: ' + br.shortName + ' (' + br.address + ')',
+          'Room: ' + resolveBookingRoomLabel(r),
           'Customer: ' + r.customerName,
           'Package: ' + r.packageName,
           'Date: ' + formatDate(r.bookingDate || r.date),
@@ -2716,7 +2851,7 @@
       }
 
       function downloadPassPNG(r) {
-        var W = 680, H = 1140, scale = 2;
+        var W = 680, H = 1200, scale = 2;
         var maxWidth = W - 112;
         var lineHeight = 22;
 
@@ -2727,6 +2862,7 @@
         var rows = [
           ['Customer Name', r.customerName || 'Guest'],
           ['Branch', (r.branch || 'Kurla') + ' Branch'],
+          ['Room', resolveBookingRoomLabel(r)],
           ['Venue Address', br.address],
           ['Booking Date', formatDate(r.bookingDate || r.date)],
           ['Time Slot', r.slot || ((r.startTime || '') + ' - ' + (r.endTime || ''))],
