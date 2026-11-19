@@ -1,0 +1,3158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#060608">
+  <meta name="description" content="BLINK EVENTS Official Multi-Branch Owner & Reception Admin Portal for Kurla and Vashi.">
+  <title>BLINK EVENTS | Admin Portal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-jet: #060608;
+      --bg-charcoal: #131317;
+      --bg-elevated: #19191F;
+      --bg-input: #0D0D11;
+      --gold: #D4AF37;
+      --gold-light: #F5D98B;
+      --rose: #E89BAE;
+      --rose-bright: #F472B6;
+      --text: #F7F4EC;
+      --text-muted: #A6A196;
+      --text-dim: #736F66;
+      --border-gold: rgba(212, 175, 55, 0.24);
+      --border-gold-strong: rgba(212, 175, 55, 0.55);
+      --border-rose: rgba(232, 155, 174, 0.35);
+      --ok: #34D399;
+      --ok-bg: rgba(52, 211, 153, 0.12);
+      --warn: #FBBF24;
+      --warn-bg: rgba(251, 191, 36, 0.12);
+      --danger: #F87171;
+      --danger-bg: rgba(248, 113, 113, 0.12);
+      --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --radius-xl: 20px;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --shadow-card: 0 18px 42px rgba(0, 0, 0, 0.55);
+      --shadow-gold: 0 10px 28px rgba(212, 175, 55, 0.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 420px at 15% -5%, rgba(212, 175, 55, 0.08), transparent 60%),
+        radial-gradient(800px 420px at 88% 0%, rgba(232, 155, 174, 0.08), transparent 60%),
+        var(--bg-jet);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); letter-spacing: 0.01em; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    [hidden] { display: none !important; }
+
+    :focus-visible {
+      outline: 2px solid var(--gold-light);
+      outline-offset: 2px;
+    }
+
+    /* ---------- Crest & Logo Fallback ---------- */
+    .crest-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-jet);
+      box-shadow: 0 0 0 1px var(--border-gold-strong), 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+    .crest-box--sm { width: 46px; height: 46px; }
+    .crest-box--lg { width: 92px; height: 92px; }
+    .crest-box img.crest-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .crest-box svg.crest-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ---------- Login Gate ---------- */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .login-card {
+      width: min(430px, 100%);
+      background: linear-gradient(165deg, rgba(25, 25, 31, 0.96), rgba(19, 19, 23, 0.98));
+      border: 1px solid var(--border-gold-strong);
+      border-radius: var(--radius-xl);
+      padding: 34px 28px 28px;
+      box-shadow: var(--shadow-card), 0 0 60px rgba(212, 175, 55, 0.08);
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+    .login-brand {
+      margin-top: 16px;
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      background: linear-gradient(120deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .login-sub {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--rose);
+    }
+    .login-desc {
+      margin: 14px 0 22px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    .pin-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .pin-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+    .pin-input {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-gold);
+      background: var(--bg-input);
+      color: var(--text);
+      font-size: 1.15rem;
+      letter-spacing: 0.35em;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .pin-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+    .login-error {
+      min-height: 20px;
+      margin: 8px 0 14px;
+      font-size: 0.84rem;
+      color: var(--danger);
+      font-weight: 500;
+    }
+    .security-note {
+      margin-top: 18px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    /* ---------- Top Header ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(6, 6, 8, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .topbar-inner {
+      width: min(1320px, 100% - 28px);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .topbar-titles h1 {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--gold-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .topbar-titles p {
+      margin: 2px 0 0;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 600;
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-charcoal);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--warn);
+    }
+    .status-pill.is-live .status-dot {
+      background: var(--ok);
+      box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18);
+    }
+    .status-pill.is-live { color: var(--text); }
+    .status-pill.is-err .status-dot { background: var(--danger); }
+    .session-pill {
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(232, 155, 174, 0.1);
+      border: 1px solid var(--border-rose);
+      color: var(--rose);
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      font-size: 0.84rem;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+    .btn--gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #060608;
+      box-shadow: var(--shadow-gold);
+    }
+    .btn--gold:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(212, 175, 55, 0.3); }
+    .btn--rose {
+      background: linear-gradient(135deg, var(--rose), var(--rose-bright));
+      color: #060608;
+      font-weight: 700;
+    }
+    .btn--rose:not(:disabled):hover { transform: translateY(-1px); }
+    .btn--outline {
+      background: transparent;
+      border-color: var(--border-gold);
+      color: var(--gold-light);
+    }
+    .btn--outline:not(:disabled):hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+    }
+    .btn--danger {
+      background: var(--danger-bg);
+      border-color: rgba(248, 113, 113, 0.4);
+      color: var(--danger);
+    }
+    .btn--danger:not(:disabled):hover {
+      background: rgba(248, 113, 113, 0.22);
+    }
+    .btn--wa {
+      background: rgba(37, 211, 102, 0.14);
+      border-color: rgba(37, 211, 102, 0.45);
+      color: #6EE7B7;
+    }
+    .btn--wa:not(:disabled):hover {
+      background: rgba(37, 211, 102, 0.24);
+    }
+    .btn--sm { min-height: 36px; padding: 6px 13px; font-size: 0.78rem; }
+    .btn--full { width: 100%; }
+
+    /* ---------- Main Container ---------- */
+    .container {
+      width: min(1320px, 100% - 28px);
+      margin-inline: auto;
+      padding: 22px 0 48px;
+    }
+
+    /* ---------- Action Hero Bar ---------- */
+    .action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 18px 22px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(19, 19, 23, 0.95), rgba(25, 25, 31, 0.92));
+      border: 1px solid var(--border-gold);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 20px;
+    }
+    .action-bar h2 {
+      font-size: clamp(1.15rem, 3vw, 1.5rem);
+      color: var(--text);
+    }
+    .action-bar h2 span { color: var(--gold-light); }
+    .action-bar p {
+      margin: 4px 0 0;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+    }
+
+    /* ---------- Filter Toolbar ---------- */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .segmented {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 5px;
+      border-radius: 999px;
+      background: var(--bg-charcoal);
+      border: 1px solid var(--border-gold);
+    }
+    .seg-btn {
+      border: 0;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.16s, color 0.16s;
+    }
+    .seg-btn:hover { color: var(--gold-light); }
+    .seg-btn.is-active {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #060608;
+    }
+    .date-filters {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .date-input {
+      min-height: 38px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-charcoal);
+      color: var(--text);
+      font-size: 0.8rem;
+      color-scheme: dark;
+    }
+
+    /* ---------- KPI Cards ---------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .kpi-card {
+      position: relative;
+      background: linear-gradient(170deg, var(--bg-elevated), var(--bg-charcoal));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--rose));
+    }
+    .kpi-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .kpi-value {
+      margin-top: 8px;
+      font-family: var(--font-display);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1.15;
+    }
+    .kpi-sub {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .kpi-breakdown {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: grid;
+      gap: 4px;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .kpi-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .kpi-row strong { color: var(--text); font-weight: 600; }
+
+    /* ---------- Cards & Sections ---------- */
+    .panel {
+      background: linear-gradient(175deg, var(--bg-elevated), var(--bg-charcoal));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 22px;
+    }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .panel-title {
+      font-size: 1.2rem;
+      color: var(--gold-light);
+    }
+    .panel-sub {
+      margin-top: 3px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------- Slot Manager ---------- */
+    .slot-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .slot-legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      font-size: 0.77rem;
+      color: var(--text-muted);
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+    .legend-dot--free { background: var(--ok); }
+    .legend-dot--booked { background: var(--gold); }
+    .legend-dot--hold { background: var(--warn); }
+    .legend-dot--offline { background: var(--rose-bright); }
+
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .slot-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+      min-height: 92px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--bg-input);
+      text-align: left;
+      transition: transform 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+    }
+    .slot-tile:hover { transform: translateY(-2px); }
+    .slot-tile--free {
+      border-color: rgba(52, 211, 153, 0.32);
+      background: rgba(52, 211, 153, 0.05);
+    }
+    .slot-tile--booked {
+      border-color: rgba(212, 175, 55, 0.55);
+      background: rgba(212, 175, 55, 0.09);
+    }
+    .slot-tile--hold {
+      border-color: rgba(251, 191, 36, 0.55);
+      background: rgba(251, 191, 36, 0.09);
+    }
+    .slot-tile--offline {
+      border-color: rgba(244, 114, 182, 0.5);
+      background: rgba(244, 114, 182, 0.09);
+    }
+    .slot-time {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .slot-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .slot-badge--free { background: var(--ok-bg); color: var(--ok); }
+    .slot-badge--booked { background: rgba(212, 175, 55, 0.2); color: var(--gold-light); }
+    .slot-badge--hold { background: var(--warn-bg); color: var(--warn); }
+    .slot-badge--offline { background: rgba(244, 114, 182, 0.2); color: var(--rose); }
+    .slot-meta {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ---------- Bookings Table & Cards ---------- */
+    .search-input {
+      min-height: 38px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-input);
+      color: var(--text);
+      font-size: 0.82rem;
+      min-width: 230px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      background: var(--bg-input);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1020px;
+    }
+    th {
+      text-align: left;
+      padding: 13px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      background: #0B0B0E;
+      border-bottom: 1px solid var(--border-gold);
+      white-space: nowrap;
+    }
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+      font-size: 0.83rem;
+    }
+    tbody tr:hover { background: rgba(212, 175, 55, 0.04); }
+    tr.is-cancelled { opacity: 0.56; }
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    .pill--kurla { background: rgba(212, 175, 55, 0.14); border-color: rgba(212, 175, 55, 0.4); color: var(--gold-light); }
+    .pill--vashi { background: rgba(232, 155, 174, 0.14); border-color: rgba(232, 155, 174, 0.45); color: var(--rose); }
+    .pill--room-couples { background: rgba(244, 114, 182, 0.14); border-color: rgba(244, 114, 182, 0.42); color: #F9A8D4; margin-left: 5px; }
+    .pill--room-family { background: rgba(212, 175, 55, 0.14); border-color: rgba(212, 175, 55, 0.45); color: var(--gold-light); margin-left: 5px; }
+    .pill--room-unset { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.15); color: var(--text-muted); margin-left: 5px; }
+    .pill--ok { background: var(--ok-bg); border-color: rgba(52, 211, 153, 0.35); color: var(--ok); }
+    .pill--cancel { background: var(--danger-bg); border-color: rgba(248, 113, 113, 0.35); color: var(--danger); }
+    .pill--src { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.14); color: var(--text-muted); }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.76rem; color: var(--text-muted); }
+    .subline { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ---------- Empty / Loading / Error States ---------- */
+    .state-box {
+      text-align: center;
+      padding: 38px 18px;
+      border: 1px dashed var(--border-gold);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.015);
+    }
+    .state-box strong { display: block; color: var(--gold-light); font-size: 0.98rem; margin-bottom: 5px; }
+    .state-box--err { border-color: rgba(248, 113, 113, 0.5); color: var(--danger); }
+    .state-box--err strong { color: var(--danger); }
+    .spinner {
+      width: 28px; height: 28px; margin: 0 auto 10px;
+      border-radius: 50%;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold);
+      animation: spin 0.85s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- Modals ---------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .modal {
+      width: min(620px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: linear-gradient(175deg, #1B1B22, #111115);
+      border: 1px solid var(--border-gold-strong);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+    }
+    .modal-head h3 { font-size: 1.25rem; color: var(--gold-light); }
+    .modal-close {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border-gold);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--gold); }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field--full { grid-column: 1 / -1; }
+    .field label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold-light);
+    }
+    .field input, .field select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-gold);
+      background: var(--bg-input);
+      color: var(--text);
+      font-size: 0.88rem;
+      color-scheme: dark;
+    }
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+    }
+    .field-err { font-size: 0.76rem; color: var(--danger); min-height: 1em; }
+    .modal-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .modal-note.is-ok { border-color: rgba(52, 211, 153, 0.45); background: var(--ok-bg); color: var(--ok); }
+    .modal-note.is-err { border-color: rgba(248, 113, 113, 0.45); background: var(--danger-bg); color: var(--danger); }
+    .modal-actions {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .detail-list {
+      display: grid;
+      gap: 9px;
+      font-size: 0.86rem;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .detail-row span:first-child { color: var(--text-muted); }
+    .detail-row strong { text-align: right; color: var(--text); }
+
+    /* ---------- Edit Time / Extend Modal ---------- */
+    .edit-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(212, 175, 55, 0.06);
+      border: 1px solid var(--border-gold);
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+    }
+    .edit-summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .edit-summary-item span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+    .edit-summary-item strong { color: var(--gold-light); font-weight: 600; }
+    .avail-banner {
+      margin-top: 14px;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.83rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+    }
+    .avail-banner.is-free {
+      border-color: rgba(52, 211, 153, 0.48);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+    .avail-banner.is-conflict {
+      border-color: rgba(248, 113, 113, 0.55);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+    .bill-preview-box {
+      margin-top: 14px;
+      padding: 13px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      border: 1px solid var(--border-gold);
+      display: grid;
+      gap: 6px;
+      font-size: 0.83rem;
+    }
+    .bill-preview-row { display: flex; justify-content: space-between; gap: 12px; color: var(--text-muted); }
+    .bill-preview-row strong { color: var(--text); }
+    .bill-preview-row.is-total {
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+    .bill-preview-row.is-total strong { color: var(--gold-light); }
+    .rate-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .rate-chip {
+      border: 1px solid var(--border-gold);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .rate-chip:hover { color: var(--gold-light); border-color: var(--gold); }
+    .rate-chip.is-active {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #060608;
+      border-color: var(--gold);
+    }
+
+    /* ---------- Toast ---------- */
+    .toast-host {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: min(380px, 100% - 32px);
+      pointer-events: none;
+    }
+    .toast {
+      pointer-events: auto;
+      padding: 12px 15px;
+      border-radius: var(--radius-md);
+      background: #18181E;
+      border: 1px solid var(--border-gold-strong);
+      color: var(--text);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      font-size: 0.84rem;
+    }
+    .toast--ok { border-color: rgba(52, 211, 153, 0.6); color: #A7F3D0; }
+    .toast--err { border-color: rgba(248, 113, 113, 0.65); color: #FECACA; }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      border-top: 1px solid var(--border-gold);
+      padding: 22px 16px 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .slot-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 780px) {
+      .table-wrap { border: 0; background: transparent; overflow: visible; }
+      table, tbody { display: block; min-width: 0; }
+      thead { display: none; }
+      tbody tr {
+        display: block;
+        margin-bottom: 12px;
+        border: 1px solid var(--border-gold);
+        border-radius: var(--radius-lg);
+        background: var(--bg-input);
+        padding: 4px 12px;
+      }
+      tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 9px 0;
+        text-align: right;
+      }
+      tbody td:last-child { border-bottom: 0; }
+      tbody td::before {
+        content: attr(data-label);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--gold-light);
+        text-align: left;
+        flex: 0 0 36%;
+      }
+      .row-actions { justify-content: flex-end; }
+    }
+    @media (max-width: 580px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .slot-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .panel { padding: 16px; }
+      .action-bar { padding: 16px; }
+      .action-bar .btn { width: 100%; }
+      .search-input { width: 100%; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reusable SVG Crest Template (Cloned into Login & Header if logo.png is unavailable) -->
+  <template id="crestSvgTemplate">
+    <svg class="crest-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blink Events Official Crest">
+      <defs>
+        <linearGradient id="beGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#F5D98B"/>
+          <stop offset="50%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#B88E22"/>
+        </linearGradient>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="#060608"/>
+      <circle cx="60" cy="60" r="55" fill="none" stroke="url(#beGoldGrad)" stroke-width="2.2"/>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#D4AF37" stroke-width="0.9" stroke-opacity="0.72"/>
+
+      <!-- Top-Left Blush Rose-Pink Floral Leaves -->
+      <g fill="#E89BAE" opacity="0.92">
+        <path d="M22 36 C16 26, 20 17, 29 19 C32 27, 29 34, 22 36 Z"/>
+        <path d="M31 24 C30 15, 38 11, 45 16 C43 23, 37 26, 31 24 Z"/>
+        <path d="M18 45 C11 40, 12 31, 20 31 C24 36, 23 42, 18 45 Z"/>
+        <circle cx="25" cy="28" r="2.2" fill="#F5D98B"/>
+      </g>
+
+      <!-- Bottom-Right Blush Rose-Pink Floral Leaves -->
+      <g fill="#E89BAE" opacity="0.92">
+        <path d="M98 84 C104 94, 100 103, 91 101 C88 93, 91 86, 98 84 Z"/>
+        <path d="M89 96 C90 105, 82 109, 75 104 C77 97, 83 94, 89 96 Z"/>
+        <path d="M102 75 C109 80, 108 89, 100 89 C96 84, 97 78, 102 75 Z"/>
+        <circle cx="95" cy="92" r="2.2" fill="#F5D98B"/>
+      </g>
+
+      <!-- Central Monogram -->
+      <text x="60" y="64" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="38" font-weight="700" fill="url(#beGoldGrad)" letter-spacing="1">Be</text>
+      <!-- Cursive Brand Name -->
+      <text x="60" y="83" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="13.5" font-weight="600" fill="#E89BAE" letter-spacing="0.8">Blink Events</text>
+    </svg>
+  </template>
+
+  <!-- ==================== PIN LOGIN SCREEN ==================== -->
+  <section class="login-screen" id="loginScreen" aria-label="Administrator Login">
+    <div class="login-card">
+      <div class="crest-box crest-box--lg" data-crest="login"></div>
+      <div class="login-brand">BLINK EVENTS</div>
+      <div class="login-sub">Kurla &bull; Vashi &bull; Admin Portal</div>
+      <p class="login-desc">Enter your administrative PIN to access multi-branch bookings, slot locks, and revenue analytics.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="pin-group">
+          <label for="pinInput">Admin Access PIN</label>
+          <input id="pinInput" class="pin-input" type="password" inputmode="numeric" maxlength="12" placeholder="••••" autocomplete="current-password" required>
+        </div>
+        <div class="login-error" id="loginError" role="alert"></div>
+        <button type="submit" class="btn btn--gold btn--full">Unlock Admin Portal</button>
+      </form>
+
+      <div class="security-note">
+        <strong>Security Notice:</strong> This PIN gate is a client-side UI lock (default demo PIN: <code>1234</code>). For production deployment, enforce Firebase Authentication and Realtime Database Security Rules to protect branch records.
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN DASHBOARD ==================== -->
+  <div id="dashboardApp" hidden>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-brand">
+          <div class="crest-box crest-box--sm" data-crest="header"></div>
+          <div class="topbar-titles">
+            <h1>BLINK EVENTS — Admin Portal</h1>
+            <p>Kurla &bull; Vashi</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="status-pill" id="liveBadge" role="status" aria-live="polite">
+            <span class="status-dot"></span>
+            <span id="liveText">Connecting…</span>
+          </div>
+          <span class="session-pill" id="sessionPill">Owner / Reception</span>
+          <button type="button" class="btn btn--outline btn--sm" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Quick Booking Action Bar -->
+      <div class="action-bar">
+        <div>
+          <h2>Multi-Branch <span>Operations &amp; Revenue</span></h2>
+          <p>Real-time synchronization with the customer website across Kurla and Vashi (Asia/Kolkata).</p>
+        </div>
+        <button type="button" class="btn btn--gold" id="openQuickBookBtn">➕ Add WhatsApp / Walk-In Booking</button>
+      </div>
+
+      <!-- Branch & Date Filters -->
+      <div class="filter-bar" aria-label="Dashboard filters">
+        <div class="segmented" role="tablist" aria-label="Branch filter">
+          <button type="button" class="seg-btn is-active" data-branch-filter="All">All Branches</button>
+          <button type="button" class="seg-btn" data-branch-filter="Kurla">Branch A — Kurla</button>
+          <button type="button" class="seg-btn" data-branch-filter="Vashi">Branch B — Vashi</button>
+        </div>
+        <div class="date-filters">
+          <div class="segmented" role="tablist" aria-label="Date range filter">
+            <button type="button" class="seg-btn is-active" data-date-filter="today">Today</button>
+            <button type="button" class="seg-btn" data-date-filter="upcoming">Upcoming</button>
+            <button type="button" class="seg-btn" data-date-filter="all">All</button>
+            <button type="button" class="seg-btn" data-date-filter="custom">Custom Date</button>
+          </div>
+          <input type="date" id="customDateInput" class="date-input" aria-label="Select custom date" hidden>
+        </div>
+      </div>
+
+      <!-- 4 Required KPI Cards -->
+      <section class="kpi-grid" aria-label="Revenue and booking analytics">
+        <div class="kpi-card">
+          <div class="kpi-label">Confirmed Bookings</div>
+          <div class="kpi-value" id="kpiConfirmedCount">–</div>
+          <div class="kpi-sub" id="kpiConfirmedSub">Active reservations in selected filter</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Kurla Revenue</div>
+          <div class="kpi-value" id="kpiKurlaTotal">–</div>
+          <div class="kpi-breakdown">
+            <div class="kpi-row"><span>Confirmed Count</span><strong id="kpiKurlaCount">0</strong></div>
+            <div class="kpi-row"><span>Venue Advance Credited</span><strong id="kpiKurlaAdvance">₹0</strong></div>
+            <div class="kpi-row"><span>Venue Balance Due</span><strong id="kpiKurlaBalance">₹0</strong></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Vashi Revenue</div>
+          <div class="kpi-value" id="kpiVashiTotal">–</div>
+          <div class="kpi-breakdown">
+            <div class="kpi-row"><span>Confirmed Count</span><strong id="kpiVashiCount">0</strong></div>
+            <div class="kpi-row"><span>Venue Advance Credited</span><strong id="kpiVashiAdvance">₹0</strong></div>
+            <div class="kpi-row"><span>Venue Balance Due</span><strong id="kpiVashiBalance">₹0</strong></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Balance to Collect at Venue</div>
+          <div class="kpi-value" id="kpiUpcomingBalance">–</div>
+          <div class="kpi-sub" id="kpiUpcomingBalanceSub">Upcoming confirmed bookings (Online ₹770 pays ₹750 venue credit)</div>
+        </div>
+      </section>
+
+      <!-- Visual Hourly Slot Manager -->
+      <section class="panel" aria-labelledby="slotManagerTitle">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title" id="slotManagerTitle">Hourly Slot Manager</h2>
+            <p class="panel-sub">09:00 AM – 12:00 AM live availability. Tap any free hour to book or block; tap an occupied hour to inspect or cancel.</p>
+          </div>
+          <div class="slot-controls">
+            <div class="segmented" role="group" aria-label="Slot Manager Branch">
+              <button type="button" class="seg-btn is-active" data-slot-branch="Kurla">Kurla</button>
+              <button type="button" class="seg-btn" data-slot-branch="Vashi">Vashi</button>
+            </div>
+            <div class="segmented" role="group" aria-label="Slot Manager Room">
+              <button type="button" class="seg-btn is-active" data-slot-room="couples">❤️ Couples Room</button>
+              <button type="button" class="seg-btn" data-slot-room="family">👑 Family Room</button>
+            </div>
+            <input type="date" id="slotDateInput" class="date-input" aria-label="Slot Manager Date">
+            <button type="button" class="btn btn--outline btn--sm" id="refreshSlotsBtn">↻ Refresh</button>
+          </div>
+        </div>
+
+        <div class="slot-legend">
+          <span class="legend-item"><span class="legend-dot legend-dot--free"></span>FREE</span>
+          <span class="legend-item"><span class="legend-dot legend-dot--booked"></span>BOOKED</span>
+          <span class="legend-item"><span class="legend-dot legend-dot--hold"></span>HOLD</span>
+          <span class="legend-item"><span class="legend-dot legend-dot--offline"></span>OFFLINE BLOCKED</span>
+        </div>
+
+        <div id="slotStateBox"></div>
+        <div class="slot-grid" id="slotGrid" hidden></div>
+      </section>
+
+      <!-- Bookings Ledger -->
+      <section class="panel" aria-labelledby="ledgerTitle">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title" id="ledgerTitle">Reservations &amp; Financial Ledger</h2>
+            <p class="panel-sub" id="ledgerSub">Showing matching records from Firebase.</p>
+          </div>
+          <input type="search" id="bookingSearch" class="search-input" placeholder="Search name, phone, booking ID…">
+        </div>
+
+        <div id="listStateBox"></div>
+        <div class="table-wrap" id="tableWrap" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th>Booking ID &amp; Branch</th>
+                <th>Customer &amp; WhatsApp</th>
+                <th>Schedule</th>
+                <th>Package &amp; Guests</th>
+                <th>Financial Breakdown</th>
+                <th>Source &amp; Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">© 2026 Blink Events. All Rights Reserved.</footer>
+  </div>
+
+  <!-- ==================== MODAL: QUICK WHATSAPP / WALK-IN BOOKING ==================== -->
+  <div class="modal-backdrop" id="quickBookModal" hidden role="dialog" aria-modal="true" aria-labelledby="qbTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3 id="qbTitle">Add WhatsApp / Walk-In Booking</h3>
+          <div class="panel-sub">Atomically locks all occupied hours and syncs with the customer website.</div>
+        </div>
+        <button type="button" class="modal-close" data-close-modal="quickBookModal" aria-label="Close">✕</button>
+      </div>
+
+      <form id="quickBookForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="qbBranch">Branch</label>
+            <select id="qbBranch" required>
+              <option value="Kurla">Kurla</option>
+              <option value="Vashi">Vashi</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="qbRoom">Room / Timetable</label>
+            <select id="qbRoom" required>
+              <option value="couples">Couples Room</option>
+              <option value="family">Family Room</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="qbDate">Booking Date</label>
+            <input type="date" id="qbDate" required>
+          </div>
+          <div class="field">
+            <label for="qbStartHour">Start Hour</label>
+            <select id="qbStartHour" required></select>
+          </div>
+          <div class="field">
+            <label for="qbDuration">Duration</label>
+            <select id="qbDuration" required>
+              <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
+              <option value="3" selected>3 Hours</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="qbName">Customer Name</label>
+            <input type="text" id="qbName" placeholder="Full name" maxlength="80" required>
+          </div>
+          <div class="field">
+            <label for="qbWhatsapp">WhatsApp Number</label>
+            <input type="tel" id="qbWhatsapp" placeholder="10-digit mobile number" inputmode="tel" required>
+          </div>
+          <div class="field">
+            <label for="qbPackage">Package Name</label>
+            <input type="text" id="qbPackage" placeholder="e.g. Royal Gold Celebration" maxlength="80" required>
+          </div>
+          <div class="field">
+            <label for="qbPersons">Total Persons</label>
+            <input type="number" id="qbPersons" min="1" max="100" value="4" required>
+          </div>
+          <div class="field">
+            <label for="qbTotal">Total Amount (₹)</label>
+            <input type="number" id="qbTotal" min="0" step="1" placeholder="2500" required>
+          </div>
+          <div class="field">
+            <label for="qbAdvance">Advance Collected (₹)</label>
+            <input type="number" id="qbAdvance" min="0" step="1" value="750" required>
+          </div>
+          <div class="field field--full">
+            <label for="qbBalance">Balance at Venue (Auto-calculated)</label>
+            <input type="text" id="qbBalance" readonly>
+          </div>
+        </div>
+
+        <div class="modal-note" id="qbNote" hidden></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn--outline" data-close-modal="quickBookModal">Close</button>
+          <a id="qbWhatsappBtn" class="btn btn--wa" href="#" target="_blank" rel="noopener noreferrer" hidden>📲 Send WhatsApp Confirmation</a>
+          <button type="submit" class="btn btn--gold" id="qbSubmitBtn">Confirm &amp; Lock Slots</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: SLOT ACTION / INSPECT ==================== -->
+  <div class="modal-backdrop" id="slotActionModal" hidden role="dialog" aria-modal="true" aria-labelledby="saTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3 id="saTitle">Slot Details</h3>
+          <div class="panel-sub" id="saSubtitle"></div>
+        </div>
+        <button type="button" class="modal-close" data-close-modal="slotActionModal" aria-label="Close">✕</button>
+      </div>
+      <div id="saBody"></div>
+      <div class="modal-actions" id="saActions"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: EDIT BOOKING TIME / EXTEND ==================== -->
+  <div class="modal-backdrop" id="editTimeModal" hidden role="dialog" aria-modal="true" aria-labelledby="etTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3 id="etTitle">✏️ Edit Booking Time / Extend</h3>
+          <div class="panel-sub">Safely shift time, branch, date, or extend hours without losing booking ID or payment history.</div>
+        </div>
+        <button type="button" class="modal-close" id="etHeaderCloseBtn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="edit-summary-grid" id="etCurrentSummary"></div>
+
+      <form id="editTimeForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="etBranch">Branch</label>
+            <select id="etBranch" required>
+              <option value="Kurla">Kurla</option>
+              <option value="Vashi">Vashi</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="etRoom">Room / Timetable</label>
+            <select id="etRoom" required>
+              <option value="couples">Couples Room</option>
+              <option value="family">Family Room</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="etDate">Booking Date</label>
+            <input type="date" id="etDate" required>
+          </div>
+          <div class="field">
+            <label for="etStartHour">Start Hour</label>
+            <select id="etStartHour" required></select>
+          </div>
+          <div class="field">
+            <label for="etDuration">Duration (Hours)</label>
+            <select id="etDuration" required>
+              <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
+              <option value="3">3 Hours</option>
+              <option value="4">4 Hours</option>
+              <option value="5">5 Hours</option>
+              <option value="6">6 Hours</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <label for="etExtraCharge">Extra Hourly Charge (₹) — Optional (per additional hour)</label>
+            <input type="number" id="etExtraCharge" min="0" step="1" placeholder="0 (leave 0 to keep current total)">
+            <div class="rate-chips" id="etRateChips" role="group" aria-label="Quick extra hourly rate presets">
+              <button type="button" class="rate-chip is-active" data-rate="0">₹0 (Time Shift Only)</button>
+              <button type="button" class="rate-chip" data-rate="500">₹500/hr (Family / Group)</button>
+              <button type="button" class="rate-chip" data-rate="700">₹700/hr (Love Paradise)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="editSlotAvailability" class="avail-banner" role="status" aria-live="polite"></div>
+
+        <div class="bill-preview-box" id="etBillPreview">
+          <div class="bill-preview-row"><span>Original Booking Total</span><strong id="etPrevTotal">₹0</strong></div>
+          <div class="bill-preview-row"><span>Extension Charge (<span id="etExtraHoursLbl">0</span> hr)</span><strong id="etExtraTotal">₹0</strong></div>
+          <div class="bill-preview-row is-total"><span>Updated Booking Total</span><strong id="etUpdatedTotal">₹0</strong></div>
+          <div class="bill-preview-row"><span>Original Advance Credited</span><strong id="etAdvancePaid">₹0</strong></div>
+          <div class="bill-preview-row is-total"><span>Updated Balance at Venue</span><strong id="etUpdatedBalance">₹0</strong></div>
+        </div>
+
+        <div class="modal-note" id="etNote" hidden></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn--outline" id="etCloseBtn">Close</button>
+          <a id="etWhatsappBtn" class="btn btn--wa" href="#" target="_blank" rel="noopener noreferrer" hidden>📲 Send Updated Bill &amp; Time on WhatsApp</a>
+          <button type="submit" class="btn btn--gold" id="etSaveBtn">Save &amp; Update Slots</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CONFIRMATION DIALOG ==================== -->
+  <div class="modal-backdrop" id="confirmModal" hidden role="dialog" aria-modal="true" aria-labelledby="cmTitle">
+    <div class="modal" style="width:min(460px, 100%)">
+      <div class="modal-head">
+        <h3 id="cmTitle">Confirm Action</h3>
+        <button type="button" class="modal-close" data-close-modal="confirmModal" aria-label="Close">✕</button>
+      </div>
+      <p id="cmMessage" style="margin:0;color:var(--text-muted);font-size:0.9rem;line-height:1.55;"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--outline" id="cmCancelBtn">Keep As Is</button>
+        <button type="button" class="btn btn--danger" id="cmConfirmBtn">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <!-- Firebase v8 SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* =====================================================================
+         1. CONFIGURATION (PRESERVED FIREBASE & BUSINESS CONSTANTS)
+         ===================================================================== */
+      var DEMO_ADMIN_PIN = '1234';
+      var SESSION_STORAGE_KEY = 'blink_events_admin_session_v1';
+      var BOOKINGS_PATH = 'aryx_demo_bookings';
+      var SLOT_LOCKS_PATH = 'slot_locks';
+      var BRANCHES = ['Kurla', 'Vashi'];
+      var ROOMS = ['couples', 'family'];
+      var ROOM_LABELS = {
+        couples: 'Couples Room',
+        family: 'Family Room'
+      };
+      var ROOM_BADGES = {
+        couples: '❤️ Couples Room',
+        family: '👑 Family Room'
+      };
+      function normalizeRoomType(val) {
+        return val === 'couples' || val === 'family' ? val : '';
+      }
+      function getRoomLabel(roomType) {
+        return ROOM_LABELS[roomType] || '';
+      }
+      var BUSINESS_TIMEZONE = 'Asia/Kolkata';
+      var ONLINE_PAYMENT_AMOUNT = 770;
+      var VENUE_ADVANCE_CREDIT = 750;
+      var OPERATING_HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+
+      var firebaseConfig = {
+        apiKey: 'AIzaSyDiGopFOIBanHJROTXL-0sIDAoIVwUSf_w',
+        authDomain: 'football-manager-be26f.firebaseapp.com',
+        databaseURL: 'https://football-manager-be26f-default-rtdb.firebaseio.com',
+        projectId: 'football-manager-be26f'
+      };
+
+      /* =====================================================================
+         2. STATE & DOM HELPERS
+         ===================================================================== */
+      function $(id) { return document.getElementById(id); }
+
+      var state = {
+        authenticated: false,
+        db: null,
+        connected: false,
+        bookingsLoaded: false,
+        bookingsError: null,
+        bookings: [],
+        slotLocksLoaded: false,
+        slotLocksError: null,
+        slotLocksTree: {},
+        branchFilter: 'All',
+        dateFilter: 'today',
+        customDate: '',
+        searchQuery: '',
+        slotBranch: 'Kurla',
+        slotRoom: 'couples',
+        slotDate: '',
+        submittingBooking: false
+      };
+
+      /* =====================================================================
+         3. TIMEZONE (ASIA/KOLKATA) & FORMATTING UTILITIES
+         ===================================================================== */
+      function getKolkataTodayISO() {
+        try {
+          return new Intl.DateTimeFormat('en-CA', {
+            timeZone: BUSINESS_TIMEZONE,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          }).format(new Date());
+        } catch (e) {
+          var d = new Date();
+          return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+        }
+      }
+
+      function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+      function formatHour12(hour24) {
+        var h = Number(hour24);
+        if (isNaN(h)) return '';
+        if (h === 24 || h === 0) return '12:00 AM';
+        var suffix = h >= 12 ? 'PM' : 'AM';
+        var h12 = h % 12;
+        if (h12 === 0) h12 = 12;
+        return pad2(h12) + ':00 ' + suffix;
+      }
+
+      function formatRange12(startHour, durationHours) {
+        var s = Number(startHour);
+        var d = Number(durationHours) || 1;
+        return formatHour12(s) + ' – ' + formatHour12(s + d);
+      }
+
+      function formatMoney(amount) {
+        var n = Math.round(Number(amount) || 0);
+        return '₹' + n.toLocaleString('en-IN');
+      }
+
+      function formatPrettyDate(iso) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+        if (!m) return iso || '–';
+        var dt = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+        return dt.toLocaleDateString('en-IN', {
+          timeZone: 'UTC',
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+      }
+
+      function normalizePhone10(raw) {
+        var digits = String(raw || '').replace(/\D/g, '');
+        if (digits.length === 12 && digits.indexOf('91') === 0) digits = digits.slice(2);
+        else if (digits.length === 11 && digits.charAt(0) === '0') digits = digits.slice(1);
+        return /^[6-9]\d{9}$/.test(digits) ? digits : '';
+      }
+
+      function generateBookingId(branch) {
+        var prefix = branch === 'Vashi' ? 'BEV' : 'BEK';
+        var ts = Date.now().toString(36).toUpperCase();
+        var rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+        return prefix + '-' + ts + '-' + rand;
+      }
+
+      function showToast(message, type) {
+        var host = $('toastHost');
+        var item = document.createElement('div');
+        item.className = 'toast' + (type === 'ok' ? ' toast--ok' : type === 'err' ? ' toast--err' : '');
+        item.textContent = message;
+        host.appendChild(item);
+        setTimeout(function () {
+          item.style.opacity = '0';
+          item.style.transition = 'opacity 0.25s ease';
+          setTimeout(function () { item.remove(); }, 260);
+        }, 4200);
+      }
+
+      /* =====================================================================
+         4. LOGO.PNG FALLBACK + INLINE SVG CREST
+         ===================================================================== */
+      function initCrests() {
+        var tpl = $('crestSvgTemplate');
+        document.querySelectorAll('[data-crest]').forEach(function (container) {
+          container.innerHTML = '';
+          var img = document.createElement('img');
+          img.className = 'crest-img';
+          img.alt = 'Blink Events Crest';
+          img.src = 'logo.png';
+          img.addEventListener('error', function () {
+            container.innerHTML = '';
+            container.appendChild(tpl.content.cloneNode(true));
+          });
+          container.appendChild(img);
+        });
+      }
+
+      /* =====================================================================
+         5. PIN LOGIN & SESSION GATE
+         ===================================================================== */
+      function getStoredSession() {
+        try {
+          return sessionStorage.getItem(SESSION_STORAGE_KEY) === '1';
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function setStoredSession(active) {
+        try {
+          if (active) sessionStorage.setItem(SESSION_STORAGE_KEY, '1');
+          else sessionStorage.removeItem(SESSION_STORAGE_KEY);
+        } catch (e) {
+          /* Ignore storage restrictions in sandboxed environments */
+        }
+      }
+
+      function applyAuthUI() {
+        $('loginScreen').hidden = state.authenticated;
+        $('dashboardApp').hidden = !state.authenticated;
+        if (state.authenticated) {
+          initFirebaseIfNeeded();
+          renderAll();
+        }
+      }
+
+      $('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pin = $('pinInput').value.trim();
+        if (pin === DEMO_ADMIN_PIN) {
+          $('loginError').textContent = '';
+          $('pinInput').value = '';
+          state.authenticated = true;
+          setStoredSession(true);
+          applyAuthUI();
+        } else {
+          $('loginError').textContent = 'Invalid PIN. Please check your credentials and try again.';
+          $('pinInput').focus();
+        }
+      });
+
+      $('logoutBtn').addEventListener('click', function () {
+        state.authenticated = false;
+        setStoredSession(false);
+        applyAuthUI();
+      });
+
+      /* =====================================================================
+         6. FIREBASE INITIALIZATION & REAL-TIME LISTENERS
+         ===================================================================== */
+      function setConnectionUI(mode, label) {
+        var badge = $('liveBadge');
+        badge.className = 'status-pill' + (mode === 'live' ? ' is-live' : mode === 'err' ? ' is-err' : '');
+        $('liveText').textContent = label;
+      }
+
+      var firebaseStarted = false;
+      function initFirebaseIfNeeded() {
+        if (firebaseStarted) return;
+        firebaseStarted = true;
+        try {
+          if (!window.firebase) throw new Error('Firebase SDK did not load.');
+          if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+          state.db = firebase.database();
+        } catch (err) {
+          state.bookingsError = 'Unable to initialize Firebase. Check internet connectivity.';
+          state.slotLocksError = state.bookingsError;
+          setConnectionUI('err', 'Disconnected');
+          renderAll();
+          return;
+        }
+
+        state.db.ref('.info/connected').on('value', function (snap) {
+          state.connected = snap.val() === true;
+          if (state.connected) setConnectionUI('live', 'Live Sync');
+          else setConnectionUI('', state.bookingsLoaded ? 'Reconnecting…' : 'Connecting…');
+        });
+
+        state.db.ref(BOOKINGS_PATH).on('value', function (snap) {
+          var list = [];
+          snap.forEach(function (child) {
+            var val = child.val();
+            if (val && typeof val === 'object') {
+              list.push(normalizeBookingRecord(child.key, val));
+            }
+          });
+          state.bookings = list;
+          state.bookingsLoaded = true;
+          state.bookingsError = null;
+          renderAll();
+        }, function (err) {
+          state.bookingsLoaded = true;
+          state.bookingsError = err && err.code === 'PERMISSION_DENIED'
+            ? 'Permission denied reading "' + BOOKINGS_PATH + '". Check Firebase Security Rules.'
+            : 'Failed to load bookings: ' + (err && err.message ? err.message : 'Unknown error');
+          setConnectionUI('err', 'DB Error');
+          renderAll();
+        });
+
+        state.db.ref(SLOT_LOCKS_PATH).on('value', function (snap) {
+          state.slotLocksTree = snap.val() || {};
+          state.slotLocksLoaded = true;
+          state.slotLocksError = null;
+          renderSlotGrid();
+        }, function (err) {
+          state.slotLocksLoaded = true;
+          state.slotLocksError = err && err.code === 'PERMISSION_DENIED'
+            ? 'Permission denied reading "' + SLOT_LOCKS_PATH + '". Check Firebase Security Rules.'
+            : 'Failed to load slot locks: ' + (err && err.message ? err.message : 'Unknown error');
+          renderSlotGrid();
+        });
+      }
+
+      /* Normalize both new multi-branch schema and any legacy records safely */
+      function normalizeBookingRecord(key, raw) {
+        var branch = raw.branch === 'Vashi' ? 'Vashi' : 'Kurla';
+        var bookingDate = raw.bookingDate || raw.date || '';
+        var status = (raw.bookingStatus || raw.status || 'confirmed').toLowerCase();
+        if (status !== 'cancelled') status = 'confirmed';
+
+        var startHour = Number(raw.startHour);
+        if (isNaN(startHour) || startHour < 9 || startHour > 23) {
+          startHour = inferStartHourFromSlot(raw.slot);
+        }
+        var durationHours = Number(raw.durationHours || raw.packageHours);
+        if (isNaN(durationHours) || durationHours < 1) durationHours = 1;
+
+        var isLegacyOffline = raw.paymentId === 'OFFLINE_COUNTER';
+        var source = raw.source || (isLegacyOffline ? 'WhatsApp / Walk-In' : 'Online');
+        var isOfflineBlock = Boolean(raw.isOfflineBlock || raw.celebrationType === 'Offline Block' || source === 'Offline Block');
+
+        var totalVal = Number(raw.totalBookingValue);
+        if (isNaN(totalVal)) {
+          totalVal = Number(raw.packagePrice || raw.amountPaid || 0);
+        }
+
+        var venueAdvance = Number(raw.venueAdvance);
+        if (isNaN(venueAdvance)) {
+          if (source === 'Online') venueAdvance = VENUE_ADVANCE_CREDIT;
+          else venueAdvance = Number(raw.amountPaid || 0);
+        }
+
+        var onlinePaid = Number(raw.onlinePaymentAmount);
+        if (isNaN(onlinePaid)) {
+          onlinePaid = source === 'Online' ? ONLINE_PAYMENT_AMOUNT : 0;
+        }
+
+        var balanceAtVenue = Number(raw.balanceAtVenue);
+        if (isNaN(balanceAtVenue)) {
+          balanceAtVenue = Math.max(0, totalVal - venueAdvance);
+        }
+
+        return {
+          _key: key,
+          bookingId: raw.bookingId || key,
+          branch: branch,
+          roomType: normalizeRoomType(raw.roomType),
+          roomLabel: raw.roomLabel || getRoomLabel(normalizeRoomType(raw.roomType)),
+          customerName: raw.customerName || (isOfflineBlock ? 'Offline Block (Admin)' : 'Guest'),
+          contactNumber: raw.contactNumber || raw.phone || '',
+          whatsappNumber: raw.whatsappNumber || raw.phone || raw.contactNumber || '',
+          celebrationType: raw.celebrationType || raw.occasion || 'Celebration',
+          bookingDate: bookingDate,
+          date: bookingDate,
+          startHour: startHour,
+          startTime: raw.startTime || (startHour ? formatHour12(startHour) : ''),
+          endTime: raw.endTime || (startHour ? formatHour12(startHour + durationHours) : ''),
+          slot: raw.slot || (startHour ? formatRange12(startHour, durationHours) : '–'),
+          durationHours: durationHours,
+          packageName: raw.packageName || (raw.packageHours ? raw.packageHours + ' Hours Package' : 'Standard Package'),
+          packagePrice: Number(raw.packagePrice || totalVal || 0),
+          totalPersons: Number(raw.totalPersons || 0),
+          extraGuests: Number(raw.extraGuests || 0),
+          extraGuestCharge: Number(raw.extraGuestCharge || 0),
+          selectedAddons: Array.isArray(raw.selectedAddons) ? raw.selectedAddons : [],
+          addonsTotal: Number(raw.addonsTotal || 0),
+          totalBookingValue: totalVal,
+          venueAdvance: venueAdvance,
+          onlinePaymentAmount: onlinePaid,
+          balanceAtVenue: balanceAtVenue,
+          bookingStatus: status,
+          status: status,
+          source: source,
+          isOfflineBlock: isOfflineBlock,
+          createdAt: raw.createdAt || ''
+        };
+      }
+
+      function inferStartHourFromSlot(slotStr) {
+        if (!slotStr) return 9;
+        var m = /(\d{1,2})\s*(AM|PM)/i.exec(slotStr);
+        if (!m) return 9;
+        var h = Number(m[1]);
+        var mer = m[2].toUpperCase();
+        if (mer === 'PM' && h < 12) h += 12;
+        if (mer === 'AM' && h === 12) h = 0;
+        return (h >= 9 && h <= 23) ? h : 9;
+      }
+
+      /* =====================================================================
+         7. FILTERING & REVENUE ANALYTICS
+         ===================================================================== */
+      function matchesDateFilter(booking, todayISO) {
+        var d = booking.bookingDate || '';
+        if (state.dateFilter === 'today') return d === todayISO;
+        if (state.dateFilter === 'upcoming') return d >= todayISO;
+        if (state.dateFilter === 'custom') return state.customDate ? d === state.customDate : true;
+        return true;
+      }
+
+      function getFilteredBookings() {
+        var todayISO = getKolkataTodayISO();
+        var q = state.searchQuery.trim().toLowerCase();
+        return state.bookings.filter(function (b) {
+          if (state.branchFilter !== 'All' && b.branch !== state.branchFilter) return false;
+          if (!matchesDateFilter(b, todayISO)) return false;
+          if (q) {
+            var hay = [b.bookingId, b.customerName, b.whatsappNumber, b.contactNumber, b.packageName, b.branch].join(' ').toLowerCase();
+            if (hay.indexOf(q) === -1) return false;
+          }
+          return true;
+        }).sort(function (a, b) {
+          if (a.bookingDate !== b.bookingDate) return a.bookingDate < b.bookingDate ? -1 : 1;
+          if (a.startHour !== b.startHour) return a.startHour - b.startHour;
+          return (a.createdAt || '') < (b.createdAt || '') ? -1 : 1;
+        });
+      }
+
+      function computeBranchStats(list, branchName) {
+        var confirmed = list.filter(function (b) {
+          return b.branch === branchName && b.bookingStatus === 'confirmed' && !b.isOfflineBlock;
+        });
+        var totalValue = 0, advanceCredited = 0, balanceDue = 0;
+        confirmed.forEach(function (b) {
+          totalValue += Number(b.totalBookingValue || 0);
+          advanceCredited += Number(b.venueAdvance || 0);
+          balanceDue += Number(b.balanceAtVenue || 0);
+        });
+        return {
+          count: confirmed.length,
+          totalValue: totalValue,
+          advanceCredited: advanceCredited,
+          balanceDue: balanceDue
+        };
+      }
+
+      function renderAnalytics() {
+        if (!state.bookingsLoaded) return;
+        var todayISO = getKolkataTodayISO();
+        var filtered = getFilteredBookings();
+        var confirmedFiltered = filtered.filter(function (b) { return b.bookingStatus === 'confirmed' && !b.isOfflineBlock; });
+
+        $('kpiConfirmedCount').textContent = String(confirmedFiltered.length);
+        $('kpiConfirmedSub').textContent = state.branchFilter + ' • ' + state.dateFilter.toUpperCase();
+
+        /* Branch cards respect date filter so owner sees accurate date-scoped branch performance */
+        var dateScopedAllBranches = state.bookings.filter(function (b) { return matchesDateFilter(b, todayISO); });
+        var kurla = computeBranchStats(dateScopedAllBranches, 'Kurla');
+        var vashi = computeBranchStats(dateScopedAllBranches, 'Vashi');
+
+        $('kpiKurlaTotal').textContent = formatMoney(kurla.totalValue);
+        $('kpiKurlaCount').textContent = String(kurla.count);
+        $('kpiKurlaAdvance').textContent = formatMoney(kurla.advanceCredited);
+        $('kpiKurlaBalance').textContent = formatMoney(kurla.balanceDue);
+
+        $('kpiVashiTotal').textContent = formatMoney(vashi.totalValue);
+        $('kpiVashiCount').textContent = String(vashi.count);
+        $('kpiVashiAdvance').textContent = formatMoney(vashi.advanceCredited);
+        $('kpiVashiBalance').textContent = formatMoney(vashi.balanceDue);
+
+        var upcomingConfirmed = state.bookings.filter(function (b) {
+          if (b.bookingStatus !== 'confirmed' || b.isOfflineBlock) return false;
+          if (state.branchFilter !== 'All' && b.branch !== state.branchFilter) return false;
+          return (b.bookingDate || '') >= todayISO;
+        });
+        var upcomingBalance = upcomingConfirmed.reduce(function (sum, b) {
+          return sum + Number(b.balanceAtVenue || 0);
+        }, 0);
+        $('kpiUpcomingBalance').textContent = formatMoney(upcomingBalance);
+        $('kpiUpcomingBalanceSub').textContent = upcomingConfirmed.length + ' upcoming confirmed booking' + (upcomingConfirmed.length === 1 ? '' : 's');
+      }
+
+      /* =====================================================================
+         8. RENDER BOOKINGS TABLE (SAFE TEXT RENDERING — NO HTML INJECTION)
+         ===================================================================== */
+      function renderBookingsTable() {
+        var box = $('listStateBox');
+        var wrap = $('tableWrap');
+        var tbody = $('bookingsTbody');
+
+        if (state.bookingsError) {
+          box.innerHTML = '';
+          var errDiv = document.createElement('div');
+          errDiv.className = 'state-box state-box--err';
+          var strong = document.createElement('strong');
+          strong.textContent = 'Database Error';
+          errDiv.appendChild(strong);
+          errDiv.appendChild(document.createTextNode(state.bookingsError));
+          box.appendChild(errDiv);
+          box.hidden = false;
+          wrap.hidden = true;
+          return;
+        }
+
+        if (!state.bookingsLoaded) {
+          box.innerHTML = '<div class="state-box"><div class="spinner"></div><strong>Loading Reservations…</strong>Syncing live records from Firebase.</div>';
+          box.hidden = false;
+          wrap.hidden = true;
+          return;
+        }
+
+        var rows = getFilteredBookings();
+        $('ledgerSub').textContent = 'Showing ' + rows.length + ' record' + (rows.length === 1 ? '' : 's') + ' (' + state.branchFilter + ' • ' + state.dateFilter + ').';
+
+        if (!rows.length) {
+          box.innerHTML = '<div class="state-box"><strong>No Matching Bookings</strong>Adjust your branch, date filter, or search query.</div>';
+          box.hidden = false;
+          wrap.hidden = true;
+          return;
+        }
+
+        box.hidden = true;
+        wrap.hidden = false;
+        tbody.innerHTML = '';
+
+        rows.forEach(function (b) {
+          var tr = document.createElement('tr');
+          if (b.bookingStatus === 'cancelled') tr.className = 'is-cancelled';
+
+          /* Col 1: Booking ID & Branch */
+          var td1 = document.createElement('td');
+          td1.setAttribute('data-label', 'Booking ID & Branch');
+          var idDiv = document.createElement('div');
+          idDiv.className = 'mono';
+          idDiv.textContent = b.bookingId;
+          var brPill = document.createElement('span');
+          brPill.className = 'pill ' + (b.branch === 'Vashi' ? 'pill--vashi' : 'pill--kurla');
+          brPill.textContent = b.branch;
+          td1.appendChild(idDiv);
+          td1.appendChild(brPill);
+          var rmPill = document.createElement('span');
+          if (b.roomType === 'couples') {
+            rmPill.className = 'pill pill--room-couples';
+            rmPill.textContent = ROOM_BADGES.couples;
+          } else if (b.roomType === 'family') {
+            rmPill.className = 'pill pill--room-family';
+            rmPill.textContent = ROOM_BADGES.family;
+          } else {
+            rmPill.className = 'pill pill--room-unset';
+            rmPill.textContent = 'Room Not Set';
+          }
+          td1.appendChild(rmPill);
+
+          /* Col 2: Customer & WhatsApp */
+          var td2 = document.createElement('td');
+          td2.setAttribute('data-label', 'Customer & WhatsApp');
+          var nameEl = document.createElement('strong');
+          nameEl.textContent = b.customerName;
+          var phoneEl = document.createElement('div');
+          phoneEl.className = 'subline';
+          phoneEl.textContent = b.whatsappNumber ? '+91 ' + b.whatsappNumber : (b.contactNumber || 'No phone');
+          td2.appendChild(nameEl);
+          td2.appendChild(phoneEl);
+
+          /* Col 3: Schedule */
+          var td3 = document.createElement('td');
+          td3.setAttribute('data-label', 'Schedule');
+          var dtEl = document.createElement('div');
+          dtEl.textContent = formatPrettyDate(b.bookingDate);
+          var slEl = document.createElement('div');
+          slEl.className = 'subline';
+          slEl.textContent = b.slot + ' (' + b.durationHours + ' hr)';
+          td3.appendChild(dtEl);
+          td3.appendChild(slEl);
+
+          /* Col 4: Package & Guests */
+          var td4 = document.createElement('td');
+          td4.setAttribute('data-label', 'Package & Guests');
+          var pkEl = document.createElement('div');
+          pkEl.textContent = b.packageName;
+          var gsEl = document.createElement('div');
+          gsEl.className = 'subline';
+          gsEl.textContent = (b.totalPersons ? b.totalPersons + ' Guests' : 'Standard') + (b.celebrationType ? ' • ' + b.celebrationType : '');
+          td4.appendChild(pkEl);
+          td4.appendChild(gsEl);
+
+          /* Col 5: Financial Breakdown */
+          var td5 = document.createElement('td');
+          td5.setAttribute('data-label', 'Financial Breakdown');
+          var totEl = document.createElement('div');
+          totEl.innerHTML = 'Total: <strong></strong>';
+          totEl.querySelector('strong').textContent = formatMoney(b.totalBookingValue);
+          var advEl = document.createElement('div');
+          advEl.className = 'subline';
+          if (b.source === 'Online') {
+            advEl.textContent = 'Online Paid: ' + formatMoney(b.onlinePaymentAmount) + ' • Venue Credit: ' + formatMoney(b.venueAdvance);
+          } else {
+            advEl.textContent = 'Advance Received: ' + formatMoney(b.venueAdvance);
+          }
+          var balEl = document.createElement('div');
+          balEl.className = 'subline';
+          balEl.textContent = 'Balance at Venue: ' + formatMoney(b.balanceAtVenue);
+          td5.appendChild(totEl);
+          td5.appendChild(advEl);
+          td5.appendChild(balEl);
+
+          /* Col 6: Source & Status */
+          var td6 = document.createElement('td');
+          td6.setAttribute('data-label', 'Source & Status');
+          var stPill = document.createElement('span');
+          stPill.className = 'pill ' + (b.bookingStatus === 'confirmed' ? 'pill--ok' : 'pill--cancel');
+          stPill.textContent = b.bookingStatus.toUpperCase();
+          var srcPill = document.createElement('div');
+          srcPill.style.marginTop = '6px';
+          var srcSpan = document.createElement('span');
+          srcSpan.className = 'pill pill--src';
+          srcSpan.textContent = b.source;
+          srcPill.appendChild(srcSpan);
+          td6.appendChild(stPill);
+          td6.appendChild(srcPill);
+
+          /* Col 7: Actions */
+          var td7 = document.createElement('td');
+          td7.setAttribute('data-label', 'Actions');
+          var actions = document.createElement('div');
+          actions.className = 'row-actions';
+
+          if (!b.isOfflineBlock && b.whatsappNumber) {
+            var waBtn = document.createElement('a');
+            waBtn.className = 'btn btn--wa btn--sm';
+            waBtn.href = buildWhatsAppUrl(b);
+            waBtn.target = '_blank';
+            waBtn.rel = 'noopener noreferrer';
+            waBtn.textContent = '📲 WhatsApp';
+            actions.appendChild(waBtn);
+          }
+
+          if (isBookingEligibleForEdit(b)) {
+            var editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'btn btn--outline btn--sm';
+            editBtn.textContent = '✏️ Edit Time / Extend';
+            editBtn.addEventListener('click', function () {
+              openEditTimeModal(b);
+            });
+            actions.appendChild(editBtn);
+          }
+
+          if (b.bookingStatus === 'confirmed') {
+            var cancelBtn = document.createElement('button');
+            cancelBtn.type = 'button';
+            cancelBtn.className = 'btn btn--danger btn--sm';
+            cancelBtn.textContent = b.isOfflineBlock ? 'Release Block' : 'Cancel';
+            cancelBtn.addEventListener('click', function () {
+              promptCancelBooking(b);
+            });
+            actions.appendChild(cancelBtn);
+          }
+
+          td7.appendChild(actions);
+
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tr.appendChild(td3);
+          tr.appendChild(td4);
+          tr.appendChild(td5);
+          tr.appendChild(td6);
+          tr.appendChild(td7);
+          tbody.appendChild(tr);
+        });
+      }
+
+      /* =====================================================================
+         9. VISUAL HOURLY SLOT MANAGER (09:00 AM – 12:00 AM)
+         ===================================================================== */
+      function getSlotLock(branch, roomType, date, hour24) {
+        var hh = pad2(hour24);
+        var bNode = state.slotLocksTree && state.slotLocksTree[branch];
+        if (!bNode || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+
+        /* 1. Primary room-specific path: slot_locks/{branch}/{roomType}/{date}/{hh} */
+        var rNode = bNode[roomType];
+        var rdNode = rNode && rNode[date];
+        if (rdNode && rdNode[hh]) {
+          return rdNode[hh];
+        }
+
+        /* 2. Legacy backward-compatibility path: slot_locks/{branch}/{date}/{hh} */
+        var legacyDateNode = bNode[date];
+        if (legacyDateNode && legacyDateNode[hh]) {
+          var legacyLock = legacyDateNode[hh];
+          var linked = legacyLock.bookingId ? findBookingById(legacyLock.bookingId) : null;
+          /* If legacy booking explicitly belongs to the OTHER room, do not block this room */
+          if (linked && linked.roomType && linked.roomType !== roomType) {
+            return null;
+          }
+          /* Ambiguous legacy locks are conservatively treated as occupied for both rooms */
+          return Object.assign({}, legacyLock, { _isLegacy: true });
+        }
+
+        return null;
+      }
+
+      function findBookingById(bookingId) {
+        if (!bookingId) return null;
+        for (var i = 0; i < state.bookings.length; i++) {
+          if (state.bookings[i].bookingId === bookingId || state.bookings[i]._key === bookingId) {
+            return state.bookings[i];
+          }
+        }
+        return null;
+      }
+
+      function renderSlotGrid() {
+        var box = $('slotStateBox');
+        var grid = $('slotGrid');
+        if (!state.slotDate) state.slotDate = getKolkataTodayISO();
+
+        if (state.slotLocksError) {
+          box.innerHTML = '';
+          var errDiv = document.createElement('div');
+          errDiv.className = 'state-box state-box--err';
+          var strong = document.createElement('strong');
+          strong.textContent = 'Slot Sync Error';
+          errDiv.appendChild(strong);
+          errDiv.appendChild(document.createTextNode(state.slotLocksError));
+          box.appendChild(errDiv);
+          box.hidden = false;
+          grid.hidden = true;
+          return;
+        }
+
+        if (!state.slotLocksLoaded) {
+          box.innerHTML = '<div class="state-box"><div class="spinner"></div><strong>Loading Hourly Slots…</strong>Fetching ' + state.slotBranch + ' (' + getRoomLabel(state.slotRoom) + ') schedule.</div>';
+          box.hidden = false;
+          grid.hidden = true;
+          return;
+        }
+
+        box.hidden = true;
+        grid.hidden = false;
+        grid.innerHTML = '';
+
+        OPERATING_HOURS.forEach(function (hr) {
+          var lock = getSlotLock(state.slotBranch, state.slotRoom, state.slotDate, hr);
+          var linkedBooking = lock && lock.bookingId ? findBookingById(lock.bookingId) : null;
+
+          var statusLabel = 'FREE';
+          var tileMod = 'free';
+          var badgeMod = 'free';
+          var metaText = 'Tap to book or block';
+
+          if (lock) {
+            if (lock.status === 'hold') {
+              statusLabel = 'HOLD';
+              tileMod = 'hold';
+              badgeMod = 'hold';
+              metaText = linkedBooking ? linkedBooking.customerName : ('Hold: ' + (lock.bookingId || 'Pending'));
+            } else if (linkedBooking && linkedBooking.isOfflineBlock) {
+              statusLabel = 'OFFLINE BLOCKED';
+              tileMod = 'offline';
+              badgeMod = 'offline';
+              metaText = 'Admin Block (' + (linkedBooking.bookingId) + ')';
+            } else {
+              statusLabel = 'BOOKED';
+              tileMod = 'booked';
+              badgeMod = 'booked';
+              metaText = linkedBooking ? (linkedBooking.customerName + ' • ' + linkedBooking.durationHours + 'h') : ('ID: ' + (lock.bookingId || 'Locked'));
+            }
+          }
+
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'slot-tile slot-tile--' + tileMod;
+
+          var timeEl = document.createElement('div');
+          timeEl.className = 'slot-time';
+          timeEl.textContent = formatRange12(hr, 1);
+
+          var badgeEl = document.createElement('span');
+          badgeEl.className = 'slot-badge slot-badge--' + badgeMod;
+          badgeEl.textContent = statusLabel;
+
+          var metaEl = document.createElement('div');
+          metaEl.className = 'slot-meta';
+          metaEl.textContent = metaText;
+
+          btn.appendChild(timeEl);
+          btn.appendChild(badgeEl);
+          btn.appendChild(metaEl);
+
+          btn.addEventListener('click', function () {
+            openSlotActionModal(hr, lock, linkedBooking);
+          });
+          grid.appendChild(btn);
+        });
+      }
+
+      /* =====================================================================
+         10. ATOMIC SLOT LOCKING, BOOKING CREATION, CANCELLATION & BLOCKING
+         ===================================================================== */
+      function getRequiredHours(startHour, durationHours) {
+        var hrs = [];
+        for (var i = 0; i < durationHours; i++) {
+          hrs.push(pad2(startHour + i));
+        }
+        return hrs;
+      }
+
+      function hasLegacyHourConflict(branch, roomType, date, requiredHours, excludeBookingId) {
+        return state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + date).once('value').then(function (snap) {
+          var legacy = snap.val();
+          if (!legacy || typeof legacy !== 'object') return null;
+          for (var i = 0; i < requiredHours.length; i++) {
+            var hh = requiredHours[i];
+            var l = legacy[hh];
+            if (l && (l.status === 'confirmed' || l.status === 'hold') && l.bookingId !== excludeBookingId) {
+              var linked = l.bookingId ? findBookingById(l.bookingId) : null;
+              if (!linked || !linked.roomType || linked.roomType === roomType) {
+                return { hour: Number(hh), bookingId: l.bookingId || 'LEGACY' };
+              }
+            }
+          }
+          return null;
+        });
+      }
+
+      function commitAtomicBooking(bookingRecord) {
+        var branch = bookingRecord.branch;
+        var roomType = normalizeRoomType(bookingRecord.roomType) || 'couples';
+        var date = bookingRecord.bookingDate;
+        var requiredHours = getRequiredHours(bookingRecord.startHour, bookingRecord.durationHours);
+        var dateLockRef = state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + roomType + '/' + date);
+
+        /* Check legacy locks first to prevent double-booking historical ambiguous slots */
+        return hasLegacyHourConflict(branch, roomType, date, requiredHours, bookingRecord.bookingId).then(function (legacyConflict) {
+          if (legacyConflict) {
+            var legErr = new Error('Legacy slot conflict at ' + formatHour12(legacyConflict.hour) + ' (Booking ID: ' + legacyConflict.bookingId + ').');
+            legErr.code = 'SLOT_CONFLICT';
+            throw legErr;
+          }
+
+          /* Step A: Atomic transaction on slot_locks/{branch}/{roomType}/{YYYY-MM-DD} */
+          return dateLockRef.transaction(function (current) {
+            var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
+            for (var i = 0; i < requiredHours.length; i++) {
+              var hh = requiredHours[i];
+              if (node[hh] && (node[hh].status === 'confirmed' || node[hh].status === 'hold')) {
+                return undefined; /* Abort atomically if any hour is already locked */
+              }
+            }
+            for (var j = 0; j < requiredHours.length; j++) {
+              node[requiredHours[j]] = {
+                status: 'confirmed',
+                bookingId: bookingRecord.bookingId
+              };
+            }
+            return node;
+          });
+        }).then(function (txResult) {
+          if (!txResult.committed) {
+            var conflictErr = new Error('One or more selected hours are already locked.');
+            conflictErr.code = 'SLOT_CONFLICT';
+            throw conflictErr;
+          }
+          /* Step B: Write booking record; rollback owned locks if booking write fails */
+          return state.db.ref(BOOKINGS_PATH + '/' + bookingRecord.bookingId).set(bookingRecord).catch(function (writeErr) {
+            var rollback = {};
+            requiredHours.forEach(function (hh) { rollback[hh] = null; });
+            return dateLockRef.update(rollback).then(function () { throw writeErr; }, function () { throw writeErr; });
+          });
+        });
+      }
+
+      function cancelBookingAndReleaseLocks(booking) {
+        var branch = booking.branch;
+        var roomType = normalizeRoomType(booking.roomType);
+        var date = booking.bookingDate;
+        var bookingId = booking.bookingId;
+        var legacyLockRef = state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + date);
+        var roomLockRef = roomType ? state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + roomType + '/' + date) : null;
+        var bookingRef = state.db.ref(BOOKINGS_PATH + '/' + booking._key);
+
+        return bookingRef.once('value').then(function (bSnap) {
+          if (!bSnap.exists()) throw new Error('Booking record no longer exists.');
+          var currentData = bSnap.val();
+          if ((currentData.bookingStatus || currentData.status) === 'cancelled') {
+            throw new Error('This booking is already cancelled.');
+          }
+          return Promise.all([
+            roomLockRef ? roomLockRef.once('value') : Promise.resolve(null),
+            legacyLockRef.once('value')
+          ]);
+        }).then(function (snaps) {
+          var roomLocks = snaps[0] ? (snaps[0].val() || {}) : {};
+          var legacyLocks = snaps[1].val() || {};
+          var updates = {};
+          updates[BOOKINGS_PATH + '/' + booking._key + '/bookingStatus'] = 'cancelled';
+          updates[BOOKINGS_PATH + '/' + booking._key + '/status'] = 'cancelled';
+
+          /* Verify ownership of every lock before releasing */
+          if (roomType) {
+            Object.keys(roomLocks).forEach(function (hh) {
+              if (roomLocks[hh] && roomLocks[hh].bookingId === bookingId) {
+                updates[SLOT_LOCKS_PATH + '/' + branch + '/' + roomType + '/' + date + '/' + hh] = null;
+              }
+            });
+          }
+          Object.keys(legacyLocks).forEach(function (hh) {
+            if (legacyLocks[hh] && legacyLocks[hh].bookingId === bookingId) {
+              updates[SLOT_LOCKS_PATH + '/' + branch + '/' + date + '/' + hh] = null;
+            }
+          });
+          return state.db.ref().update(updates);
+        });
+      }
+
+      /* =====================================================================
+         11. WHATSAPP CONFIRMATION URL BUILDER
+         ===================================================================== */
+      function buildWhatsAppUrl(b) {
+        var phone = normalizePhone10(b.whatsappNumber || b.contactNumber);
+        var paymentLine = b.source === 'Online'
+          ? 'Online Paid: ' + formatMoney(b.onlinePaymentAmount) + ' (Venue Advance Credited: ' + formatMoney(b.venueAdvance) + ')'
+          : 'Advance Received (' + b.source + '): ' + formatMoney(b.venueAdvance);
+
+        var lines = [
+          '✨ *BLINK EVENTS — BOOKING CONFIRMATION* ✨',
+          '',
+          'Hello *' + b.customerName + '*, your private celebration is confirmed!',
+          '',
+          '📍 *Branch:* ' + b.branch + (b.roomLabel ? ' (' + b.roomLabel + ')' : ''),
+          '📅 *Date:* ' + formatPrettyDate(b.bookingDate),
+          '⏰ *Time:* ' + b.startTime + ' – ' + b.endTime + ' (' + b.durationHours + ' Hour' + (b.durationHours > 1 ? 's' : '') + ')',
+          '🎁 *Package:* ' + b.packageName,
+          '💰 *Total Amount:* ' + formatMoney(b.totalBookingValue),
+          '✅ *' + paymentLine + '*',
+          '🏦 *Balance Due at Venue:* ' + formatMoney(b.balanceAtVenue),
+          '🆔 *Booking ID:* ' + b.bookingId,
+          '',
+          'We look forward to hosting you at Blink Events!'
+        ];
+        var text = encodeURIComponent(lines.join('\n'));
+        return phone ? ('https://wa.me/91' + phone + '?text=' + text) : ('https://wa.me/?text=' + text);
+      }
+
+      /* =====================================================================
+         12. QUICK BOOKING MODAL
+         ===================================================================== */
+      function populateStartHourOptions() {
+        var sel = $('qbStartHour');
+        sel.innerHTML = '';
+        OPERATING_HOURS.forEach(function (hr) {
+          var opt = document.createElement('option');
+          opt.value = String(hr);
+          opt.textContent = formatHour12(hr);
+          sel.appendChild(opt);
+        });
+      }
+
+      function updateQuickBookBalance() {
+        var total = Math.max(0, Number($('qbTotal').value) || 0);
+        var adv = Math.max(0, Number($('qbAdvance').value) || 0);
+        var bal = Math.max(0, total - adv);
+        $('qbBalance').value = formatMoney(bal);
+      }
+
+      function openQuickBookModal(prefillBranch, prefillDate, prefillHour, prefillRoom) {
+        $('quickBookForm').reset();
+        $('qbBranch').value = prefillBranch || state.slotBranch || 'Kurla';
+        $('qbRoom').value = normalizeRoomType(prefillRoom) || normalizeRoomType(state.slotRoom) || 'couples';
+        $('qbDate').value = prefillDate || state.slotDate || getKolkataTodayISO();
+        $('qbDate').min = getKolkataTodayISO();
+        $('qbStartHour').value = String(prefillHour || 18);
+        $('qbDuration').value = prefillHour && prefillHour >= 22 ? String(24 - prefillHour) : '3';
+        $('qbAdvance').value = '750';
+        $('qbPersons').value = '4';
+        $('qbNote').hidden = true;
+        $('qbWhatsappBtn').hidden = true;
+        $('qbSubmitBtn').disabled = false;
+        $('qbSubmitBtn').textContent = 'Confirm & Lock Slots';
+        updateQuickBookBalance();
+        $('quickBookModal').hidden = false;
+      }
+
+      $('qbTotal').addEventListener('input', updateQuickBookBalance);
+      $('qbAdvance').addEventListener('input', updateQuickBookBalance);
+      $('openQuickBookBtn').addEventListener('click', function () {
+        openQuickBookModal(state.branchFilter === 'Vashi' ? 'Vashi' : 'Kurla', state.slotDate || getKolkataTodayISO(), 18);
+      });
+
+      $('quickBookForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (state.submittingBooking || !state.db) return;
+
+        var noteEl = $('qbNote');
+        function showFormErr(msg) {
+          noteEl.className = 'modal-note is-err';
+          noteEl.textContent = msg;
+          noteEl.hidden = false;
+        }
+
+        var branch = $('qbBranch').value;
+        var roomType = $('qbRoom').value;
+        var date = $('qbDate').value;
+        var startHour = Number($('qbStartHour').value);
+        var duration = Number($('qbDuration').value);
+        var name = $('qbName').value.trim().replace(/\s+/g, ' ');
+        var whatsapp = normalizePhone10($('qbWhatsapp').value);
+        var pkg = $('qbPackage').value.trim();
+        var persons = Number($('qbPersons').value);
+        var total = Number($('qbTotal').value);
+        var advance = Number($('qbAdvance').value);
+
+        if (BRANCHES.indexOf(branch) === -1) return showFormErr('Please select a valid branch (Kurla or Vashi).');
+        if (ROOMS.indexOf(roomType) === -1) return showFormErr('Please select a valid room (Couples Room or Family Room).');
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < getKolkataTodayISO()) return showFormErr('Please select today or a future booking date.');
+        if (isNaN(startHour) || startHour < 9 || startHour > 23) return showFormErr('Start hour must be between 09:00 AM and 11:00 PM.');
+        if ([1, 2, 3].indexOf(duration) === -1) return showFormErr('Duration must be 1, 2, or 3 hours.');
+        if (startHour + duration > 24) return showFormErr('Selected duration exceeds 12:00 AM closing time. Choose an earlier start hour or shorter duration.');
+        if (name.length < 2) return showFormErr('Please enter the customer name.');
+        if (!whatsapp) return showFormErr('Please enter a valid 10-digit Indian WhatsApp number.');
+        if (pkg.length < 2) return showFormErr('Please enter a package name.');
+        if (isNaN(persons) || persons < 1) return showFormErr('Total persons must be at least 1.');
+        if (isNaN(total) || total < 0) return showFormErr('Please enter a valid total amount.');
+        if (isNaN(advance) || advance < 0) return showFormErr('Please enter a valid advance amount.');
+
+        var balanceAtVenue = Math.max(0, total - advance);
+        var bookingId = generateBookingId(branch);
+        var record = {
+          bookingId: bookingId,
+          branch: branch,
+          roomType: roomType,
+          roomLabel: getRoomLabel(roomType),
+          customerName: name,
+          contactNumber: whatsapp,
+          whatsappNumber: whatsapp,
+          celebrationType: 'WhatsApp / Walk-In',
+          bookingDate: date,
+          date: date,
+          startHour: startHour,
+          startTime: formatHour12(startHour),
+          endTime: formatHour12(startHour + duration),
+          slot: formatRange12(startHour, duration),
+          durationHours: duration,
+          packageName: pkg,
+          packagePrice: total,
+          totalPersons: persons,
+          extraGuests: 0,
+          extraGuestCharge: 0,
+          selectedAddons: [],
+          addonsTotal: 0,
+          totalBookingValue: total,
+          venueAdvance: advance,
+          onlinePaymentAmount: 0,
+          balanceAtVenue: balanceAtVenue,
+          bookingStatus: 'confirmed',
+          status: 'confirmed',
+          source: 'WhatsApp / Walk-In',
+          createdAt: new Date().toISOString()
+        };
+
+        state.submittingBooking = true;
+        $('qbSubmitBtn').disabled = true;
+        $('qbSubmitBtn').textContent = 'Locking Slots…';
+        noteEl.className = 'modal-note';
+        noteEl.textContent = 'Checking slot availability and committing to Firebase…';
+        noteEl.hidden = false;
+
+        commitAtomicBooking(record).then(function () {
+          noteEl.className = 'modal-note is-ok';
+          noteEl.textContent = 'Confirmed! Booking ID: ' + bookingId + '. All ' + duration + ' hour(s) are now locked on the customer website.';
+          var waBtn = $('qbWhatsappBtn');
+          waBtn.href = buildWhatsAppUrl(record);
+          waBtn.hidden = false;
+          showToast('Booking ' + bookingId + ' confirmed for ' + name + '.', 'ok');
+        }).catch(function (err) {
+          var msg = err && err.code === 'SLOT_CONFLICT'
+            ? 'Conflict: One or more hours in this window were just booked. Please pick another time.'
+            : 'Failed to save booking: ' + (err && err.message ? err.message : 'Database error');
+          showFormErr(msg);
+          $('qbSubmitBtn').disabled = false;
+        }).then(function () {
+          state.submittingBooking = false;
+          $('qbSubmitBtn').textContent = 'Confirm & Lock Slots';
+        });
+      });
+
+      /* =====================================================================
+         13. SLOT INSPECT / OFFLINE BLOCK MODAL
+         ===================================================================== */
+      function openSlotActionModal(hour24, lock, linkedBooking) {
+        var modal = $('slotActionModal');
+        var title = $('saTitle');
+        var sub = $('saSubtitle');
+        var body = $('saBody');
+        var actions = $('saActions');
+
+        sub.textContent = state.slotBranch + ' • ' + getRoomLabel(state.slotRoom) + ' • ' + formatPrettyDate(state.slotDate) + ' • ' + formatRange12(hour24, 1);
+        body.innerHTML = '';
+        actions.innerHTML = '';
+
+        if (!lock) {
+          title.textContent = 'Available Hour';
+          var p = document.createElement('p');
+          p.style.margin = '0 0 12px';
+          p.style.color = 'var(--text-muted)';
+          p.textContent = 'This hour is currently FREE in ' + getRoomLabel(state.slotRoom) + '. Choose a room below to place an administrative offline block or create a WhatsApp/Walk-In booking.';
+          body.appendChild(p);
+
+          var roomField = document.createElement('div');
+          roomField.className = 'field';
+          var roomLbl = document.createElement('label');
+          roomLbl.setAttribute('for', 'saBlockRoom');
+          roomLbl.textContent = 'Room / Timetable';
+          var roomSel = document.createElement('select');
+          roomSel.id = 'saBlockRoom';
+          ROOMS.forEach(function (rm) {
+            var o = document.createElement('option');
+            o.value = rm;
+            o.textContent = getRoomLabel(rm);
+            roomSel.appendChild(o);
+          });
+          roomSel.value = normalizeRoomType(state.slotRoom) || 'couples';
+          roomField.appendChild(roomLbl);
+          roomField.appendChild(roomSel);
+          body.appendChild(roomField);
+
+          var closeBtn = document.createElement('button');
+          closeBtn.type = 'button';
+          closeBtn.className = 'btn btn--outline';
+          closeBtn.textContent = 'Close';
+          closeBtn.addEventListener('click', function () { modal.hidden = true; });
+
+          var blockBtn = document.createElement('button');
+          blockBtn.type = 'button';
+          blockBtn.className = 'btn btn--rose';
+          blockBtn.textContent = 'Block Offline (1 Hr)';
+          blockBtn.addEventListener('click', function () {
+            var chosenRoom = roomSel.value || state.slotRoom || 'couples';
+            blockBtn.disabled = true;
+            blockBtn.textContent = 'Blocking…';
+            createOfflineBlock(state.slotBranch, chosenRoom, state.slotDate, hour24).then(function () {
+              modal.hidden = true;
+              showToast('Hour ' + formatHour12(hour24) + ' blocked offline for ' + state.slotBranch + ' (' + getRoomLabel(chosenRoom) + ').', 'ok');
+            }).catch(function (err) {
+              blockBtn.disabled = false;
+              blockBtn.textContent = 'Block Offline (1 Hr)';
+              showToast(err && err.code === 'SLOT_CONFLICT' ? 'Slot was just taken by another booking.' : 'Could not block slot.', 'err');
+            });
+          });
+
+          var bookBtn = document.createElement('button');
+          bookBtn.type = 'button';
+          bookBtn.className = 'btn btn--gold';
+          bookBtn.textContent = '➕ Add WhatsApp Booking';
+          bookBtn.addEventListener('click', function () {
+            var chosenRoom = roomSel.value || state.slotRoom || 'couples';
+            modal.hidden = true;
+            openQuickBookModal(state.slotBranch, state.slotDate, hour24, chosenRoom);
+          });
+
+          actions.appendChild(closeBtn);
+          actions.appendChild(blockBtn);
+          actions.appendChild(bookBtn);
+        } else {
+          var isBlock = linkedBooking && linkedBooking.isOfflineBlock;
+          title.textContent = lock.status === 'hold' ? 'Slot On Hold' : (isBlock ? 'Offline Blocked Slot' : 'Booked Slot Details');
+
+          var list = document.createElement('div');
+          list.className = 'detail-list';
+
+          function addRow(label, val) {
+            var r = document.createElement('div');
+            r.className = 'detail-row';
+            var s1 = document.createElement('span');
+            s1.textContent = label;
+            var s2 = document.createElement('strong');
+            s2.textContent = val;
+            r.appendChild(s1);
+            r.appendChild(s2);
+            list.appendChild(r);
+          }
+
+          addRow('Lock Status', String(lock.status || 'confirmed').toUpperCase());
+          addRow('Booking ID', lock.bookingId || 'N/A');
+          if (linkedBooking) {
+            addRow('Room', linkedBooking.roomLabel || 'Room Not Set');
+            addRow('Customer', linkedBooking.customerName);
+            addRow('WhatsApp', linkedBooking.whatsappNumber ? '+91 ' + linkedBooking.whatsappNumber : 'N/A');
+            addRow('Full Window', linkedBooking.slot + ' (' + linkedBooking.durationHours + ' hr)');
+            addRow('Package', linkedBooking.packageName);
+            addRow('Total / Venue Bal.', formatMoney(linkedBooking.totalBookingValue) + ' / ' + formatMoney(linkedBooking.balanceAtVenue));
+          } else {
+            addRow('Record Note', 'Orphaned or external lock (no matching booking document found).');
+          }
+          body.appendChild(list);
+
+          var cBtn = document.createElement('button');
+          cBtn.type = 'button';
+          cBtn.className = 'btn btn--outline';
+          cBtn.textContent = 'Close';
+          cBtn.addEventListener('click', function () { modal.hidden = true; });
+          actions.appendChild(cBtn);
+
+          if (linkedBooking && !linkedBooking.isOfflineBlock && linkedBooking.whatsappNumber) {
+            var wa = document.createElement('a');
+            wa.className = 'btn btn--wa';
+            wa.href = buildWhatsAppUrl(linkedBooking);
+            wa.target = '_blank';
+            wa.rel = 'noopener noreferrer';
+            wa.textContent = '📲 Send WhatsApp';
+            actions.appendChild(wa);
+          }
+
+          if (isBookingEligibleForEdit(linkedBooking)) {
+            var slotEditBtn = document.createElement('button');
+            slotEditBtn.type = 'button';
+            slotEditBtn.className = 'btn btn--gold';
+            slotEditBtn.textContent = '✏️ Edit Time / Extend';
+            slotEditBtn.addEventListener('click', function () {
+              modal.hidden = true;
+              openEditTimeModal(linkedBooking);
+            });
+            actions.appendChild(slotEditBtn);
+          }
+
+          if (linkedBooking && linkedBooking.bookingStatus === 'confirmed') {
+            var relBtn = document.createElement('button');
+            relBtn.type = 'button';
+            relBtn.className = 'btn btn--danger';
+            relBtn.textContent = isBlock ? 'Release Block' : 'Cancel Booking & Release';
+            relBtn.addEventListener('click', function () {
+              modal.hidden = true;
+              promptCancelBooking(linkedBooking);
+            });
+            actions.appendChild(relBtn);
+          }
+        }
+
+        modal.hidden = false;
+      }
+
+      function createOfflineBlock(branch, roomType, date, startHour) {
+        var resolvedRoom = normalizeRoomType(roomType) || 'couples';
+        var bookingId = generateBookingId(branch);
+        var record = {
+          bookingId: bookingId,
+          branch: branch,
+          roomType: resolvedRoom,
+          roomLabel: getRoomLabel(resolvedRoom),
+          customerName: 'Offline Block (Admin)',
+          contactNumber: '',
+          whatsappNumber: '',
+          celebrationType: 'Offline Block',
+          bookingDate: date,
+          date: date,
+          startHour: startHour,
+          startTime: formatHour12(startHour),
+          endTime: formatHour12(startHour + 1),
+          slot: formatRange12(startHour, 1),
+          durationHours: 1,
+          packageName: 'Administrative Block',
+          packagePrice: 0,
+          totalPersons: 0,
+          extraGuests: 0,
+          extraGuestCharge: 0,
+          selectedAddons: [],
+          addonsTotal: 0,
+          totalBookingValue: 0,
+          venueAdvance: 0,
+          onlinePaymentAmount: 0,
+          balanceAtVenue: 0,
+          bookingStatus: 'confirmed',
+          status: 'confirmed',
+          source: 'Offline Block',
+          isOfflineBlock: true,
+          createdAt: new Date().toISOString()
+        };
+        return commitAtomicBooking(record);
+      }
+
+      /* =====================================================================
+         14. IN-PAGE CONFIRMATION DIALOG (NO WINDOW.CONFIRM)
+         ===================================================================== */
+      var pendingConfirmAction = null;
+      function promptCancelBooking(booking) {
+        $('cmTitle').textContent = booking.isOfflineBlock ? 'Release Offline Block?' : 'Cancel Booking & Release Slots?';
+        $('cmMessage').textContent = booking.isOfflineBlock
+          ? 'Release the offline block for ' + booking.branch + ' on ' + formatPrettyDate(booking.bookingDate) + ' (' + booking.slot + ')?'
+          : 'Cancel booking ' + booking.bookingId + ' for ' + booking.customerName + ' (' + booking.branch + ', ' + formatPrettyDate(booking.bookingDate) + ', ' + booking.slot + ')? All ' + booking.durationHours + ' locked hour(s) will be released on the customer website.';
+
+        pendingConfirmAction = function () {
+          $('cmConfirmBtn').disabled = true;
+          $('cmConfirmBtn').textContent = 'Updating…';
+          cancelBookingAndReleaseLocks(booking).then(function () {
+            $('confirmModal').hidden = true;
+            showToast((booking.isOfflineBlock ? 'Block released' : 'Booking cancelled') + ' and slot locks cleared.', 'ok');
+          }).catch(function (err) {
+            showToast(err && err.message ? err.message : 'Failed to cancel booking.', 'err');
+          }).then(function () {
+            $('cmConfirmBtn').disabled = false;
+            $('cmConfirmBtn').textContent = 'Proceed';
+          });
+        };
+        $('confirmModal').hidden = false;
+      }
+
+      $('cmConfirmBtn').addEventListener('click', function () {
+        if (pendingConfirmAction) pendingConfirmAction();
+      });
+      $('cmCancelBtn').addEventListener('click', function () {
+        pendingConfirmAction = null;
+        $('confirmModal').hidden = true;
+      });
+
+      /* =====================================================================
+         15. FILTER & MODAL EVENT WIRING
+         ===================================================================== */
+      document.querySelectorAll('[data-branch-filter]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.branchFilter = btn.getAttribute('data-branch-filter');
+          document.querySelectorAll('[data-branch-filter]').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+          });
+          renderAnalytics();
+          renderBookingsTable();
+        });
+      });
+
+      document.querySelectorAll('[data-date-filter]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.dateFilter = btn.getAttribute('data-date-filter');
+          document.querySelectorAll('[data-date-filter]').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+          });
+          var customInput = $('customDateInput');
+          customInput.hidden = state.dateFilter !== 'custom';
+          if (state.dateFilter === 'custom' && !state.customDate) {
+            state.customDate = getKolkataTodayISO();
+            customInput.value = state.customDate;
+          }
+          renderAnalytics();
+          renderBookingsTable();
+        });
+      });
+
+      $('customDateInput').addEventListener('change', function () {
+        state.customDate = this.value;
+        renderAnalytics();
+        renderBookingsTable();
+      });
+
+      $('bookingSearch').addEventListener('input', function () {
+        state.searchQuery = this.value;
+        renderBookingsTable();
+      });
+
+      document.querySelectorAll('[data-slot-branch]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.slotBranch = btn.getAttribute('data-slot-branch');
+          document.querySelectorAll('[data-slot-branch]').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+          });
+          renderSlotGrid();
+        });
+      });
+
+      document.querySelectorAll('[data-slot-room]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.slotRoom = normalizeRoomType(btn.getAttribute('data-slot-room')) || 'couples';
+          document.querySelectorAll('[data-slot-room]').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+          });
+          renderSlotGrid();
+        });
+      });
+
+      $('slotDateInput').addEventListener('change', function () {
+        state.slotDate = this.value || getKolkataTodayISO();
+        renderSlotGrid();
+      });
+
+      $('refreshSlotsBtn').addEventListener('click', function () {
+        if (!state.db) return;
+        state.db.ref(SLOT_LOCKS_PATH).once('value').then(function (snap) {
+          state.slotLocksTree = snap.val() || {};
+          state.slotLocksLoaded = true;
+          renderSlotGrid();
+          showToast('Slot availability refreshed.', 'ok');
+        }).catch(function () {
+          showToast('Could not refresh slots.', 'err');
+        });
+      });
+
+      document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-close-modal');
+          $(id).hidden = true;
+        });
+      });
+
+      function renderAll() {
+        renderAnalytics();
+        renderSlotGrid();
+        renderBookingsTable();
+      }
+
+      /* =====================================================================
+         15B. SEQUENTIAL EDIT TIME, SLOT EXTENSION & BILL SYNCHRONIZATION
+         ===================================================================== */
+      var activeEditingBookingId = null;
+      var isSavingEdit = false;
+      var currentEditSnapshot = null;
+
+      function isBookingEligibleForEdit(b) {
+        return Boolean(b && b.bookingStatus === 'confirmed' && !b.isOfflineBlock && b.bookingId && b._key);
+      }
+
+      function populateEditStartHourOptions() {
+        var sel = $('etStartHour');
+        if (!sel) return;
+        sel.innerHTML = '';
+        OPERATING_HOURS.forEach(function (hr) {
+          var opt = document.createElement('option');
+          opt.value = String(hr);
+          opt.textContent = formatHour12(hr);
+          sel.appendChild(opt);
+        });
+      }
+
+      function calculateRevisedBill(origSnap, newDuration, extraHourlyCharge) {
+        var origTotal = Math.round(Number(origSnap.totalBookingValue || 0));
+        var origAdvance = Math.round(Number(origSnap.venueAdvance || 0));
+        var additionalHours = Math.max(0, Number(newDuration) - Number(origSnap.durationHours || 1));
+        var rate = Math.max(0, Number(extraHourlyCharge) || 0);
+        var extraAmount = Math.round(additionalHours * rate);
+        var updatedTotal = Math.round(origTotal + extraAmount);
+        var updatedBalance = Math.max(0, updatedTotal - origAdvance);
+        return {
+          additionalHours: additionalHours,
+          extraAmount: extraAmount,
+          updatedTotal: updatedTotal,
+          updatedBalance: updatedBalance
+        };
+      }
+
+      function renderEditCurrentSummary(b) {
+        var box = $('etCurrentSummary');
+        box.innerHTML = '';
+        var items = [
+          ['Booking ID', b.bookingId],
+          ['Customer', b.customerName],
+          ['Current Branch', b.branch],
+          ['Current Room', b.roomLabel || 'Room Not Set'],
+          ['Current Date', formatPrettyDate(b.bookingDate)],
+          ['Current Time', b.startTime + ' (' + b.durationHours + ' hr)'],
+          ['Current Total', formatMoney(b.totalBookingValue)]
+        ];
+        items.forEach(function (pair) {
+          var div = document.createElement('div');
+          div.className = 'edit-summary-item';
+          var sp = document.createElement('span');
+          sp.textContent = pair[0];
+          var st = document.createElement('strong');
+          st.textContent = pair[1];
+          div.appendChild(sp);
+          div.appendChild(st);
+          box.appendChild(div);
+        });
+      }
+
+      function setEditFormDisabled(disabled) {
+        ['etBranch', 'etRoom', 'etDate', 'etStartHour', 'etDuration', 'etExtraCharge'].forEach(function (id) {
+          $(id).disabled = disabled;
+        });
+      }
+
+      function evaluateEditModalState() {
+        if (!currentEditSnapshot) return false;
+        var branch = $('etBranch').value;
+        var roomType = $('etRoom').value;
+        var date = $('etDate').value;
+        var startHour = Number($('etStartHour').value);
+        var duration = Number($('etDuration').value);
+        var extraChargeVal = $('etExtraCharge').value.trim();
+        var extraRate = extraChargeVal === '' ? 0 : Number(extraChargeVal);
+
+        var bill = calculateRevisedBill(currentEditSnapshot, duration, extraRate);
+        $('etPrevTotal').textContent = formatMoney(currentEditSnapshot.totalBookingValue);
+        $('etExtraHoursLbl').textContent = String(bill.additionalHours);
+        $('etExtraTotal').textContent = formatMoney(bill.extraAmount);
+        $('etUpdatedTotal').textContent = formatMoney(bill.updatedTotal);
+        $('etAdvancePaid').textContent = formatMoney(currentEditSnapshot.venueAdvance);
+        $('etUpdatedBalance').textContent = formatMoney(bill.updatedBalance);
+
+        var banner = $('editSlotAvailability');
+        var saveBtn = $('etSaveBtn');
+
+        if (BRANCHES.indexOf(branch) === -1 || ROOMS.indexOf(roomType) === -1 || !/^\d{4}-\d{2}-\d{2}$/.test(date) || isNaN(startHour) || isNaN(duration) || extraRate < 0 || isNaN(extraRate)) {
+          banner.className = 'avail-banner is-conflict';
+          banner.textContent = 'Please complete all required fields with valid values.';
+          saveBtn.disabled = true;
+          return false;
+        }
+
+        if (startHour + duration > 24) {
+          banner.className = 'avail-banner is-conflict';
+          banner.textContent = 'Midnight validation: Booking cannot extend beyond 12:00 AM (' + formatHour12(startHour) + ' + ' + duration + ' hr). Choose an earlier start hour or shorter duration.';
+          saveBtn.disabled = true;
+          return false;
+        }
+
+        var conflicts = [];
+        for (var i = 0; i < duration; i++) {
+          var hr = startHour + i;
+          var lock = getSlotLock(branch, roomType, date, hr);
+          if (lock && (lock.status === 'confirmed' || lock.status === 'hold') && lock.bookingId !== currentEditSnapshot.bookingId) {
+            conflicts.push('Slot clash with Booking ID ' + (lock.bookingId || 'UNKNOWN') + ' at ' + formatHour12(hr) + '. Shift that booking first, then retry.');
+          }
+        }
+
+        if (conflicts.length > 0) {
+          banner.className = 'avail-banner is-conflict';
+          banner.textContent = conflicts.join(' ');
+          saveBtn.disabled = true;
+          return false;
+        }
+
+        banner.className = 'avail-banner is-free';
+        banner.textContent = '✓ All target hours are free to shift/extend.';
+        saveBtn.disabled = isSavingEdit;
+        return true;
+      }
+
+      function openEditTimeModal(booking) {
+        if (!isBookingEligibleForEdit(booking)) {
+          showToast('Only confirmed non-blocked bookings can be edited.', 'err');
+          return;
+        }
+        if (activeEditingBookingId !== null) {
+          showToast('An edit session for Booking ID ' + activeEditingBookingId + ' is already active. Please save or close it first.', 'err');
+          return;
+        }
+
+        activeEditingBookingId = booking.bookingId;
+        currentEditSnapshot = {
+          _key: booking._key,
+          bookingId: booking.bookingId,
+          branch: booking.branch,
+          roomType: normalizeRoomType(booking.roomType),
+          bookingDate: booking.bookingDate,
+          startHour: booking.startHour,
+          durationHours: booking.durationHours,
+          totalBookingValue: booking.totalBookingValue,
+          venueAdvance: booking.venueAdvance,
+          updatedAt: booking.updatedAt || '',
+          raw: Object.assign({}, booking)
+        };
+
+        renderEditCurrentSummary(booking);
+        $('etBranch').value = booking.branch;
+        $('etRoom').value = normalizeRoomType(booking.roomType) || normalizeRoomType(state.slotRoom) || 'couples';
+        $('etDate').min = getKolkataTodayISO();
+        $('etDate').value = booking.bookingDate;
+        $('etStartHour').value = String(booking.startHour);
+        $('etDuration').value = String(Math.min(6, Math.max(1, booking.durationHours || 1)));
+        $('etExtraCharge').value = '';
+        syncRateChipSelection('0');
+        $('etNote').hidden = true;
+        $('etWhatsappBtn').hidden = true;
+        $('etSaveBtn').textContent = 'Save & Update Slots';
+        setEditFormDisabled(false);
+
+        evaluateEditModalState();
+        $('editTimeModal').hidden = false;
+      }
+
+      function closeEditTimeModal() {
+        if (isSavingEdit) {
+          showToast('Database synchronization is in progress. Please wait until saving completes.', 'err');
+          return;
+        }
+        $('editTimeModal').hidden = true;
+        activeEditingBookingId = null;
+        currentEditSnapshot = null;
+      }
+
+      ['etBranch', 'etRoom', 'etDate', 'etStartHour', 'etDuration', 'etExtraCharge'].forEach(function (id) {
+        $(id).addEventListener('input', evaluateEditModalState);
+        $(id).addEventListener('change', evaluateEditModalState);
+      });
+
+      $('etCloseBtn').addEventListener('click', closeEditTimeModal);
+      $('etHeaderCloseBtn').addEventListener('click', closeEditTimeModal);
+
+      function syncRateChipSelection(valStr) {
+        var normalized = valStr === '' ? '0' : String(valStr);
+        document.querySelectorAll('#etRateChips .rate-chip').forEach(function (chip) {
+          chip.classList.toggle('is-active', chip.getAttribute('data-rate') === normalized);
+        });
+      }
+
+      document.querySelectorAll('#etRateChips .rate-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var rate = chip.getAttribute('data-rate');
+          $('etExtraCharge').value = rate;
+          syncRateChipSelection(rate);
+          evaluateEditModalState();
+        });
+      });
+
+      $('etExtraCharge').addEventListener('input', function () {
+        syncRateChipSelection(this.value.trim());
+      });
+
+      function executeSafeSlotAndBookingUpdate(snap, newBranch, newRoomType, newDate, newStartHour, newDuration, bill, extraRate) {
+        var newHours = getRequiredHours(newStartHour, newDuration);
+        var origHours = getRequiredHours(snap.startHour, snap.durationHours);
+        var sameLocation = (snap.roomType && newBranch === snap.branch && newRoomType === snap.roomType && newDate === snap.bookingDate);
+        var nowISO = new Date().toISOString();
+
+        var bookingUpdates = {
+          branch: newBranch,
+          roomType: newRoomType,
+          roomLabel: getRoomLabel(newRoomType),
+          bookingDate: newDate,
+          date: newDate,
+          startHour: newStartHour,
+          startTime: formatHour12(newStartHour),
+          endTime: formatHour12(newStartHour + newDuration),
+          slot: formatRange12(newStartHour, newDuration),
+          durationHours: newDuration,
+          totalBookingValue: bill.updatedTotal,
+          balanceAtVenue: bill.updatedBalance,
+          updatedAt: nowISO,
+          lastEditAudit: {
+            bookingId: snap.bookingId,
+            previousBranch: snap.branch,
+            previousRoomType: snap.roomType || 'legacy',
+            previousDate: snap.bookingDate,
+            previousStartTime: formatHour12(snap.startHour),
+            previousDuration: snap.durationHours,
+            previousTotal: snap.totalBookingValue,
+            newBranch: newBranch,
+            newRoomType: newRoomType,
+            newDate: newDate,
+            newStartTime: formatHour12(newStartHour),
+            newDuration: newDuration,
+            updatedTotal: bill.updatedTotal,
+            updatedAt: nowISO
+          }
+        };
+        if (bill.extraAmount > 0) {
+          bookingUpdates.extraHourlyCharge = extraRate;
+          bookingUpdates.additionalHoursCharge = bill.extraAmount;
+        }
+
+        /* Step 1: Stale Booking Protection */
+        return state.db.ref(BOOKINGS_PATH + '/' + snap._key).once('value').then(function (bSnap) {
+          if (!bSnap.exists()) throw new Error('Booking record no longer exists in Firebase.');
+          var liveRaw = bSnap.val();
+          var liveStatus = (liveRaw.bookingStatus || liveRaw.status || '').toLowerCase();
+          if (liveStatus !== 'confirmed') throw new Error('Booking is no longer confirmed. Refresh and inspect.');
+          var liveNorm = normalizeBookingRecord(snap._key, liveRaw);
+          if (liveNorm.branch !== snap.branch ||
+              liveNorm.roomType !== snap.roomType ||
+              liveNorm.bookingDate !== snap.bookingDate ||
+              liveNorm.startHour !== snap.startHour ||
+              liveNorm.durationHours !== snap.durationHours ||
+              Number(liveNorm.totalBookingValue) !== Number(snap.totalBookingValue) ||
+              (liveRaw.updatedAt || '') !== (snap.updatedAt || '')) {
+            throw new Error('This booking was modified by another administrator. Please close, refresh, and reopen.');
+          }
+
+          /* Verify no conflicting legacy lock at destination */
+          return hasLegacyHourConflict(newBranch, newRoomType, newDate, newHours, snap.bookingId);
+        }).then(function (legacyConflict) {
+          if (legacyConflict) {
+            throw new Error('Slot clash with Booking ID ' + legacyConflict.bookingId + ' at ' + formatHour12(legacyConflict.hour) + '. Shift that booking first, then retry.');
+          }
+
+          /* Step 2A: Same Branch, Same Room & Same Date -> Single atomic transaction */
+          if (sameLocation) {
+            var sameRef = state.db.ref(SLOT_LOCKS_PATH + '/' + newBranch + '/' + newRoomType + '/' + newDate);
+            var txConflictMsg = null;
+            return sameRef.transaction(function (current) {
+              var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
+              for (var i = 0; i < newHours.length; i++) {
+                var hh = newHours[i];
+                var existing = node[hh];
+                if (existing && (existing.status === 'confirmed' || existing.status === 'hold') && existing.bookingId !== snap.bookingId) {
+                  txConflictMsg = 'Slot clash with Booking ID ' + (existing.bookingId || 'UNKNOWN') + ' at ' + formatHour12(Number(hh)) + '. Shift that booking first, then retry.';
+                  return undefined;
+                }
+              }
+              Object.keys(node).forEach(function (k) {
+                if (node[k] && node[k].bookingId === snap.bookingId) delete node[k];
+              });
+              newHours.forEach(function (hh) {
+                node[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+              });
+              return node;
+            }).then(function (txRes) {
+              if (!txRes.committed) {
+                throw new Error(txConflictMsg || 'Concurrent slot conflict detected. Transaction aborted safely.');
+              }
+              return state.db.ref(BOOKINGS_PATH + '/' + snap._key).update(bookingUpdates).catch(function (writeErr) {
+                return sameRef.transaction(function (curr) {
+                  var n = (curr && typeof curr === 'object') ? Object.assign({}, curr) : {};
+                  Object.keys(n).forEach(function (k) {
+                    if (n[k] && n[k].bookingId === snap.bookingId) delete n[k];
+                  });
+                  origHours.forEach(function (hh) {
+                    n[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+                  });
+                  return n;
+                }).then(function () { throw writeErr; }, function () { throw writeErr; });
+              });
+            });
+          }
+
+          /* Step 2B: Cross-Room, Cross-Branch, or Cross-Date -> Safe 2-Phase Migration with Compensation */
+          var newRef = state.db.ref(SLOT_LOCKS_PATH + '/' + newBranch + '/' + newRoomType + '/' + newDate);
+          var oldPath = snap.roomType
+            ? (SLOT_LOCKS_PATH + '/' + snap.branch + '/' + snap.roomType + '/' + snap.bookingDate)
+            : (SLOT_LOCKS_PATH + '/' + snap.branch + '/' + snap.bookingDate);
+          var oldRef = state.db.ref(oldPath);
+          var crossConflictMsg = null;
+          var newLocksSecured = false;
+          var oldLocksRemoved = false;
+
+          return newRef.transaction(function (current) {
+            var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
+            for (var i = 0; i < newHours.length; i++) {
+              var hh = newHours[i];
+              var existing = node[hh];
+              if (existing && (existing.status === 'confirmed' || existing.status === 'hold') && existing.bookingId !== snap.bookingId) {
+                crossConflictMsg = 'Slot clash with Booking ID ' + (existing.bookingId || 'UNKNOWN') + ' at ' + formatHour12(Number(hh)) + '. Shift that booking first, then retry.';
+                return undefined;
+              }
+            }
+            newHours.forEach(function (hh) {
+              node[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+            });
+            return node;
+          }).then(function (newTx) {
+            if (!newTx.committed) {
+              throw new Error(crossConflictMsg || 'Target slot was just claimed by another booking. Migration aborted.');
+            }
+            newLocksSecured = true;
+            return oldRef.transaction(function (current) {
+              var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
+              Object.keys(node).forEach(function (k) {
+                if (node[k] && node[k].bookingId === snap.bookingId) delete node[k];
+              });
+              return node;
+            });
+          }).then(function () {
+            oldLocksRemoved = true;
+            return state.db.ref(BOOKINGS_PATH + '/' + snap._key).update(bookingUpdates);
+          }).catch(function (migErr) {
+            var recoveryOps = [];
+            if (newLocksSecured) {
+              recoveryOps.push(newRef.transaction(function (curr) {
+                var n = (curr && typeof curr === 'object') ? Object.assign({}, curr) : {};
+                newHours.forEach(function (hh) {
+                  if (n[hh] && n[hh].bookingId === snap.bookingId) delete n[hh];
+                });
+                return n;
+              }));
+            }
+            if (oldLocksRemoved) {
+              recoveryOps.push(oldRef.transaction(function (curr) {
+                var n = (curr && typeof curr === 'object') ? Object.assign({}, curr) : {};
+                origHours.forEach(function (hh) {
+                  if (!n[hh]) n[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+                });
+                return n;
+              }));
+            }
+            return Promise.all(recoveryOps).then(function () { throw migErr; }, function () { throw migErr; });
+          });
+        }).then(function () {
+          return Object.assign({}, snap.raw, bookingUpdates);
+        });
+      }
+
+      $('editTimeForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (isSavingEdit || !currentEditSnapshot || !state.db) return;
+        if (!evaluateEditModalState()) return;
+
+        var newBranch = $('etBranch').value;
+        var newRoomType = $('etRoom').value;
+        var newDate = $('etDate').value;
+        var newStartHour = Number($('etStartHour').value);
+        var newDuration = Number($('etDuration').value);
+        var extraVal = $('etExtraCharge').value.trim();
+        var extraRate = extraVal === '' ? 0 : Number(extraVal);
+        var bill = calculateRevisedBill(currentEditSnapshot, newDuration, extraRate);
+
+        isSavingEdit = true;
+        setEditFormDisabled(true);
+        $('etSaveBtn').disabled = true;
+        $('etSaveBtn').textContent = 'Syncing Slots…';
+
+        var noteEl = $('etNote');
+        noteEl.className = 'modal-note';
+        noteEl.textContent = 'Verifying booking state and locking target hours in Firebase…';
+        noteEl.hidden = false;
+
+        executeSafeSlotAndBookingUpdate(currentEditSnapshot, newBranch, newRoomType, newDate, newStartHour, newDuration, bill, extraRate)
+          .then(function (updatedBooking) {
+            isSavingEdit = false;
+            activeEditingBookingId = null; /* Release sequential edit lock on success */
+            noteEl.className = 'modal-note is-ok';
+            noteEl.textContent = 'Booking updated successfully! New time slots and revised bill have been saved.';
+            $('etSaveBtn').textContent = 'Saved ✓';
+            var waBtn = $('etWhatsappBtn');
+            waBtn.href = buildWhatsAppUrl(updatedBooking);
+            waBtn.hidden = false;
+            showToast('Booking updated successfully! New time slots and revised bill have been saved.', 'ok');
+            renderAll();
+          })
+          .catch(function (err) {
+            isSavingEdit = false;
+            setEditFormDisabled(false);
+            $('etSaveBtn').textContent = 'Save & Update Slots';
+            noteEl.className = 'modal-note is-err';
+            noteEl.textContent = err && err.message ? err.message : 'Failed to update booking. Original booking preserved.';
+            evaluateEditModalState();
+            showToast(noteEl.textContent, 'err');
+          });
+      });
+
+      /* =====================================================================
+         16. BOOTSTRAP
+         ===================================================================== */
+      initCrests();
+      populateStartHourOptions();
+      populateEditStartHourOptions();
+      state.slotDate = getKolkataTodayISO();
+      $('slotDateInput').value = state.slotDate;
+      state.authenticated = getStoredSession();
+      applyAuthUI();
+    })();
+  </script>
+</body>
+</html>
