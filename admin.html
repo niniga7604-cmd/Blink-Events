@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
     :root {
@@ -44,10 +45,11 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; max-width: 100%; overflow-x: hidden; }
     body {
       margin: 0;
       min-height: 100vh;
+      max-width: 100%;
       background:
         radial-gradient(900px 420px at 15% -5%, rgba(212, 175, 55, 0.08), transparent 60%),
         radial-gradient(800px 420px at 88% 0%, rgba(232, 155, 174, 0.08), transparent 60%),
@@ -62,6 +64,7 @@
     h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); letter-spacing: 0.01em; }
     button, input, select, textarea { font: inherit; color: inherit; }
     button { cursor: pointer; }
+    code { overflow-wrap: anywhere; word-break: break-word; }
     [hidden] { display: none !important; }
 
     :focus-visible {
@@ -211,6 +214,7 @@
       gap: 12px;
       min-width: 0;
     }
+    .topbar-titles { min-width: 0; }
     .topbar-titles h1 {
       font-size: clamp(1rem, 2.5vw, 1.3rem);
       font-weight: 700;
@@ -323,6 +327,7 @@
       background: rgba(37, 211, 102, 0.24);
     }
     .btn--sm { min-height: 36px; padding: 6px 13px; font-size: 0.78rem; }
+    .btn--xs { min-height: 30px; padding: 4px 10px; font-size: 0.73rem; }
     .btn--full { width: 100%; }
 
     /* ---------- Main Container ---------- */
@@ -330,6 +335,37 @@
       width: min(1320px, 100% - 28px);
       margin-inline: auto;
       padding: 22px 0 48px;
+      min-width: 0;
+    }
+
+    /* ---------- Module Navigation Tabs ---------- */
+    .module-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding: 6px;
+      border-radius: 16px;
+      background: var(--bg-charcoal);
+      border: 1px solid var(--border-gold);
+    }
+    .module-tab {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.16s, color 0.16s, border-color 0.16s;
+    }
+    .module-tab:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.06); }
+    .module-tab.is-active {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #060608;
+      font-weight: 700;
+      box-shadow: var(--shadow-gold);
     }
 
     /* ---------- Action Hero Bar ---------- */
@@ -344,7 +380,7 @@
       background: linear-gradient(135deg, rgba(19, 19, 23, 0.95), rgba(25, 25, 31, 0.92));
       border: 1px solid var(--border-gold);
       box-shadow: var(--shadow-card);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .action-bar h2 {
       font-size: clamp(1.15rem, 3vw, 1.5rem);
@@ -355,6 +391,12 @@
       margin: 4px 0 0;
       color: var(--text-muted);
       font-size: 0.84rem;
+    }
+    .action-bar-btns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     /* ---------- Filter Toolbar ---------- */
@@ -371,16 +413,17 @@
       flex-wrap: wrap;
       gap: 6px;
       padding: 5px;
-      border-radius: 999px;
+      border-radius: 16px;
       background: var(--bg-charcoal);
       border: 1px solid var(--border-gold);
+      max-width: 100%;
     }
     .seg-btn {
       border: 0;
       background: transparent;
       color: var(--text-muted);
-      padding: 8px 15px;
-      border-radius: 999px;
+      padding: 8px 14px;
+      border-radius: 12px;
       font-size: 0.8rem;
       font-weight: 600;
       transition: background 0.16s, color 0.16s;
@@ -395,6 +438,7 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      max-width: 100%;
     }
     .date-input {
       min-height: 38px;
@@ -412,6 +456,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
+      margin-bottom: 14px;
+    }
+    .kpi-grid--collections {
       margin-bottom: 22px;
     }
     .kpi-card {
@@ -422,6 +469,7 @@
       padding: 18px;
       overflow: hidden;
       box-shadow: var(--shadow-card);
+      min-width: 0;
     }
     .kpi-card::before {
       content: "";
@@ -430,6 +478,10 @@
       height: 3px;
       background: linear-gradient(90deg, var(--gold), var(--rose));
     }
+    .kpi-card--cash::before { background: linear-gradient(90deg, #34D399, #10B981); }
+    .kpi-card--upi::before { background: linear-gradient(90deg, #60A5FA, #818CF8); }
+    .kpi-card--pending::before { background: linear-gradient(90deg, #FBBF24, #F59E0B); }
+    .kpi-card--razorpay::before { background: linear-gradient(90deg, var(--rose), var(--gold)); }
     .kpi-label {
       font-size: 0.74rem;
       text-transform: uppercase;
@@ -445,6 +497,9 @@
       color: var(--gold-light);
       line-height: 1.15;
     }
+    .kpi-card--cash .kpi-value { color: #6EE7B7; }
+    .kpi-card--upi .kpi-value { color: #93C5FD; }
+    .kpi-card--pending .kpi-value { color: #FCD34D; }
     .kpi-sub {
       margin-top: 6px;
       font-size: 0.78rem;
@@ -474,6 +529,7 @@
       padding: 22px;
       box-shadow: var(--shadow-card);
       margin-bottom: 22px;
+      min-width: 0;
     }
     .panel-head {
       display: flex;
@@ -499,6 +555,7 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+      max-width: 100%;
     }
     .slot-legend {
       display: flex;
@@ -534,6 +591,7 @@
       background: var(--bg-input);
       text-align: left;
       transition: transform 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+      min-width: 0;
     }
     .slot-tile:hover { transform: translateY(-2px); }
     .slot-tile--free {
@@ -598,7 +656,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1020px;
+      min-width: 1120px;
     }
     th {
       text-align: left;
@@ -619,7 +677,16 @@
       font-size: 0.83rem;
     }
     tbody tr:hover { background: rgba(212, 175, 55, 0.04); }
-    tr.is-cancelled { opacity: 0.56; }
+    tr.is-cancelled { opacity: 0.62; }
+    .td-val { min-width: 0; }
+    .pill-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px;
+      align-items: center;
+      max-width: 100%;
+    }
     .pill {
       display: inline-block;
       padding: 3px 9px;
@@ -628,18 +695,326 @@
       font-weight: 600;
       white-space: nowrap;
       border: 1px solid transparent;
+      max-width: 100%;
     }
     .pill--kurla { background: rgba(212, 175, 55, 0.14); border-color: rgba(212, 175, 55, 0.4); color: var(--gold-light); }
     .pill--vashi { background: rgba(232, 155, 174, 0.14); border-color: rgba(232, 155, 174, 0.45); color: var(--rose); }
-    .pill--room-couples { background: rgba(244, 114, 182, 0.14); border-color: rgba(244, 114, 182, 0.42); color: #F9A8D4; margin-left: 5px; }
-    .pill--room-family { background: rgba(212, 175, 55, 0.14); border-color: rgba(212, 175, 55, 0.45); color: var(--gold-light); margin-left: 5px; }
-    .pill--room-unset { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.15); color: var(--text-muted); margin-left: 5px; }
+    .pill--room-couples { background: rgba(244, 114, 182, 0.14); border-color: rgba(244, 114, 182, 0.42); color: #F9A8D4; }
+    .pill--room-family { background: rgba(212, 175, 55, 0.14); border-color: rgba(212, 175, 55, 0.45); color: var(--gold-light); }
+    .pill--room-heaven_couple { background: rgba(96, 165, 250, 0.14); border-color: rgba(96, 165, 250, 0.45); color: #93C5FD; }
+    .pill--room-mega_party { background: rgba(52, 211, 153, 0.14); border-color: rgba(52, 211, 153, 0.45); color: #6EE7B7; }
+    .pill--room-unset { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.15); color: var(--text-muted); }
     .pill--ok { background: var(--ok-bg); border-color: rgba(52, 211, 153, 0.35); color: var(--ok); }
     .pill--cancel { background: var(--danger-bg); border-color: rgba(248, 113, 113, 0.35); color: var(--danger); }
     .pill--src { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.14); color: var(--text-muted); }
+    .pill--pay-pending { background: var(--warn-bg); border-color: rgba(251, 191, 36, 0.4); color: var(--warn); }
+    .pill--pay-cash { background: var(--ok-bg); border-color: rgba(52, 211, 153, 0.45); color: var(--ok); }
+    .pill--pay-online { background: rgba(96, 165, 250, 0.14); border-color: rgba(96, 165, 250, 0.45); color: #93C5FD; }
+
+    /* One-Tap Venue Payment Quick Controls */
+    .pay-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+      max-width: 100%;
+    }
+    .pay-btn {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      padding: 4px 9px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .pay-btn:hover:not(:disabled) {
+      border-color: var(--gold);
+      color: var(--text);
+    }
+    .pay-btn:disabled { opacity: 0.5; cursor: wait; }
+    .pay-btn.is-active-cash {
+      background: var(--ok-bg);
+      border-color: rgba(52, 211, 153, 0.65);
+      color: var(--ok);
+    }
+    .pay-btn.is-active-online {
+      background: rgba(96, 165, 250, 0.18);
+      border-color: rgba(96, 165, 250, 0.65);
+      color: #93C5FD;
+    }
+    .pay-btn.is-active-pending {
+      background: var(--warn-bg);
+      border-color: rgba(251, 191, 36, 0.65);
+      color: var(--warn);
+    }
+
     .row-actions { display: flex; flex-wrap: wrap; gap: 6px; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.76rem; color: var(--text-muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.76rem; color: var(--text-muted); word-break: break-all; }
     .subline { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ---------- Rates & Links Manager ---------- */
+    .rates-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .rate-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+    }
+    .rate-card h3 {
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+    .rate-list {
+      display: grid;
+      gap: 10px;
+    }
+    .rate-item {
+      display: grid;
+      grid-template-columns: 1fr 130px;
+      gap: 10px;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .rate-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .rate-item label {
+      font-size: 0.82rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .rate-item small {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .rate-item input {
+      width: 100%;
+      min-height: 38px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-charcoal);
+      color: var(--text);
+      text-align: right;
+      font-weight: 600;
+    }
+
+    /* ---------- Photo & Gallery Manager ---------- */
+    .upload-box {
+      background: var(--bg-input);
+      border: 1px dashed var(--border-gold-strong);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .upload-controls {
+      display: grid;
+      grid-template-columns: 260px 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .preview-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .preview-thumb {
+      width: 96px;
+      border-radius: 10px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-charcoal);
+      overflow: hidden;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding-bottom: 4px;
+    }
+    .preview-thumb img {
+      width: 100%;
+      height: 68px;
+      object-fit: cover;
+      display: block;
+    }
+    .progress-bar-wrap {
+      margin-top: 12px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--rose));
+      transition: width 0.2s ease;
+    }
+    .gallery-section {
+      margin-bottom: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gallery-section:first-of-type { border-top: 0; padding-top: 0; }
+    .gallery-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .gallery-section-head h3 {
+      font-size: 1.08rem;
+      color: var(--gold-light);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-width: 100%;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .photo-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .photo-thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #09090C;
+      overflow: hidden;
+    }
+    .photo-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-order-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(6, 6, 8, 0.85);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .photo-card-body {
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .photo-id {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.76rem;
+      color: var(--text);
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .photo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    /* ---------- Smart Quick Booking Add-ons & Calculator ---------- */
+    .pkg-hint {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 6px 10px;
+    }
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .addon-check {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--bg-input);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: border-color 0.15s, background 0.15s;
+      min-width: 0;
+    }
+    .addon-check:hover { border-color: var(--border-gold-strong); }
+    .addon-check.is-checked {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.09);
+    }
+    .addon-check-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .addon-check-left input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      min-height: 16px;
+      accent-color: var(--gold);
+      flex-shrink: 0;
+      margin: 0;
+    }
+    .addon-check-name {
+      color: var(--text);
+      font-weight: 500;
+      overflow-wrap: anywhere;
+    }
+    .addon-check-price {
+      color: var(--gold-light);
+      font-weight: 700;
+      font-size: 0.77rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .total-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .override-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--warn-bg);
+      color: var(--warn);
+      border: 1px solid rgba(251, 191, 36, 0.45);
+    }
 
     /* ---------- Empty / Loading / Error States ---------- */
     .state-box {
@@ -676,7 +1051,7 @@
       overflow-y: auto;
     }
     .modal {
-      width: min(620px, 100%);
+      width: min(640px, 100%);
       max-height: 92vh;
       overflow-y: auto;
       background: linear-gradient(175deg, #1B1B22, #111115);
@@ -702,6 +1077,7 @@
       color: var(--text-muted);
       font-size: 1.1rem;
       display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
     .modal-close:hover { color: var(--text); border-color: var(--gold); }
 
@@ -710,7 +1086,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 13px;
     }
-    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
     .field--full { grid-column: 1 / -1; }
     .field label {
       font-size: 0.75rem;
@@ -719,7 +1095,7 @@
       letter-spacing: 0.06em;
       color: var(--gold-light);
     }
-    .field input, .field select {
+    .field input:not([type="checkbox"]), .field select {
       width: 100%;
       min-height: 44px;
       padding: 10px 12px;
@@ -730,12 +1106,11 @@
       font-size: 0.88rem;
       color-scheme: dark;
     }
-    .field input:focus, .field select:focus {
+    .field input:not([type="checkbox"]):focus, .field select:focus {
       outline: none;
       border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
     }
-    .field-err { font-size: 0.76rem; color: var(--danger); min-height: 1em; }
     .modal-note {
       margin-top: 12px;
       padding: 10px 12px;
@@ -780,9 +1155,9 @@
       margin-bottom: 16px;
       font-size: 0.8rem;
     }
-    .edit-summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .edit-summary-item { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .edit-summary-item span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
-    .edit-summary-item strong { color: var(--gold-light); font-weight: 600; }
+    .edit-summary-item strong { color: var(--gold-light); font-weight: 600; word-break: break-word; }
     .avail-banner {
       margin-top: 14px;
       padding: 11px 14px;
@@ -883,10 +1258,18 @@
     @media (max-width: 1080px) {
       .kpi-grid { grid-template-columns: repeat(2, 1fr); }
       .slot-grid { grid-template-columns: repeat(3, 1fr); }
+      .rates-grid { grid-template-columns: 1fr; }
+      .upload-controls { grid-template-columns: 1fr; }
     }
     @media (max-width: 780px) {
-      .table-wrap { border: 0; background: transparent; overflow: visible; }
-      table, tbody { display: block; min-width: 0; }
+      .btn {
+        white-space: normal;
+        text-align: center;
+        line-height: 1.3;
+        max-width: 100%;
+      }
+      .table-wrap { border: 0; background: transparent; overflow: visible; max-width: 100%; }
+      table, tbody { display: block; min-width: 0; width: 100%; max-width: 100%; }
       thead { display: none; }
       tbody tr {
         display: block;
@@ -895,14 +1278,21 @@
         border-radius: var(--radius-lg);
         background: var(--bg-input);
         padding: 4px 12px;
+        max-width: 100%;
+        overflow: hidden;
       }
       tbody td {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: flex-start;
-        gap: 12px;
+        gap: 6px 10px;
         padding: 9px 0;
         text-align: right;
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
       tbody td:last-child { border-bottom: 0; }
       tbody td::before {
@@ -914,17 +1304,56 @@
         color: var(--gold-light);
         text-align: left;
         flex: 0 0 36%;
+        max-width: 40%;
+        min-width: 0;
       }
-      .row-actions { justify-content: flex-end; }
+      tbody td .td-val {
+        flex: 1 1 56%;
+        min-width: 0;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      .pill-group {
+        justify-content: flex-end;
+        max-width: 100%;
+      }
+      .pill {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        max-width: 100%;
+        text-align: center;
+      }
+      .pay-btn-group {
+        justify-content: flex-end;
+      }
+      .row-actions { justify-content: flex-end; max-width: 100%; }
     }
     @media (max-width: 580px) {
       .kpi-grid { grid-template-columns: 1fr; }
       .slot-grid { grid-template-columns: repeat(2, 1fr); }
       .form-grid { grid-template-columns: 1fr; }
+      .addons-grid { grid-template-columns: 1fr; }
       .panel { padding: 16px; }
       .action-bar { padding: 16px; }
+      .action-bar-btns { width: 100%; }
       .action-bar .btn { width: 100%; }
+      #slotRoomGroup {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+      }
+      #slotRoomGroup .seg-btn {
+        text-align: center;
+      }
       .search-input { width: 100%; min-width: 0; }
+      .rate-item { grid-template-columns: 1fr; }
+      .rate-item input { text-align: left; }
     }
   </style>
 </head>
@@ -944,7 +1373,6 @@
       <circle cx="60" cy="60" r="55" fill="none" stroke="url(#beGoldGrad)" stroke-width="2.2"/>
       <circle cx="60" cy="60" r="50" fill="none" stroke="#D4AF37" stroke-width="0.9" stroke-opacity="0.72"/>
 
-      <!-- Top-Left Blush Rose-Pink Floral Leaves -->
       <g fill="#E89BAE" opacity="0.92">
         <path d="M22 36 C16 26, 20 17, 29 19 C32 27, 29 34, 22 36 Z"/>
         <path d="M31 24 C30 15, 38 11, 45 16 C43 23, 37 26, 31 24 Z"/>
@@ -952,7 +1380,6 @@
         <circle cx="25" cy="28" r="2.2" fill="#F5D98B"/>
       </g>
 
-      <!-- Bottom-Right Blush Rose-Pink Floral Leaves -->
       <g fill="#E89BAE" opacity="0.92">
         <path d="M98 84 C104 94, 100 103, 91 101 C88 93, 91 86, 98 84 Z"/>
         <path d="M89 96 C90 105, 82 109, 75 104 C77 97, 83 94, 89 96 Z"/>
@@ -960,9 +1387,7 @@
         <circle cx="95" cy="92" r="2.2" fill="#F5D98B"/>
       </g>
 
-      <!-- Central Monogram -->
       <text x="60" y="64" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="38" font-weight="700" fill="url(#beGoldGrad)" letter-spacing="1">Be</text>
-      <!-- Cursive Brand Name -->
       <text x="60" y="83" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="13.5" font-weight="600" fill="#E89BAE" letter-spacing="0.8">Blink Events</text>
     </svg>
   </template>
@@ -973,7 +1398,7 @@
       <div class="crest-box crest-box--lg" data-crest="login"></div>
       <div class="login-brand">BLINK EVENTS</div>
       <div class="login-sub">Kurla &bull; Vashi &bull; Admin Portal</div>
-      <p class="login-desc">Enter your administrative PIN to access multi-branch bookings, slot locks, and revenue analytics.</p>
+      <p class="login-desc">Enter your administrative PIN to access multi-branch bookings, slot locks, payment tracking, and site settings.</p>
 
       <form id="loginForm" novalidate>
         <div class="pin-group">
@@ -984,9 +1409,6 @@
         <button type="submit" class="btn btn--gold btn--full">Unlock Admin Portal</button>
       </form>
 
-      <div class="security-note">
-        <strong>Security Notice:</strong> This PIN gate is a client-side UI lock (default demo PIN: <code>1234</code>). For production deployment, enforce Firebase Authentication and Realtime Database Security Rules to protect branch records.
-      </div>
     </div>
   </section>
 
@@ -1019,134 +1441,335 @@
           <h2>Multi-Branch <span>Operations &amp; Revenue</span></h2>
           <p>Real-time synchronization with the customer website across Kurla and Vashi (Asia/Kolkata).</p>
         </div>
-        <button type="button" class="btn btn--gold" id="openQuickBookBtn">➕ Add WhatsApp / Walk-In Booking</button>
-      </div>
-
-      <!-- Branch & Date Filters -->
-      <div class="filter-bar" aria-label="Dashboard filters">
-        <div class="segmented" role="tablist" aria-label="Branch filter">
-          <button type="button" class="seg-btn is-active" data-branch-filter="All">All Branches</button>
-          <button type="button" class="seg-btn" data-branch-filter="Kurla">Branch A — Kurla</button>
-          <button type="button" class="seg-btn" data-branch-filter="Vashi">Branch B — Vashi</button>
-        </div>
-        <div class="date-filters">
-          <div class="segmented" role="tablist" aria-label="Date range filter">
-            <button type="button" class="seg-btn is-active" data-date-filter="today">Today</button>
-            <button type="button" class="seg-btn" data-date-filter="upcoming">Upcoming</button>
-            <button type="button" class="seg-btn" data-date-filter="all">All</button>
-            <button type="button" class="seg-btn" data-date-filter="custom">Custom Date</button>
-          </div>
-          <input type="date" id="customDateInput" class="date-input" aria-label="Select custom date" hidden>
+        <div class="action-bar-btns">
+          <button type="button" class="btn btn--gold" id="openQuickBookBtn">➕ Add WhatsApp / Walk-In Booking</button>
         </div>
       </div>
 
-      <!-- 4 Required KPI Cards -->
-      <section class="kpi-grid" aria-label="Revenue and booking analytics">
-        <div class="kpi-card">
-          <div class="kpi-label">Confirmed Bookings</div>
-          <div class="kpi-value" id="kpiConfirmedCount">–</div>
-          <div class="kpi-sub" id="kpiConfirmedSub">Active reservations in selected filter</div>
-        </div>
+      <!-- Top-Level Admin Module Tabs -->
+      <nav class="module-nav" aria-label="Admin Modules">
+        <button type="button" class="module-tab is-active" data-module-tab="operations">📊 Operations &amp; Bookings</button>
+        <button type="button" class="module-tab" data-module-tab="rates">⚙️ Rates &amp; Links</button>
+        <button type="button" class="module-tab" data-module-tab="photos">🖼️ Photos &amp; Gallery Manager</button>
+      </nav>
 
-        <div class="kpi-card">
-          <div class="kpi-label">Kurla Revenue</div>
-          <div class="kpi-value" id="kpiKurlaTotal">–</div>
-          <div class="kpi-breakdown">
-            <div class="kpi-row"><span>Confirmed Count</span><strong id="kpiKurlaCount">0</strong></div>
-            <div class="kpi-row"><span>Venue Advance Credited</span><strong id="kpiKurlaAdvance">₹0</strong></div>
-            <div class="kpi-row"><span>Venue Balance Due</span><strong id="kpiKurlaBalance">₹0</strong></div>
+      <!-- ==================== MODULE 1: OPERATIONS & BOOKINGS ==================== -->
+      <div id="moduleOperations">
+        <!-- Branch & Date Filters -->
+        <div class="filter-bar" aria-label="Dashboard filters">
+          <div class="segmented" role="tablist" aria-label="Branch filter">
+            <button type="button" class="seg-btn is-active" data-branch-filter="All">All Branches</button>
+            <button type="button" class="seg-btn" data-branch-filter="Kurla">Branch A — Kurla</button>
+            <button type="button" class="seg-btn" data-branch-filter="Vashi">Branch B — Vashi</button>
           </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Vashi Revenue</div>
-          <div class="kpi-value" id="kpiVashiTotal">–</div>
-          <div class="kpi-breakdown">
-            <div class="kpi-row"><span>Confirmed Count</span><strong id="kpiVashiCount">0</strong></div>
-            <div class="kpi-row"><span>Venue Advance Credited</span><strong id="kpiVashiAdvance">₹0</strong></div>
-            <div class="kpi-row"><span>Venue Balance Due</span><strong id="kpiVashiBalance">₹0</strong></div>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Balance to Collect at Venue</div>
-          <div class="kpi-value" id="kpiUpcomingBalance">–</div>
-          <div class="kpi-sub" id="kpiUpcomingBalanceSub">Upcoming confirmed bookings (Online ₹770 pays ₹750 venue credit)</div>
-        </div>
-      </section>
-
-      <!-- Visual Hourly Slot Manager -->
-      <section class="panel" aria-labelledby="slotManagerTitle">
-        <div class="panel-head">
-          <div>
-            <h2 class="panel-title" id="slotManagerTitle">Hourly Slot Manager</h2>
-            <p class="panel-sub">09:00 AM – 12:00 AM live availability. Tap any free hour to book or block; tap an occupied hour to inspect or cancel.</p>
-          </div>
-          <div class="slot-controls">
-            <div class="segmented" role="group" aria-label="Slot Manager Branch">
-              <button type="button" class="seg-btn is-active" data-slot-branch="Kurla">Kurla</button>
-              <button type="button" class="seg-btn" data-slot-branch="Vashi">Vashi</button>
+          <div class="date-filters">
+            <div class="segmented" role="tablist" aria-label="Date range filter">
+              <button type="button" class="seg-btn is-active" data-date-filter="today">Today</button>
+              <button type="button" class="seg-btn" data-date-filter="month">This Month</button>
+              <button type="button" class="seg-btn" data-date-filter="year">This Year</button>
+              <button type="button" class="seg-btn" data-date-filter="upcoming">Upcoming</button>
+              <button type="button" class="seg-btn" data-date-filter="all">All</button>
+              <button type="button" class="seg-btn" data-date-filter="custom">Custom Date</button>
             </div>
-            <div class="segmented" role="group" aria-label="Slot Manager Room">
-              <button type="button" class="seg-btn is-active" data-slot-room="couples">❤️ Couples Room</button>
-              <button type="button" class="seg-btn" data-slot-room="family">👑 Family Room</button>
+            <input type="date" id="customDateInput" class="date-input" aria-label="Select custom date" hidden>
+          </div>
+        </div>
+
+        <!-- Row 1: Core Branch & Confirmed Booking KPI Cards -->
+        <section class="kpi-grid" aria-label="Booking and branch revenue analytics">
+          <div class="kpi-card">
+            <div class="kpi-label">Confirmed Bookings</div>
+            <div class="kpi-value" id="kpiConfirmedCount">–</div>
+            <div class="kpi-sub" id="kpiConfirmedSub">Active reservations in selected filter</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Kurla Revenue</div>
+            <div class="kpi-value" id="kpiKurlaTotal">–</div>
+            <div class="kpi-breakdown">
+              <div class="kpi-row"><span>Confirmed Count</span><strong id="kpiKurlaCount">0</strong></div>
+              <div class="kpi-row"><span>Venue Advance Credited</span><strong id="kpiKurlaAdvance">₹0</strong></div>
+              <div class="kpi-row"><span>Venue Balance Due</span><strong id="kpiKurlaBalance">₹0</strong></div>
             </div>
-            <input type="date" id="slotDateInput" class="date-input" aria-label="Slot Manager Date">
-            <button type="button" class="btn btn--outline btn--sm" id="refreshSlotsBtn">↻ Refresh</button>
           </div>
-        </div>
 
-        <div class="slot-legend">
-          <span class="legend-item"><span class="legend-dot legend-dot--free"></span>FREE</span>
-          <span class="legend-item"><span class="legend-dot legend-dot--booked"></span>BOOKED</span>
-          <span class="legend-item"><span class="legend-dot legend-dot--hold"></span>HOLD</span>
-          <span class="legend-item"><span class="legend-dot legend-dot--offline"></span>OFFLINE BLOCKED</span>
-        </div>
-
-        <div id="slotStateBox"></div>
-        <div class="slot-grid" id="slotGrid" hidden></div>
-      </section>
-
-      <!-- Bookings Ledger -->
-      <section class="panel" aria-labelledby="ledgerTitle">
-        <div class="panel-head">
-          <div>
-            <h2 class="panel-title" id="ledgerTitle">Reservations &amp; Financial Ledger</h2>
-            <p class="panel-sub" id="ledgerSub">Showing matching records from Firebase.</p>
+          <div class="kpi-card">
+            <div class="kpi-label">Vashi Revenue</div>
+            <div class="kpi-value" id="kpiVashiTotal">–</div>
+            <div class="kpi-breakdown">
+              <div class="kpi-row"><span>Confirmed Count</span><strong id="kpiVashiCount">0</strong></div>
+              <div class="kpi-row"><span>Venue Advance Credited</span><strong id="kpiVashiAdvance">₹0</strong></div>
+              <div class="kpi-row"><span>Venue Balance Due</span><strong id="kpiVashiBalance">₹0</strong></div>
+            </div>
           </div>
-          <input type="search" id="bookingSearch" class="search-input" placeholder="Search name, phone, booking ID…">
-        </div>
 
-        <div id="listStateBox"></div>
-        <div class="table-wrap" id="tableWrap" hidden>
-          <table>
-            <thead>
-              <tr>
-                <th>Booking ID &amp; Branch</th>
-                <th>Customer &amp; WhatsApp</th>
-                <th>Schedule</th>
-                <th>Package &amp; Guests</th>
-                <th>Financial Breakdown</th>
-                <th>Source &amp; Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="bookingsTbody"></tbody>
-          </table>
-        </div>
-      </section>
+          <div class="kpi-card">
+            <div class="kpi-label">Upcoming Balance Due</div>
+            <div class="kpi-value" id="kpiUpcomingBalance">–</div>
+            <div class="kpi-sub" id="kpiUpcomingBalanceSub">Upcoming confirmed bookings</div>
+          </div>
+        </section>
+
+        <!-- Row 2: Separated Financial Collection Analytics (Responds to Active Date & Branch Filter) -->
+        <section class="kpi-grid kpi-grid--collections" aria-label="Venue payment collection breakdown">
+          <div class="kpi-card kpi-card--razorpay">
+            <div class="kpi-label">Online Advance (Razorpay)</div>
+            <div class="kpi-value" id="kpiRazorpayAdvance">–</div>
+            <div class="kpi-sub" id="kpiRazorpaySub">Venue advance credited from online bookings (excl. gateway fee)</div>
+          </div>
+
+          <div class="kpi-card kpi-card--cash">
+            <div class="kpi-label">Total Cash Collected at Venue</div>
+            <div class="kpi-value" id="kpiVenueCash">–</div>
+            <div class="kpi-sub" id="kpiVenueCashSub">0 bookings marked Cash Paid</div>
+          </div>
+
+          <div class="kpi-card kpi-card--upi">
+            <div class="kpi-label">Total Online Collected at Venue</div>
+            <div class="kpi-value" id="kpiVenueOnline">–</div>
+            <div class="kpi-sub" id="kpiVenueOnlineSub">0 bookings marked GPay / UPI Paid</div>
+          </div>
+
+          <div class="kpi-card kpi-card--pending">
+            <div class="kpi-label">Total Venue Balance Pending</div>
+            <div class="kpi-value" id="kpiVenuePending">–</div>
+            <div class="kpi-sub" id="kpiVenuePendingSub">0 bookings awaiting venue payment</div>
+          </div>
+        </section>
+
+        <!-- Visual Hourly Slot Manager -->
+        <section class="panel" aria-labelledby="slotManagerTitle">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title" id="slotManagerTitle">Hourly Slot Manager</h2>
+              <p class="panel-sub">09:00 AM – 12:00 AM live availability. Tap any free hour to book or block; tap an occupied hour to inspect or cancel.</p>
+            </div>
+            <div class="slot-controls">
+              <div class="segmented" role="group" aria-label="Slot Manager Branch">
+                <button type="button" class="seg-btn is-active" data-slot-branch="Kurla">Kurla</button>
+                <button type="button" class="seg-btn" data-slot-branch="Vashi">Vashi</button>
+              </div>
+              <div class="segmented" role="group" aria-label="Slot Manager Room" id="slotRoomGroup">
+                <button type="button" class="seg-btn is-active" data-slot-room="couples">❤️ Couples Room</button>
+                <button type="button" class="seg-btn" data-slot-room="family">👑 Family Room</button>
+                <button type="button" class="seg-btn" data-slot-room="heaven_couple" hidden>💙 Heaven for Couple</button>
+                <button type="button" class="seg-btn" data-slot-room="mega_party" hidden>🎉 Mega Party Hall</button>
+              </div>
+              <input type="date" id="slotDateInput" class="date-input" aria-label="Slot Manager Date">
+              <button type="button" class="btn btn--outline btn--sm" id="refreshSlotsBtn">↻ Refresh</button>
+            </div>
+          </div>
+
+          <div class="slot-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--free"></span>FREE</span>
+            <span class="legend-item"><span class="legend-dot legend-dot--booked"></span>BOOKED</span>
+            <span class="legend-item"><span class="legend-dot legend-dot--hold"></span>HOLD</span>
+            <span class="legend-item"><span class="legend-dot legend-dot--offline"></span>OFFLINE BLOCKED</span>
+          </div>
+
+          <div id="slotStateBox"></div>
+          <div class="slot-grid" id="slotGrid" hidden></div>
+        </section>
+
+        <!-- Bookings Ledger -->
+        <section class="panel" aria-labelledby="ledgerTitle">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title" id="ledgerTitle">Reservations &amp; Financial Ledger</h2>
+              <p class="panel-sub" id="ledgerSub">Showing matching records from Firebase.</p>
+            </div>
+            <input type="search" id="bookingSearch" class="search-input" placeholder="Search name, phone, booking ID…">
+          </div>
+
+          <div id="listStateBox"></div>
+          <div class="table-wrap" id="tableWrap" hidden>
+            <table>
+              <thead>
+                <tr>
+                  <th>Booking ID &amp; Branch</th>
+                  <th>Customer &amp; WhatsApp</th>
+                  <th>Schedule</th>
+                  <th>Package &amp; Guests</th>
+                  <th>Financial Breakdown</th>
+                  <th>Source &amp; Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ==================== MODULE 2: RATES & LINKS MANAGER ==================== -->
+      <div id="moduleRates" hidden>
+        <section class="panel" aria-labelledby="ratesHeading">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title" id="ratesHeading">⚙️ Edit Rates &amp; Reel Links</h2>
+              <p class="panel-sub">Changes save to <code>site_settings</code> in Firebase for the live customer website while preserving historical booking prices.</p>
+            </div>
+            <button type="button" class="btn btn--gold" id="saveRatesBtn">💾 Save All Rates &amp; Links</button>
+          </div>
+
+          <div id="ratesFeedback" class="modal-note" hidden></div>
+
+          <form id="ratesForm" novalidate>
+            <div class="rates-grid">
+              <div class="rate-card">
+                <h3>Package Prices (₹)</h3>
+                <div class="rate-list" id="packageRatesList"></div>
+              </div>
+
+              <div class="rate-card">
+                <h3>Add-on Prices (₹)</h3>
+                <div class="rate-list" id="addonRatesList"></div>
+              </div>
+
+              <div class="rate-card" style="grid-column: 1 / -1;">
+                <h3>Instagram Reel Links</h3>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="reelUrlKurlaCouples">Kurla Couples Reel URL</label>
+                    <input type="url" id="reelUrlKurlaCouples" placeholder="https://www.instagram.com/reel/..." required>
+                  </div>
+                  <div class="field">
+                    <label for="reelUrlKurlaFamily">Kurla Family Reel URL</label>
+                    <input type="url" id="reelUrlKurlaFamily" placeholder="https://www.instagram.com/reel/..." required>
+                  </div>
+                  <div class="field">
+                    <label for="reelUrlVashiCouples">Vashi Couples Reel URL</label>
+                    <input type="url" id="reelUrlVashiCouples" placeholder="https://www.instagram.com/reel/..." required>
+                  </div>
+                  <div class="field">
+                    <label for="reelUrlVashiFamily">Vashi Family Reel URL</label>
+                    <input type="url" id="reelUrlVashiFamily" placeholder="https://www.instagram.com/reel/..." required>
+                  </div>
+                  <div class="field field--full">
+                    <label for="reelUrlVashiHeaven">Vashi Heaven (Blue) Reel URL</label>
+                    <input type="url" id="reelUrlVashiHeaven" placeholder="https://www.instagram.com/reel/..." required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rate-card" style="grid-column: 1 / -1;">
+                <h3>Razorpay Standard Checkout Settings (Test Mode)</h3>
+                <div class="form-grid">
+                  <div class="field field--full">
+                    <label for="razorpayKeyId">Razorpay Key ID (Public Key Only)</label>
+                    <input type="text" id="razorpayKeyId" placeholder="rzp_test_U3FOXcag8QFMIo" value="rzp_test_U3FOXcag8QFMIo" autocomplete="off" required>
+                    <div class="subline">Used for Razorpay Standard Web Checkout in Test Mode. Never enter or store <code>RAZORPAY_KEY_SECRET</code> in frontend code or Firebase settings.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- ==================== MODULE 3: PHOTO & GALLERY MANAGER ==================== -->
+      <div id="modulePhotos" hidden>
+        <section class="panel" aria-labelledby="photosHeading">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title" id="photosHeading">🖼️ Photos &amp; Gallery Manager</h2>
+              <p class="panel-sub">Upload, replace, reorder, or delete compressed photographs directly in Firebase Realtime Database (<code>site_settings/gallery</code>) across all 6 Kurla &amp; Vashi venue zones.</p>
+            </div>
+          </div>
+
+          <!-- Standard Category Upload Box -->
+          <div class="upload-box">
+            <h3 style="font-size:1rem; color:var(--gold-light); margin-bottom:10px;">Upload New Gallery Photograph(s)</h3>
+            <div class="upload-controls">
+              <div class="field">
+                <label for="uploadCategorySelect">Target Venue Zone</label>
+                <select id="uploadCategorySelect">
+                  <option value="kurla_couples">❤️ Kurla — Couples Room (Love Paradise)</option>
+                  <option value="kurla_family">👑 Kurla — Family Room (Celebration)</option>
+                  <option value="vashi_couples">❤️ Vashi — Dinner Date (Couples)</option>
+                  <option value="vashi_family">👑 Vashi — Friends &amp; Family Zone</option>
+                  <option value="vashi_heaven">💙 Vashi — Heaven for Couple</option>
+                  <option value="vashi_mega">🎉 Vashi — Mega Party Hall</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="galleryUploadInput">Select Image(s) (JPG, PNG, WebP • Auto-compressed to JPEG ≤1080px)</label>
+                <input type="file" id="galleryUploadInput" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple>
+              </div>
+              <button type="button" class="btn btn--gold" id="uploadPhotosBtn">⬆️ Upload to Gallery</button>
+            </div>
+            <div class="preview-strip" id="uploadPreviewStrip" hidden></div>
+            <div class="progress-bar-wrap" id="uploadProgressWrap" hidden>
+              <div class="progress-bar-fill" id="uploadProgressBar"></div>
+            </div>
+            <div id="uploadFeedback" class="modal-note" hidden></div>
+          </div>
+
+          <!-- Hidden File Input for Single-Card Replace -->
+          <input type="file" id="replacePhotoInput" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" hidden>
+
+          <!-- 6 Separated Venue Zone Gallery Sections -->
+          <div class="gallery-section" data-gallery-section="kurla_couples">
+            <div class="gallery-section-head">
+              <h3>❤️ 1. Kurla — Couples Room (Love Paradise) (<code>site_settings/gallery/kurla_couples</code>)</h3>
+              <span class="subline" id="count-kurla_couples">0 photos</span>
+            </div>
+            <div id="gallery-kurla_couples" class="gallery-grid"></div>
+          </div>
+
+          <div class="gallery-section" data-gallery-section="kurla_family">
+            <div class="gallery-section-head">
+              <h3>👑 2. Kurla — Family Room (Celebration) (<code>site_settings/gallery/kurla_family</code>)</h3>
+              <span class="subline" id="count-kurla_family">0 photos</span>
+            </div>
+            <div id="gallery-kurla_family" class="gallery-grid"></div>
+          </div>
+
+          <div class="gallery-section" data-gallery-section="vashi_couples">
+            <div class="gallery-section-head">
+              <h3>❤️ 3. Vashi — Dinner Date (Couples) (<code>site_settings/gallery/vashi_couples</code>)</h3>
+              <span class="subline" id="count-vashi_couples">0 photos</span>
+            </div>
+            <div id="gallery-vashi_couples" class="gallery-grid"></div>
+          </div>
+
+          <div class="gallery-section" data-gallery-section="vashi_family">
+            <div class="gallery-section-head">
+              <h3>👑 4. Vashi — Friends &amp; Family Zone (<code>site_settings/gallery/vashi_family</code>)</h3>
+              <span class="subline" id="count-vashi_family">0 photos</span>
+            </div>
+            <div id="gallery-vashi_family" class="gallery-grid"></div>
+          </div>
+
+          <div class="gallery-section" data-gallery-section="vashi_heaven">
+            <div class="gallery-section-head">
+              <h3>💙 5. Vashi — Heaven for Couple (<code>site_settings/gallery/vashi_heaven</code>)</h3>
+              <span class="subline" id="count-vashi_heaven">0 photos</span>
+            </div>
+            <div id="gallery-vashi_heaven" class="gallery-grid"></div>
+          </div>
+
+          <div class="gallery-section" data-gallery-section="vashi_mega">
+            <div class="gallery-section-head">
+              <h3>🎉 6. Vashi — Mega Party Hall (<code>site_settings/gallery/vashi_mega</code>)</h3>
+              <span class="subline" id="count-vashi_mega">0 photos</span>
+            </div>
+            <div id="gallery-vashi_mega" class="gallery-grid"></div>
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer class="footer">© 2026 Blink Events. All Rights Reserved.</footer>
   </div>
 
-  <!-- ==================== MODAL: QUICK WHATSAPP / WALK-IN BOOKING ==================== -->
+  <!-- ==================== MODAL: SMART WHATSAPP / WALK-IN BOOKING ==================== -->
   <div class="modal-backdrop" id="quickBookModal" hidden role="dialog" aria-modal="true" aria-labelledby="qbTitle">
     <div class="modal">
       <div class="modal-head">
         <div>
           <h3 id="qbTitle">Add WhatsApp / Walk-In Booking</h3>
-          <div class="panel-sub">Atomically locks all occupied hours and syncs with the customer website.</div>
+          <div class="panel-sub">Smart package pricing, live add-ons, and atomic slot locking across Kurla &amp; Vashi.</div>
         </div>
         <button type="button" class="modal-close" data-close-modal="quickBookModal" aria-label="Close">✕</button>
       </div>
@@ -1165,6 +1788,21 @@
             <select id="qbRoom" required>
               <option value="couples">Couples Room</option>
               <option value="family">Family Room</option>
+              <option value="heaven_couple">Heaven for Couple (Vashi)</option>
+              <option value="mega_party">Mega Party Hall (Vashi)</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <label for="qbPackageSelect">Select Package</label>
+            <select id="qbPackageSelect" required></select>
+            <div id="qbPackageHint" class="pkg-hint"></div>
+          </div>
+          <div class="field">
+            <label for="qbBookingSource">Booking Source</label>
+            <select id="qbBookingSource" required>
+              <option value="Walk-In" selected>Walk-In</option>
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Online">Online (Razorpay)</option>
             </select>
           </div>
           <div class="field">
@@ -1192,24 +1830,37 @@
             <input type="tel" id="qbWhatsapp" placeholder="10-digit mobile number" inputmode="tel" required>
           </div>
           <div class="field">
-            <label for="qbPackage">Package Name</label>
-            <input type="text" id="qbPackage" placeholder="e.g. Royal Gold Celebration" maxlength="80" required>
+            <label for="qbEmail">Customer Email (Optional / Razorpay Prefill)</label>
+            <input type="email" id="qbEmail" placeholder="customer@example.com" maxlength="120">
           </div>
           <div class="field">
             <label for="qbPersons">Total Persons</label>
-            <input type="number" id="qbPersons" min="1" max="100" value="4" required>
-          </div>
-          <div class="field">
-            <label for="qbTotal">Total Amount (₹)</label>
-            <input type="number" id="qbTotal" min="0" step="1" placeholder="2500" required>
+            <input type="number" id="qbPersons" min="1" max="150" value="2" required>
           </div>
           <div class="field">
             <label for="qbAdvance">Advance Collected (₹)</label>
             <input type="number" id="qbAdvance" min="0" step="1" value="750" required>
           </div>
+
           <div class="field field--full">
+            <label>Optional Add-Ons (Live Prices)</label>
+            <div class="addons-grid" id="qbAddonsGrid"></div>
+          </div>
+
+          <div class="field">
+            <div class="total-label-row">
+              <label for="qbTotal">Total Amount (₹)</label>
+              <span id="qbOverrideBadge" class="override-pill" hidden>Manual Override</span>
+              <button type="button" id="qbRestoreAutoBtn" class="btn btn--outline btn--xs" hidden>↻ Auto</button>
+            </div>
+            <input type="number" id="qbTotal" min="0" step="1" placeholder="1500" required>
+          </div>
+          <div class="field">
             <label for="qbBalance">Balance at Venue (Auto-calculated)</label>
             <input type="text" id="qbBalance" readonly>
+          </div>
+          <div class="field field--full">
+            <div id="qbCalcBreakdown" class="subline"></div>
           </div>
         </div>
 
@@ -1266,6 +1917,8 @@
             <select id="etRoom" required>
               <option value="couples">Couples Room</option>
               <option value="family">Family Room</option>
+              <option value="heaven_couple">Heaven for Couple (Vashi)</option>
+              <option value="mega_party">Mega Party Hall (Vashi)</option>
             </select>
           </div>
           <div class="field">
@@ -1319,6 +1972,28 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL: REPLACE PHOTO PREVIEW ==================== -->
+  <div class="modal-backdrop" id="replacePhotoModal" hidden role="dialog" aria-modal="true" aria-labelledby="rpTitle">
+    <div class="modal" style="width:min(480px, 100%)">
+      <div class="modal-head">
+        <div>
+          <h3 id="rpTitle">Replace Gallery Photograph</h3>
+          <div class="panel-sub" id="rpSubtitle"></div>
+        </div>
+        <button type="button" class="modal-close" data-close-modal="replacePhotoModal" aria-label="Close">✕</button>
+      </div>
+      <div id="rpPreviewBox" style="text-align:center;">
+        <img id="rpPreviewImg" alt="Replacement preview" style="max-width:100%; max-height:260px; border-radius:12px; border:1px solid var(--border-gold); object-fit:contain;">
+        <div id="rpFileMeta" class="subline" style="margin-top:8px;"></div>
+      </div>
+      <div class="modal-note" id="rpNote" hidden></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--outline" data-close-modal="replacePhotoModal" id="rpCancelBtn">Cancel</button>
+        <button type="button" class="btn btn--gold" id="rpConfirmBtn">Compress &amp; Replace</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== MODAL: CONFIRMATION DIALOG ==================== -->
   <div class="modal-backdrop" id="confirmModal" hidden role="dialog" aria-modal="true" aria-labelledby="cmTitle">
     <div class="modal" style="width:min(460px, 100%)">
@@ -1336,7 +2011,7 @@
 
   <div class="toast-host" id="toastHost" aria-live="polite"></div>
 
-  <!-- Firebase v8 SDK -->
+  <!-- Firebase v8 SDK (App & Realtime Database) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -1345,38 +2020,141 @@
       'use strict';
 
       /* =====================================================================
-         1. CONFIGURATION (PRESERVED FIREBASE & BUSINESS CONSTANTS)
+         1. CONFIGURATION (FIREBASE & BUSINESS CONSTANTS)
          ===================================================================== */
       var DEMO_ADMIN_PIN = '1234';
       var SESSION_STORAGE_KEY = 'blink_events_admin_session_v1';
       var BOOKINGS_PATH = 'aryx_demo_bookings';
       var SLOT_LOCKS_PATH = 'slot_locks';
+      var SITE_SETTINGS_PATH = 'site_settings';
       var BRANCHES = ['Kurla', 'Vashi'];
-      var ROOMS = ['couples', 'family'];
+      var ROOMS = ['couples', 'family', 'heaven_couple', 'mega_party'];
+      var GALLERY_CATEGORIES = ['kurla_couples', 'kurla_family', 'vashi_couples', 'vashi_family', 'vashi_heaven', 'vashi_mega'];
+      var MAX_INPUT_PHOTO_BYTES = 15 * 1024 * 1024;
+      var MAX_RTDB_DATA_URL_BYTES = 950 * 1024;
+      var ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
       var ROOM_LABELS = {
         couples: 'Couples Room',
-        family: 'Family Room'
+        family: 'Family Room',
+        heaven_couple: 'Heaven for Couple (Vashi)',
+        mega_party: 'Mega Party Hall (Vashi)'
       };
       var ROOM_BADGES = {
         couples: '❤️ Couples Room',
-        family: '👑 Family Room'
+        family: '👑 Family Room',
+        heaven_couple: '💙 Heaven for Couple',
+        mega_party: '🎉 Mega Party Hall'
       };
       function normalizeRoomType(val) {
-        return val === 'couples' || val === 'family' ? val : '';
+        return ROOMS.indexOf(val) !== -1 ? val : '';
       }
       function getRoomLabel(roomType) {
         return ROOM_LABELS[roomType] || '';
       }
+
       var BUSINESS_TIMEZONE = 'Asia/Kolkata';
-      var ONLINE_PAYMENT_AMOUNT = 770;
+      var ONLINE_PAYMENT_AMOUNT = 795;
+      var HOLD_TTL_MS = 5 * 60 * 1000;
       var VENUE_ADVANCE_CREDIT = 750;
+      var DEFAULT_RAZORPAY_KEY_ID = 'rzp_test_U3FOXcag8QFMIo';
+      var RAZORPAY_THEME_COLOR = '#20B152';
       var OPERATING_HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
+      var PACKAGE_MASTER_DATA = {
+        Kurla: {
+          couples: [
+            { id: 'paradise_1', name: 'Paradise 1', duration: 1, price: 1500, baseGuests: 2, extraGuest: 300 },
+            { id: 'paradise_2', name: 'Paradise 2', duration: 2, price: 2500, baseGuests: 2, extraGuest: 300 },
+            { id: 'paradise_3', name: 'Paradise 3', duration: 3, price: 4000, baseGuests: 2, extraGuest: 300 }
+          ],
+          family: [
+            { id: 'silver', name: 'Silver Package', duration: 1, price: 1499, baseGuests: 4, extraGuest: 199 },
+            { id: 'golden', name: 'Golden Package', duration: 2, price: 2999, baseGuests: 6, extraGuest: 250 },
+            { id: 'diamond', name: 'Diamond Package', duration: 3, price: 4500, baseGuests: 8, extraGuest: 299 }
+          ]
+        },
+        Vashi: {
+          couples: [
+            { id: 'vashi_small_heart', name: 'Small Heart', duration: 2, price: 2999, baseGuests: 2, extraGuest: 299 },
+            { id: 'vashi_big_heart', name: 'Big Heart', duration: 3, price: 4999, baseGuests: 2, extraGuest: 299 }
+          ],
+          family: [
+            { id: 'vashi_zone_1', name: 'Zone 1', duration: 1, price: 1799, baseGuests: 4, extraGuest: 299 },
+            { id: 'vashi_zone_2', name: 'Zone 2', duration: 2, price: 2999, baseGuests: 5, extraGuest: 299 },
+            { id: 'vashi_zone_3', name: 'Zone 3', duration: 3, price: 5999, baseGuests: 8, extraGuest: 299 }
+          ],
+          heaven_couple: [
+            { id: 'vashi_heaven_1', name: 'HEAVEN 1', duration: 1, price: 1500, baseGuests: 2, extraGuest: 299 },
+            { id: 'vashi_heaven_2', name: 'HEAVEN 2', duration: 2, price: 2500, baseGuests: 2, extraGuest: 299 },
+            { id: 'vashi_heaven_3', name: 'HEAVEN 3', duration: 3, price: 4000, baseGuests: 2, extraGuest: 299 }
+          ],
+          mega_party: [
+            { id: 'vashi_mega_20', name: 'Mega Party 20 Guests', duration: 3, price: 14999, baseGuests: 20, extraGuest: 300 },
+            { id: 'vashi_mega_30', name: 'Mega Party 30 Guests', duration: 3, price: 19999, baseGuests: 30, extraGuest: 300 },
+            { id: 'vashi_mega_50', name: 'Mega Party 50 Guests', duration: 3, price: 24999, baseGuests: 50, extraGuest: 300 }
+          ]
+        }
+      };
+
+      var DEFAULT_PACKAGE_PRICES = {
+        paradise_1: { label: 'Kurla — Paradise 1 (1 Hr)', price: 1500 },
+        paradise_2: { label: 'Kurla — Paradise 2 (2 Hrs)', price: 2500 },
+        paradise_3: { label: 'Kurla — Paradise 3 (3 Hrs)', price: 4000 },
+        silver: { label: 'Kurla — Silver Package (1 Hr)', price: 1499 },
+        golden: { label: 'Kurla — Golden Package (2 Hrs)', price: 2999 },
+        diamond: { label: 'Kurla — Diamond Package (3 Hrs)', price: 4500 },
+        vashi_small_heart: { label: 'Vashi — Small Heart (2 Hrs)', price: 2999 },
+        vashi_big_heart: { label: 'Vashi — Big Heart (3 Hrs)', price: 4999 },
+        vashi_zone_1: { label: 'Vashi — Zone 1 (1 Hr)', price: 1799 },
+        vashi_zone_2: { label: 'Vashi — Zone 2 (2 Hrs)', price: 2999 },
+        vashi_zone_3: { label: 'Vashi — Zone 3 (3 Hrs)', price: 5999 },
+        vashi_heaven_1: { label: 'Vashi — HEAVEN 1 (1 Hr)', price: 1500 },
+        vashi_heaven_2: { label: 'Vashi — HEAVEN 2 (2 Hrs)', price: 2500 },
+        vashi_heaven_3: { label: 'Vashi — HEAVEN 3 (3 Hrs)', price: 4000 },
+        vashi_mega_20: { label: 'Vashi — Mega Party 20 Guests (3 Hrs)', price: 14999 },
+        vashi_mega_30: { label: 'Vashi — Mega Party 30 Guests (3 Hrs)', price: 19999 },
+        vashi_mega_50: { label: 'Vashi — Mega Party 50 Guests (3 Hrs)', price: 24999 }
+      };
+
+      var ADDON_MASTER_LIST = [
+        { id: 'fog_entry', label: 'Fog / Smoke Entry', price: 500 },
+        { id: 'bubble_entry', label: 'Bubble Entry', price: 300 },
+        { id: 'projector_screen', label: 'Projector / Screen', price: 500 },
+        { id: 'telephone_booth', label: 'Telephone Booth', price: 500 },
+        { id: 'hanging_photos', label: 'Hanging Photos', price: 300 },
+        { id: 'half_kg_cake', label: 'Half Kg Cake', price: 450 },
+        { id: 'flower_bouquet', label: 'Flower Bouquet', price: 400 },
+        { id: 'letter_light_name', label: 'Letter Light Name', price: 300 },
+        { id: 'letter_light_digit', label: 'Letter Light Digit', price: 300 },
+        { id: 'iphone_shoot', label: 'iPhone Shoot', price: 400 },
+        { id: 'reel_edit', label: 'Reel Edit', price: 500 },
+        { id: 'candle_decor', label: 'Candle Decor', price: 500 },
+        { id: 'rose_decor', label: 'Rose Decor', price: 1000 }
+      ];
+
+      var DEFAULT_ADDON_PRICES = ADDON_MASTER_LIST.reduce(function (acc, item) {
+        acc[item.id] = { label: item.label, price: item.price };
+        return acc;
+      }, {});
+
+      var DEFAULT_REELS = {
+        kurla_couples: 'https://www.instagram.com/reel/DfRXAUiIG4V/?dmpr=YWYyM3BrZmxsOTR3',
+        kurla_family: 'https://www.instagram.com/reel/DapmZjeICnf/?jplx=MTBiYmF0c2JwYTljbQ==',
+        vashi_couples: 'https://www.instagram.com/reel/De1yhvDAw9N/?jplx=MWNnZno4cjhoOG1qNw==',
+        vashi_family: 'https://www.instagram.com/reel/DfFK-8YgZ23/?knvt=ejZod205ZWk5dGli',
+        vashi_heaven: 'https://www.instagram.com/reel/DdLjdpQIkoV/?jplx=ZDh2NWN2bnRudWRk'
+      };
+
       var firebaseConfig = {
-        apiKey: 'AIzaSyDiGopFOIBanHJROTXL-0sIDAoIVwUSf_w',
-        authDomain: 'football-manager-be26f.firebaseapp.com',
-        databaseURL: 'https://football-manager-be26f-default-rtdb.firebaseio.com',
-        projectId: 'football-manager-be26f'
+        apiKey: "AIzaSyAO1lL2qv7YiJkNQGRCkIFNZA2IRkin9t8",
+        authDomain: "blink-events-live.firebaseapp.com",
+        databaseURL: "https://blink-events-live-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "blink-events-live",
+        storageBucket: "blink-events-live.firebasestorage.app",
+        messagingSenderId: "167956104157",
+        appId: "1:167956104157:web:6b7d18834abe9b4f5b2c34",
+        measurementId: "G-DQ7EYJ0THG"
       };
 
       /* =====================================================================
@@ -1386,6 +2164,7 @@
 
       var state = {
         authenticated: false,
+        activeModule: 'operations',
         db: null,
         connected: false,
         bookingsLoaded: false,
@@ -1394,6 +2173,21 @@
         slotLocksLoaded: false,
         slotLocksError: null,
         slotLocksTree: {},
+        siteSettingsLoaded: false,
+        siteSettings: {
+          packagePrices: {},
+          addonPrices: {},
+          instagramReels: Object.assign({}, DEFAULT_REELS),
+          razorpayKeyId: DEFAULT_RAZORPAY_KEY_ID,
+          gallery: {
+            kurla_couples: {},
+            kurla_family: {},
+            vashi_couples: {},
+            vashi_family: {},
+            vashi_heaven: {},
+            vashi_mega: {}
+          }
+        },
         branchFilter: 'All',
         dateFilter: 'today',
         customDate: '',
@@ -1401,7 +2195,13 @@
         slotBranch: 'Kurla',
         slotRoom: 'couples',
         slotDate: '',
-        submittingBooking: false
+        submittingBooking: false,
+        isUploadingPhotos: false,
+        isReplacingPhoto: false,
+        deletingKeys: {},
+        updatingPaymentKeys: {},
+        qbManualTotalOverride: false,
+        replaceTarget: null
       };
 
       /* =====================================================================
@@ -1409,16 +2209,18 @@
          ===================================================================== */
       function getKolkataTodayISO() {
         try {
-          return new Intl.DateTimeFormat('en-CA', {
+          var formatted = new Intl.DateTimeFormat('en-CA', {
             timeZone: BUSINESS_TIMEZONE,
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
           }).format(new Date());
-        } catch (e) {
-          var d = new Date();
-          return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
-        }
+          if (/^\d{4}-\d{2}-\d{2}$/.test(formatted)) return formatted;
+        } catch (e) {}
+        var now = new Date();
+        var utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+        var d = new Date(utcMs + (330 * 60000));
+        return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
       }
 
       function pad2(n) { return n < 10 ? '0' + n : String(n); }
@@ -1519,7 +2321,7 @@
           if (active) sessionStorage.setItem(SESSION_STORAGE_KEY, '1');
           else sessionStorage.removeItem(SESSION_STORAGE_KEY);
         } catch (e) {
-          /* Ignore storage restrictions in sandboxed environments */
+          /* Ignore storage restrictions */
         }
       }
 
@@ -1617,6 +2419,39 @@
             : 'Failed to load slot locks: ' + (err && err.message ? err.message : 'Unknown error');
           renderSlotGrid();
         });
+
+        state.db.ref(SITE_SETTINGS_PATH).on('value', function (snap) {
+          var val = snap.val() || {};
+          state.siteSettingsLoaded = true;
+          state.siteSettings = {
+            packagePrices: (val.packagePrices && typeof val.packagePrices === 'object') ? val.packagePrices : {},
+            addonPrices: (val.addonPrices && typeof val.addonPrices === 'object') ? val.addonPrices : {},
+            instagramReels: (val.instagramReels && typeof val.instagramReels === 'object')
+              ? Object.assign({}, DEFAULT_REELS, val.instagramReels)
+              : Object.assign({}, DEFAULT_REELS),
+            razorpayKeyId: (typeof val.razorpayKeyId === 'string' && /^rzp_(test|live)_[A-Za-z0-9]+$/.test(val.razorpayKeyId.trim()))
+              ? val.razorpayKeyId.trim()
+              : DEFAULT_RAZORPAY_KEY_ID,
+            gallery: (val.gallery && typeof val.gallery === 'object') ? val.gallery : {}
+          };
+          renderRatesManager();
+          renderGalleryManager();
+          if (!$('quickBookModal').hidden) {
+            refreshQuickBookLivePrices();
+          }
+        }, function (err) {
+          showToast('Failed to load site_settings: ' + (err && err.message ? err.message : 'Permission error'), 'err');
+        });
+      }
+
+      function normalizeVenuePaymentMode(mode) {
+        if (mode === 'cash' || mode === 'online') return mode;
+        return 'pending';
+      }
+
+      function normalizeVenuePaymentStatus(status, mode) {
+        if (status === 'completed' || status === 'pending') return status;
+        return (mode === 'cash' || mode === 'online') ? 'completed' : 'pending';
       }
 
       /* Normalize both new multi-branch schema and any legacy records safely */
@@ -1634,7 +2469,8 @@
         if (isNaN(durationHours) || durationHours < 1) durationHours = 1;
 
         var isLegacyOffline = raw.paymentId === 'OFFLINE_COUNTER';
-        var source = raw.source || (isLegacyOffline ? 'WhatsApp / Walk-In' : 'Online');
+        var bookingSource = raw.bookingSource || '';
+        var source = raw.source || (bookingSource || (isLegacyOffline ? 'WhatsApp / Walk-In' : 'Online'));
         var isOfflineBlock = Boolean(raw.isOfflineBlock || raw.celebrationType === 'Offline Block' || source === 'Offline Block');
 
         var totalVal = Number(raw.totalBookingValue);
@@ -1657,6 +2493,9 @@
         if (isNaN(balanceAtVenue)) {
           balanceAtVenue = Math.max(0, totalVal - venueAdvance);
         }
+
+        var vMode = normalizeVenuePaymentMode(raw.venuePaymentMode);
+        var vStatus = normalizeVenuePaymentStatus(raw.venuePaymentStatus, vMode);
 
         return {
           _key: key,
@@ -1686,11 +2525,16 @@
           venueAdvance: venueAdvance,
           onlinePaymentAmount: onlinePaid,
           balanceAtVenue: balanceAtVenue,
+          venuePaymentMode: vMode,
+          venuePaymentStatus: vStatus,
+          venuePaidAt: raw.venuePaidAt ? Number(raw.venuePaidAt) : null,
           bookingStatus: status,
           status: status,
           source: source,
+          bookingSource: bookingSource,
           isOfflineBlock: isOfflineBlock,
-          createdAt: raw.createdAt || ''
+          createdAt: raw.createdAt || '',
+          updatedAt: raw.updatedAt || ''
         };
       }
 
@@ -1706,11 +2550,14 @@
       }
 
       /* =====================================================================
-         7. FILTERING & REVENUE ANALYTICS
+         7. FILTERING & REVENUE ANALYTICS (ASIA/KOLKATA LOCAL CALENDAR)
          ===================================================================== */
       function matchesDateFilter(booking, todayISO) {
         var d = booking.bookingDate || '';
+        if (!d) return state.dateFilter === 'all';
         if (state.dateFilter === 'today') return d === todayISO;
+        if (state.dateFilter === 'month') return d.slice(0, 7) === todayISO.slice(0, 7);
+        if (state.dateFilter === 'year') return d.slice(0, 4) === todayISO.slice(0, 4);
         if (state.dateFilter === 'upcoming') return d >= todayISO;
         if (state.dateFilter === 'custom') return state.customDate ? d === state.customDate : true;
         return true;
@@ -1723,7 +2570,7 @@
           if (state.branchFilter !== 'All' && b.branch !== state.branchFilter) return false;
           if (!matchesDateFilter(b, todayISO)) return false;
           if (q) {
-            var hay = [b.bookingId, b.customerName, b.whatsappNumber, b.contactNumber, b.packageName, b.branch].join(' ').toLowerCase();
+            var hay = [b.bookingId, b.customerName, b.whatsappNumber, b.contactNumber, b.packageName, b.branch, b.bookingSource, b.source].join(' ').toLowerCase();
             if (hay.indexOf(q) === -1) return false;
           }
           return true;
@@ -1758,10 +2605,19 @@
         var filtered = getFilteredBookings();
         var confirmedFiltered = filtered.filter(function (b) { return b.bookingStatus === 'confirmed' && !b.isOfflineBlock; });
 
-        $('kpiConfirmedCount').textContent = String(confirmedFiltered.length);
-        $('kpiConfirmedSub').textContent = state.branchFilter + ' • ' + state.dateFilter.toUpperCase();
+        var filterLabelMap = {
+          today: 'TODAY (' + todayISO + ')',
+          month: 'THIS MONTH (' + todayISO.slice(0, 7) + ')',
+          year: 'THIS YEAR (' + todayISO.slice(0, 4) + ')',
+          upcoming: 'UPCOMING',
+          all: 'ALL',
+          custom: state.customDate ? 'CUSTOM (' + state.customDate + ')' : 'CUSTOM'
+        };
 
-        /* Branch cards respect date filter so owner sees accurate date-scoped branch performance */
+        $('kpiConfirmedCount').textContent = String(confirmedFiltered.length);
+        $('kpiConfirmedSub').textContent = state.branchFilter + ' • ' + (filterLabelMap[state.dateFilter] || state.dateFilter.toUpperCase());
+
+        /* Date-scoped branch performance */
         var dateScopedAllBranches = state.bookings.filter(function (b) { return matchesDateFilter(b, todayISO); });
         var kurla = computeBranchStats(dateScopedAllBranches, 'Kurla');
         var vashi = computeBranchStats(dateScopedAllBranches, 'Vashi');
@@ -1786,11 +2642,122 @@
         }, 0);
         $('kpiUpcomingBalance').textContent = formatMoney(upcomingBalance);
         $('kpiUpcomingBalanceSub').textContent = upcomingConfirmed.length + ' upcoming confirmed booking' + (upcomingConfirmed.length === 1 ? '' : 's');
+
+        /* Separated Financial Categories (No duplicate counting, no cancelled, no gateway fees in venue collections) */
+        var seenKeys = Object.create(null);
+        var razorpayAdvanceTotal = 0;
+        var razorpayCount = 0;
+        var cashCollected = 0;
+        var cashCount = 0;
+        var onlineCollected = 0;
+        var onlineCount = 0;
+        var pendingVenue = 0;
+        var pendingCount = 0;
+
+        confirmedFiltered.forEach(function (b) {
+          var uniqueId = b._key || b.bookingId;
+          if (seenKeys[uniqueId]) return;
+          seenKeys[uniqueId] = true;
+
+          if (b.source === 'Online') {
+            razorpayAdvanceTotal += Number(b.venueAdvance || 0);
+            razorpayCount += 1;
+          }
+
+          var bal = Math.max(0, Number(b.balanceAtVenue || 0));
+          if (b.venuePaymentStatus === 'completed' && b.venuePaymentMode === 'cash') {
+            cashCollected += bal;
+            cashCount += 1;
+          } else if (b.venuePaymentStatus === 'completed' && b.venuePaymentMode === 'online') {
+            onlineCollected += bal;
+            onlineCount += 1;
+          } else {
+            pendingVenue += bal;
+            pendingCount += 1;
+          }
+        });
+
+        $('kpiRazorpayAdvance').textContent = formatMoney(razorpayAdvanceTotal);
+        $('kpiRazorpaySub').textContent = razorpayCount + ' online booking' + (razorpayCount === 1 ? '' : 's') + ' (₹750 advance credit each, excl. gateway fee)';
+
+        $('kpiVenueCash').textContent = formatMoney(cashCollected);
+        $('kpiVenueCashSub').textContent = cashCount + ' booking' + (cashCount === 1 ? '' : 's') + ' paid by Cash at venue';
+
+        $('kpiVenueOnline').textContent = formatMoney(onlineCollected);
+        $('kpiVenueOnlineSub').textContent = onlineCount + ' booking' + (onlineCount === 1 ? '' : 's') + ' paid by GPay / UPI at venue';
+
+        $('kpiVenuePending').textContent = formatMoney(pendingVenue);
+        $('kpiVenuePendingSub').textContent = pendingCount + ' booking' + (pendingCount === 1 ? '' : 's') + ' awaiting venue balance';
       }
 
       /* =====================================================================
-         8. RENDER BOOKINGS TABLE (SAFE TEXT RENDERING — NO HTML INJECTION)
+         8. ONE-TAP VENUE BALANCE PAYMENT COMPLETION
          ===================================================================== */
+      async function setVenuePaymentAction(booking, actionMode, btnGroupEl) {
+        if (!state.authenticated || !state.db) {
+          showToast('Authorization required to update payment records.', 'err');
+          return;
+        }
+        if (!booking || !booking._key || booking.bookingStatus !== 'confirmed' || booking.isOfflineBlock) {
+          showToast('Only confirmed customer bookings can be updated.', 'err');
+          return;
+        }
+        if (['pending', 'cash', 'online'].indexOf(actionMode) === -1) return;
+        if (state.updatingPaymentKeys[booking._key]) return;
+
+        state.updatingPaymentKeys[booking._key] = true;
+        var buttons = btnGroupEl ? Array.prototype.slice.call(btnGroupEl.querySelectorAll('button')) : [];
+        buttons.forEach(function (b) { b.disabled = true; });
+
+        var payload;
+        if (actionMode === 'cash') {
+          payload = {
+            venuePaymentMode: 'cash',
+            venuePaymentStatus: 'completed',
+            venuePaidAt: Date.now()
+          };
+        } else if (actionMode === 'online') {
+          payload = {
+            venuePaymentMode: 'online',
+            venuePaymentStatus: 'completed',
+            venuePaidAt: Date.now()
+          };
+        } else {
+          payload = {
+            venuePaymentMode: 'pending',
+            venuePaymentStatus: 'pending',
+            venuePaidAt: null
+          };
+        }
+
+        try {
+          await state.db.ref(BOOKINGS_PATH + '/' + booking._key).update(payload);
+          var label = actionMode === 'cash'
+            ? 'Venue balance marked PAID (Cash)'
+            : actionMode === 'online'
+              ? 'Venue balance marked PAID (Online)'
+              : 'Venue payment marked PENDING';
+          showToast(booking.bookingId + ': ' + label + '.', 'ok');
+        } catch (err) {
+          showToast('Failed to update venue payment: ' + (err && err.message ? err.message : 'Database error'), 'err');
+        } finally {
+          delete state.updatingPaymentKeys[booking._key];
+          buttons.forEach(function (b) { b.disabled = false; });
+        }
+      }
+
+      /* =====================================================================
+         9. RENDER BOOKINGS TABLE (SAFE TEXT RENDERING, PAYMENT & DELETE)
+         ===================================================================== */
+      function makeTd(label) {
+        var td = document.createElement('td');
+        td.setAttribute('data-label', label);
+        var val = document.createElement('div');
+        val.className = 'td-val';
+        td.appendChild(val);
+        return { td: td, val: val };
+      }
+
       function renderBookingsTable() {
         var box = $('listStateBox');
         var wrap = $('tableWrap');
@@ -1836,65 +2803,60 @@
           if (b.bookingStatus === 'cancelled') tr.className = 'is-cancelled';
 
           /* Col 1: Booking ID & Branch */
-          var td1 = document.createElement('td');
-          td1.setAttribute('data-label', 'Booking ID & Branch');
+          var c1 = makeTd('Booking ID & Branch');
           var idDiv = document.createElement('div');
           idDiv.className = 'mono';
           idDiv.textContent = b.bookingId;
+          var pillGroup = document.createElement('div');
+          pillGroup.className = 'pill-group';
           var brPill = document.createElement('span');
           brPill.className = 'pill ' + (b.branch === 'Vashi' ? 'pill--vashi' : 'pill--kurla');
           brPill.textContent = b.branch;
-          td1.appendChild(idDiv);
-          td1.appendChild(brPill);
           var rmPill = document.createElement('span');
-          if (b.roomType === 'couples') {
-            rmPill.className = 'pill pill--room-couples';
-            rmPill.textContent = ROOM_BADGES.couples;
-          } else if (b.roomType === 'family') {
-            rmPill.className = 'pill pill--room-family';
-            rmPill.textContent = ROOM_BADGES.family;
+          if (b.roomType && ROOM_BADGES[b.roomType]) {
+            rmPill.className = 'pill pill--room-' + b.roomType;
+            rmPill.textContent = ROOM_BADGES[b.roomType];
           } else {
             rmPill.className = 'pill pill--room-unset';
             rmPill.textContent = 'Room Not Set';
           }
-          td1.appendChild(rmPill);
+          pillGroup.appendChild(brPill);
+          pillGroup.appendChild(rmPill);
+          c1.val.appendChild(idDiv);
+          c1.val.appendChild(pillGroup);
 
           /* Col 2: Customer & WhatsApp */
-          var td2 = document.createElement('td');
-          td2.setAttribute('data-label', 'Customer & WhatsApp');
+          var c2 = makeTd('Customer & WhatsApp');
           var nameEl = document.createElement('strong');
           nameEl.textContent = b.customerName;
           var phoneEl = document.createElement('div');
           phoneEl.className = 'subline';
           phoneEl.textContent = b.whatsappNumber ? '+91 ' + b.whatsappNumber : (b.contactNumber || 'No phone');
-          td2.appendChild(nameEl);
-          td2.appendChild(phoneEl);
+          c2.val.appendChild(nameEl);
+          c2.val.appendChild(phoneEl);
 
           /* Col 3: Schedule */
-          var td3 = document.createElement('td');
-          td3.setAttribute('data-label', 'Schedule');
+          var c3 = makeTd('Schedule');
           var dtEl = document.createElement('div');
           dtEl.textContent = formatPrettyDate(b.bookingDate);
           var slEl = document.createElement('div');
           slEl.className = 'subline';
           slEl.textContent = b.slot + ' (' + b.durationHours + ' hr)';
-          td3.appendChild(dtEl);
-          td3.appendChild(slEl);
+          c3.val.appendChild(dtEl);
+          c3.val.appendChild(slEl);
 
           /* Col 4: Package & Guests */
-          var td4 = document.createElement('td');
-          td4.setAttribute('data-label', 'Package & Guests');
+          var c4 = makeTd('Package & Guests');
           var pkEl = document.createElement('div');
           pkEl.textContent = b.packageName;
           var gsEl = document.createElement('div');
           gsEl.className = 'subline';
           gsEl.textContent = (b.totalPersons ? b.totalPersons + ' Guests' : 'Standard') + (b.celebrationType ? ' • ' + b.celebrationType : '');
-          td4.appendChild(pkEl);
-          td4.appendChild(gsEl);
+          c4.val.appendChild(pkEl);
+          c4.val.appendChild(gsEl);
 
-          /* Col 5: Financial Breakdown */
-          var td5 = document.createElement('td');
-          td5.setAttribute('data-label', 'Financial Breakdown');
+          /* Col 5: Financial Breakdown & One-Tap Venue Payment Controls */
+          var c5 = makeTd('Financial Breakdown');
           var totEl = document.createElement('div');
           totEl.innerHTML = 'Total: <strong></strong>';
           totEl.querySelector('strong').textContent = formatMoney(b.totalBookingValue);
@@ -1908,28 +2870,82 @@
           var balEl = document.createElement('div');
           balEl.className = 'subline';
           balEl.textContent = 'Balance at Venue: ' + formatMoney(b.balanceAtVenue);
-          td5.appendChild(totEl);
-          td5.appendChild(advEl);
-          td5.appendChild(balEl);
+          c5.val.appendChild(totEl);
+          c5.val.appendChild(advEl);
+          c5.val.appendChild(balEl);
+
+          if (b.bookingStatus === 'confirmed' && !b.isOfflineBlock) {
+            var payBtnGroup = document.createElement('div');
+            payBtnGroup.className = 'pay-btn-group';
+            payBtnGroup.setAttribute('role', 'group');
+            payBtnGroup.setAttribute('aria-label', 'Venue balance payment controls for ' + b.bookingId);
+
+            var cashBtn = document.createElement('button');
+            cashBtn.type = 'button';
+            cashBtn.className = 'pay-btn' + (b.venuePaymentStatus === 'completed' && b.venuePaymentMode === 'cash' ? ' is-active-cash' : '');
+            cashBtn.textContent = '💵 Cash Paid';
+            cashBtn.addEventListener('click', function () {
+              setVenuePaymentAction(b, 'cash', payBtnGroup);
+            });
+
+            var onlineBtn = document.createElement('button');
+            onlineBtn.type = 'button';
+            onlineBtn.className = 'pay-btn' + (b.venuePaymentStatus === 'completed' && b.venuePaymentMode === 'online' ? ' is-active-online' : '');
+            onlineBtn.textContent = '📱 Online Paid';
+            onlineBtn.addEventListener('click', function () {
+              setVenuePaymentAction(b, 'online', payBtnGroup);
+            });
+
+            var pendBtn = document.createElement('button');
+            pendBtn.type = 'button';
+            pendBtn.className = 'pay-btn' + (b.venuePaymentStatus !== 'completed' ? ' is-active-pending' : '');
+            pendBtn.textContent = '⏳ Pending';
+            pendBtn.addEventListener('click', function () {
+              setVenuePaymentAction(b, 'pending', payBtnGroup);
+            });
+
+            if (state.updatingPaymentKeys[b._key]) {
+              cashBtn.disabled = true;
+              onlineBtn.disabled = true;
+              pendBtn.disabled = true;
+            }
+
+            payBtnGroup.appendChild(cashBtn);
+            payBtnGroup.appendChild(onlineBtn);
+            payBtnGroup.appendChild(pendBtn);
+            c5.val.appendChild(payBtnGroup);
+          }
 
           /* Col 6: Source & Status */
-          var td6 = document.createElement('td');
-          td6.setAttribute('data-label', 'Source & Status');
+          var c6 = makeTd('Source & Status');
+          var stGroup = document.createElement('div');
+          stGroup.className = 'pill-group';
           var stPill = document.createElement('span');
           stPill.className = 'pill ' + (b.bookingStatus === 'confirmed' ? 'pill--ok' : 'pill--cancel');
           stPill.textContent = b.bookingStatus.toUpperCase();
-          var srcPill = document.createElement('div');
-          srcPill.style.marginTop = '6px';
           var srcSpan = document.createElement('span');
           srcSpan.className = 'pill pill--src';
-          srcSpan.textContent = b.source;
-          srcPill.appendChild(srcSpan);
-          td6.appendChild(stPill);
-          td6.appendChild(srcPill);
+          srcSpan.textContent = b.bookingSource || b.source;
+          stGroup.appendChild(stPill);
+          stGroup.appendChild(srcSpan);
+          if (b.bookingStatus === 'confirmed' && !b.isOfflineBlock) {
+            var payPill = document.createElement('span');
+            if (b.venuePaymentStatus === 'completed' && b.venuePaymentMode === 'cash') {
+              payPill.className = 'pill pill--pay-cash';
+              payPill.textContent = '✅ VENUE PAID (CASH)';
+            } else if (b.venuePaymentStatus === 'completed' && b.venuePaymentMode === 'online') {
+              payPill.className = 'pill pill--pay-online';
+              payPill.textContent = '✅ VENUE PAID (ONLINE)';
+            } else {
+              payPill.className = 'pill pill--pay-pending';
+              payPill.textContent = '⏳ VENUE PAYMENT PENDING';
+            }
+            stGroup.appendChild(payPill);
+          }
+          c6.val.appendChild(stGroup);
 
-          /* Col 7: Actions */
-          var td7 = document.createElement('td');
-          td7.setAttribute('data-label', 'Actions');
+          /* Col 7: Actions (Always includes Permanent Delete) */
+          var c7 = makeTd('Actions');
           var actions = document.createElement('div');
           actions.className = 'row-actions';
 
@@ -1965,44 +2981,95 @@
             actions.appendChild(cancelBtn);
           }
 
-          td7.appendChild(actions);
+          var deleteBtn = document.createElement('button');
+          deleteBtn.type = 'button';
+          deleteBtn.className = 'btn btn--danger btn--sm';
+          deleteBtn.textContent = state.deletingKeys[b._key] ? 'Deleting…' : '🗑️ Delete';
+          deleteBtn.disabled = Boolean(state.deletingKeys[b._key]);
+          deleteBtn.addEventListener('click', function () {
+            promptPermanentDeleteBooking(b);
+          });
+          actions.appendChild(deleteBtn);
 
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          tr.appendChild(td3);
-          tr.appendChild(td4);
-          tr.appendChild(td5);
-          tr.appendChild(td6);
-          tr.appendChild(td7);
+          c7.val.appendChild(actions);
+
+          tr.appendChild(c1.td);
+          tr.appendChild(c2.td);
+          tr.appendChild(c3.td);
+          tr.appendChild(c4.td);
+          tr.appendChild(c5.td);
+          tr.appendChild(c6.td);
+          tr.appendChild(c7.td);
           tbody.appendChild(tr);
         });
       }
 
       /* =====================================================================
-         9. VISUAL HOURLY SLOT MANAGER (09:00 AM – 12:00 AM)
+         10. VISUAL HOURLY SLOT MANAGER (09:00 AM – 12:00 AM)
          ===================================================================== */
+      function syncSlotRoomButtons() {
+        var isVashi = state.slotBranch === 'Vashi';
+        if (!isVashi && (state.slotRoom === 'heaven_couple' || state.slotRoom === 'mega_party')) {
+          state.slotRoom = 'couples';
+        }
+        document.querySelectorAll('[data-slot-room]').forEach(function (btn) {
+          var rm = btn.getAttribute('data-slot-room');
+          var vashiOnly = (rm === 'heaven_couple' || rm === 'mega_party');
+          btn.hidden = vashiOnly && !isVashi;
+          btn.classList.toggle('is-active', rm === state.slotRoom);
+        });
+      }
+
+      function isActiveSlotLock(lock, now) {
+        if (!lock || typeof lock !== 'object') return false;
+        if (lock.status === 'confirmed') return true;
+        if (lock.status === 'hold') {
+          if (lock.expiresAt === null || lock.expiresAt === undefined || lock.expiresAt === '') return false;
+          var exp = Number(lock.expiresAt);
+          return isFinite(exp) && exp > (now || Date.now());
+        }
+        return false;
+      }
+
+      function hasBookingRecordConflict(branch, roomType, date, startHour, durationHours, excludeBookingId) {
+        var list = (state && Array.isArray(state.bookings)) ? state.bookings : [];
+        var endHour = startHour + durationHours;
+        for (var i = 0; i < list.length; i++) {
+          var b = list[i];
+          if (!b || b.bookingStatus !== 'confirmed') continue;
+          if (excludeBookingId && b.bookingId === excludeBookingId) continue;
+          if ((b.branch || 'Kurla') !== branch) continue;
+          if ((b.bookingDate || b.date) !== date) continue;
+          var bRoom = b.roomType || 'couples';
+          if (roomType && bRoom !== roomType) continue;
+          var bStart = Number(b.startHour);
+          var bDur = Number(b.durationHours) || 1;
+          if (!isNaN(bStart) && startHour < (bStart + bDur) && endHour > bStart) {
+            return b;
+          }
+        }
+        return null;
+      }
+
       function getSlotLock(branch, roomType, date, hour24) {
         var hh = pad2(hour24);
+        var now = Date.now();
         var bNode = state.slotLocksTree && state.slotLocksTree[branch];
         if (!bNode || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
 
-        /* 1. Primary room-specific path: slot_locks/{branch}/{roomType}/{date}/{hh} */
         var rNode = bNode[roomType];
         var rdNode = rNode && rNode[date];
-        if (rdNode && rdNode[hh]) {
+        if (rdNode && rdNode[hh] && isActiveSlotLock(rdNode[hh], now)) {
           return rdNode[hh];
         }
 
-        /* 2. Legacy backward-compatibility path: slot_locks/{branch}/{date}/{hh} */
         var legacyDateNode = bNode[date];
-        if (legacyDateNode && legacyDateNode[hh]) {
+        if (legacyDateNode && legacyDateNode[hh] && isActiveSlotLock(legacyDateNode[hh], now)) {
           var legacyLock = legacyDateNode[hh];
           var linked = legacyLock.bookingId ? findBookingById(legacyLock.bookingId) : null;
-          /* If legacy booking explicitly belongs to the OTHER room, do not block this room */
           if (linked && linked.roomType && linked.roomType !== roomType) {
             return null;
           }
-          /* Ambiguous legacy locks are conservatively treated as occupied for both rooms */
           return Object.assign({}, legacyLock, { _isLegacy: true });
         }
 
@@ -2105,7 +3172,7 @@
       }
 
       /* =====================================================================
-         10. ATOMIC SLOT LOCKING, BOOKING CREATION, CANCELLATION & BLOCKING
+         11. ATOMIC SLOT LOCKING, BOOKING CREATION, CANCELLATION & PERMANENT DELETE
          ===================================================================== */
       function getRequiredHours(startHour, durationHours) {
         var hrs = [];
@@ -2119,10 +3186,11 @@
         return state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + date).once('value').then(function (snap) {
           var legacy = snap.val();
           if (!legacy || typeof legacy !== 'object') return null;
+          var now = Date.now();
           for (var i = 0; i < requiredHours.length; i++) {
             var hh = requiredHours[i];
             var l = legacy[hh];
-            if (l && (l.status === 'confirmed' || l.status === 'hold') && l.bookingId !== excludeBookingId) {
+            if (l && isActiveSlotLock(l, now) && l.bookingId !== excludeBookingId) {
               var linked = l.bookingId ? findBookingById(l.bookingId) : null;
               if (!linked || !linked.roomType || linked.roomType === roomType) {
                 return { hour: Number(hh), bookingId: l.bookingId || 'LEGACY' };
@@ -2140,7 +3208,13 @@
         var requiredHours = getRequiredHours(bookingRecord.startHour, bookingRecord.durationHours);
         var dateLockRef = state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + roomType + '/' + date);
 
-        /* Check legacy locks first to prevent double-booking historical ambiguous slots */
+        var recordConflict = hasBookingRecordConflict(branch, roomType, date, bookingRecord.startHour, bookingRecord.durationHours, bookingRecord.bookingId);
+        if (recordConflict) {
+          var recErr = new Error('Booking Conflict! One or more selected hours are already booked or temporarily held. Please choose another available time.');
+          recErr.code = 'SLOT_CONFLICT';
+          return Promise.reject(recErr);
+        }
+
         return hasLegacyHourConflict(branch, roomType, date, requiredHours, bookingRecord.bookingId).then(function (legacyConflict) {
           if (legacyConflict) {
             var legErr = new Error('Legacy slot conflict at ' + formatHour12(legacyConflict.hour) + ' (Booking ID: ' + legacyConflict.bookingId + ').');
@@ -2148,34 +3222,164 @@
             throw legErr;
           }
 
-          /* Step A: Atomic transaction on slot_locks/{branch}/{roomType}/{YYYY-MM-DD} */
           return dateLockRef.transaction(function (current) {
+            var now = Date.now();
             var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
             for (var i = 0; i < requiredHours.length; i++) {
               var hh = requiredHours[i];
-              if (node[hh] && (node[hh].status === 'confirmed' || node[hh].status === 'hold')) {
-                return undefined; /* Abort atomically if any hour is already locked */
+              var existing = node[hh];
+              if (existing && isActiveSlotLock(existing, now) && existing.bookingId !== bookingRecord.bookingId) {
+                return undefined;
               }
             }
             for (var j = 0; j < requiredHours.length; j++) {
               node[requiredHours[j]] = {
                 status: 'confirmed',
-                bookingId: bookingRecord.bookingId
+                bookingId: bookingRecord.bookingId,
+                roomType: roomType
               };
             }
             return node;
           });
         }).then(function (txResult) {
-          if (!txResult.committed) {
+          if (!txResult || !txResult.committed) {
             var conflictErr = new Error('One or more selected hours are already locked.');
             conflictErr.code = 'SLOT_CONFLICT';
             throw conflictErr;
           }
-          /* Step B: Write booking record; rollback owned locks if booking write fails */
           return state.db.ref(BOOKINGS_PATH + '/' + bookingRecord.bookingId).set(bookingRecord).catch(function (writeErr) {
-            var rollback = {};
-            requiredHours.forEach(function (hh) { rollback[hh] = null; });
-            return dateLockRef.update(rollback).then(function () { throw writeErr; }, function () { throw writeErr; });
+            return dateLockRef.transaction(function (curr) {
+              if (!curr || typeof curr !== 'object') return curr;
+              var n = Object.assign({}, curr);
+              requiredHours.forEach(function (hh) {
+                if (n[hh] && n[hh].bookingId === bookingRecord.bookingId) delete n[hh];
+              });
+              return n;
+            }).then(function () { throw writeErr; }, function () { throw writeErr; });
+          });
+        });
+      }
+
+      function acquireAdminSlotHold(branch, roomType, date, startHour, duration, bookingId) {
+        var resolvedRoom = normalizeRoomType(roomType);
+        if (!resolvedRoom) return Promise.reject(new Error('Invalid room type.'));
+        var requiredHours = getRequiredHours(startHour, duration);
+        var dateLockRef = state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + resolvedRoom + '/' + date);
+
+        var recordConflict = hasBookingRecordConflict(branch, resolvedRoom, date, startHour, duration, bookingId);
+        if (recordConflict) {
+          var recErr = new Error('Booking Conflict! One or more selected hours are already booked or temporarily held. Please choose another available time.');
+          recErr.code = 'SLOT_CONFLICT';
+          return Promise.reject(recErr);
+        }
+
+        return hasLegacyHourConflict(branch, resolvedRoom, date, requiredHours, bookingId).then(function (legacyConflict) {
+          if (legacyConflict) {
+            var legErr = new Error('Legacy slot conflict at ' + formatHour12(legacyConflict.hour) + ' (Booking ID: ' + legacyConflict.bookingId + ').');
+            legErr.code = 'SLOT_CONFLICT';
+            throw legErr;
+          }
+
+          return dateLockRef.transaction(function (current) {
+            var now = Date.now();
+            var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
+            for (var i = 0; i < requiredHours.length; i++) {
+              var hh = requiredHours[i];
+              var existing = node[hh];
+              if (existing && isActiveSlotLock(existing, now) && existing.bookingId !== bookingId) {
+                return undefined;
+              }
+            }
+            for (var j = 0; j < requiredHours.length; j++) {
+              node[requiredHours[j]] = {
+                status: 'hold',
+                bookingId: bookingId,
+                roomType: resolvedRoom,
+                expiresAt: now + HOLD_TTL_MS
+              };
+            }
+            return node;
+          });
+        }).then(function (txResult) {
+          if (!txResult || !txResult.committed) {
+            var conflictErr = new Error('One or more selected hours are already locked or held.');
+            conflictErr.code = 'SLOT_CONFLICT';
+            throw conflictErr;
+          }
+          return txResult;
+        });
+      }
+
+      function releaseAdminSlotHold(branch, roomType, date, startHour, duration, bookingId) {
+        var resolvedRoom = normalizeRoomType(roomType);
+        if (!state.db || !resolvedRoom) return Promise.resolve();
+        var requiredHours = getRequiredHours(startHour, duration);
+        var dateLockRef = state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + resolvedRoom + '/' + date);
+        return dateLockRef.transaction(function (current) {
+          if (!current || typeof current !== 'object') return current;
+          var node = Object.assign({}, current);
+          for (var i = 0; i < requiredHours.length; i++) {
+            var hh = requiredHours[i];
+            if (node[hh] && node[hh].status === 'hold' && node[hh].bookingId === bookingId) {
+              delete node[hh];
+            }
+          }
+          return node;
+        });
+      }
+
+      function confirmAdminSlotHoldAndSaveBooking(bookingRecord) {
+        var branch = bookingRecord.branch;
+        var roomType = normalizeRoomType(bookingRecord.roomType) || 'couples';
+        var date = bookingRecord.bookingDate;
+        var requiredHours = getRequiredHours(bookingRecord.startHour, bookingRecord.durationHours);
+        var dateLockRef = state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + roomType + '/' + date);
+
+        return dateLockRef.transaction(function (current) {
+          if (!current || typeof current !== 'object') return undefined;
+          var now = Date.now();
+          var node = Object.assign({}, current);
+          for (var i = 0; i < requiredHours.length; i++) {
+            var hh = requiredHours[i];
+            var existing = node[hh];
+            if (!existing) return undefined;
+            if (existing.status === 'confirmed') {
+              if (existing.bookingId !== bookingRecord.bookingId) return undefined;
+            } else if (existing.status === 'hold') {
+              var exp = Number(existing.expiresAt);
+              if (existing.bookingId !== bookingRecord.bookingId ||
+                  existing.expiresAt === null ||
+                  existing.expiresAt === undefined ||
+                  existing.expiresAt === '' ||
+                  !isFinite(exp) ||
+                  !(exp > now)) {
+                return undefined;
+              }
+            } else {
+              return undefined;
+            }
+            node[hh] = {
+              status: 'confirmed',
+              bookingId: bookingRecord.bookingId,
+              roomType: roomType
+            };
+          }
+          return node;
+        }).then(function (txResult) {
+          if (!txResult || !txResult.committed) {
+            var conflictErr = new Error('Slot hold expired or was claimed by another booking.');
+            conflictErr.code = 'SLOT_CONFLICT';
+            throw conflictErr;
+          }
+          return state.db.ref(BOOKINGS_PATH + '/' + bookingRecord.bookingId).set(bookingRecord).catch(function (writeErr) {
+            return dateLockRef.transaction(function (curr) {
+              if (!curr || typeof curr !== 'object') return curr;
+              var n = Object.assign({}, curr);
+              requiredHours.forEach(function (hh) {
+                if (n[hh] && n[hh].bookingId === bookingRecord.bookingId) delete n[hh];
+              });
+              return n;
+            }).then(function () { throw writeErr; }, function () { throw writeErr; });
           });
         });
       }
@@ -2206,7 +3410,6 @@
           updates[BOOKINGS_PATH + '/' + booking._key + '/bookingStatus'] = 'cancelled';
           updates[BOOKINGS_PATH + '/' + booking._key + '/status'] = 'cancelled';
 
-          /* Verify ownership of every lock before releasing */
           if (roomType) {
             Object.keys(roomLocks).forEach(function (hh) {
               if (roomLocks[hh] && roomLocks[hh].bookingId === bookingId) {
@@ -2223,14 +3426,86 @@
         });
       }
 
+      async function permanentlyDeleteBookingAndLocks(booking) {
+        if (!booking || !booking._key) {
+          throw new Error('Missing booking identifier.');
+        }
+        var bookingKey = booking._key;
+        var bookingId = booking.bookingId || bookingKey;
+        var branch = booking.branch || 'Kurla';
+        var date = booking.bookingDate || '';
+        var updates = {};
+        updates[BOOKINGS_PATH + '/' + bookingKey] = null;
+
+        if (branch && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+          var readPaths = ROOMS.map(function (rm) {
+            return {
+              path: SLOT_LOCKS_PATH + '/' + branch + '/' + rm + '/' + date,
+              ref: state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + rm + '/' + date)
+            };
+          });
+          readPaths.push({
+            path: SLOT_LOCKS_PATH + '/' + branch + '/' + date,
+            ref: state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + date)
+          });
+
+          var snapshots = await Promise.all(readPaths.map(function (item) {
+            return item.ref.once('value');
+          }));
+
+          snapshots.forEach(function (snap, idx) {
+            var val = snap.val();
+            if (!val || typeof val !== 'object') return;
+            var basePath = readPaths[idx].path;
+            Object.keys(val).forEach(function (hh) {
+              if (val[hh] && val[hh].bookingId === bookingId) {
+                updates[basePath + '/' + hh] = null;
+              }
+            });
+          });
+        }
+
+        await state.db.ref().update(updates);
+      }
+
+      function promptPermanentDeleteBooking(booking) {
+        if (!booking || !booking._key || state.deletingKeys[booking._key]) return;
+        var label = booking.customerName + ' (' + booking.bookingId + ')';
+        openConfirmModal(
+          'Permanently Delete Booking Record?',
+          'Are you sure you want to permanently delete ' + label + ' on ' + formatPrettyDate(booking.bookingDate) + ' (' + booking.slot + ')? This removes the record from Firebase and clears its slot locks. This cannot be undone.',
+          '🗑️ Permanently Delete',
+          async function () {
+            if (state.deletingKeys[booking._key]) return;
+            state.deletingKeys[booking._key] = true;
+            $('cmConfirmBtn').disabled = true;
+            $('cmConfirmBtn').textContent = 'Deleting…';
+            renderBookingsTable();
+            try {
+              await permanentlyDeleteBookingAndLocks(booking);
+              $('confirmModal').hidden = true;
+              showToast('Deleted booking ' + booking.bookingId + ' and cleared associated slot locks.', 'ok');
+            } catch (err) {
+              showToast(err && err.message ? err.message : 'Failed to delete booking record.', 'err');
+            } finally {
+              delete state.deletingKeys[booking._key];
+              $('cmConfirmBtn').disabled = false;
+              $('cmConfirmBtn').textContent = 'Proceed';
+              renderBookingsTable();
+            }
+          }
+        );
+      }
+
       /* =====================================================================
-         11. WHATSAPP CONFIRMATION URL BUILDER
+         12. WHATSAPP CONFIRMATION URL BUILDER
          ===================================================================== */
       function buildWhatsAppUrl(b) {
         var phone = normalizePhone10(b.whatsappNumber || b.contactNumber);
+        var srcDisplay = b.bookingSource || b.source;
         var paymentLine = b.source === 'Online'
           ? 'Online Paid: ' + formatMoney(b.onlinePaymentAmount) + ' (Venue Advance Credited: ' + formatMoney(b.venueAdvance) + ')'
-          : 'Advance Received (' + b.source + '): ' + formatMoney(b.venueAdvance);
+          : 'Advance Received (' + srcDisplay + '): ' + formatMoney(b.venueAdvance);
 
         var lines = [
           '✨ *BLINK EVENTS — BOOKING CONFIRMATION* ✨',
@@ -2253,7 +3528,7 @@
       }
 
       /* =====================================================================
-         12. QUICK BOOKING MODAL
+         13. SMART WHATSAPP / WALK-IN BOOKING MODAL
          ===================================================================== */
       function populateStartHourOptions() {
         var sel = $('qbStartHour');
@@ -2266,33 +3541,259 @@
         });
       }
 
-      function updateQuickBookBalance() {
-        var total = Math.max(0, Number($('qbTotal').value) || 0);
+      function getLivePackagePrice(pkg) {
+        var overrides = state.siteSettings.packagePrices || {};
+        var ov = overrides[pkg.id];
+        if (typeof ov === 'number' && isFinite(ov) && ov >= 0) return Math.round(ov);
+        if (ov && typeof ov === 'object' && ov.price !== undefined && !isNaN(Number(ov.price))) {
+          return Math.round(Number(ov.price));
+        }
+        return pkg.price;
+      }
+
+      function getLiveAddonPrice(addon) {
+        var overrides = state.siteSettings.addonPrices || {};
+        var ov = overrides[addon.id];
+        if (typeof ov === 'number' && isFinite(ov) && ov >= 0) return Math.round(ov);
+        if (ov && typeof ov === 'object' && ov.price !== undefined && !isNaN(Number(ov.price))) {
+          return Math.round(Number(ov.price));
+        }
+        return addon.price;
+      }
+
+      function getAvailableRoomsForBranch(branch) {
+        return branch === 'Kurla' ? ['couples', 'family'] : ['couples', 'family', 'heaven_couple', 'mega_party'];
+      }
+
+      function syncQuickBookRoomOptions(preferredRoom) {
+        var branch = $('qbBranch').value;
+        var allowed = getAvailableRoomsForBranch(branch);
+        var roomSel = $('qbRoom');
+        Array.prototype.slice.call(roomSel.options).forEach(function (opt) {
+          var ok = allowed.indexOf(opt.value) !== -1;
+          opt.hidden = !ok;
+          opt.disabled = !ok;
+        });
+        var target = (preferredRoom && allowed.indexOf(preferredRoom) !== -1)
+          ? preferredRoom
+          : (allowed.indexOf(roomSel.value) !== -1 ? roomSel.value : allowed[0]);
+        roomSel.value = target;
+      }
+
+      function getSelectedQuickBookPackage() {
+        var branch = $('qbBranch').value;
+        var room = $('qbRoom').value;
+        var pkgId = $('qbPackageSelect').value;
+        var list = (PACKAGE_MASTER_DATA[branch] && PACKAGE_MASTER_DATA[branch][room]) || [];
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].id === pkgId) return list[i];
+        }
+        return list[0] || null;
+      }
+
+      function populateQuickBookPackages(preservePkgId) {
+        var branch = $('qbBranch').value;
+        var room = $('qbRoom').value;
+        var sel = $('qbPackageSelect');
+        var list = (PACKAGE_MASTER_DATA[branch] && PACKAGE_MASTER_DATA[branch][room]) || [];
+        sel.innerHTML = '';
+
+        list.forEach(function (pkg) {
+          var livePrice = getLivePackagePrice(pkg);
+          var opt = document.createElement('option');
+          opt.value = pkg.id;
+          opt.textContent = pkg.name + ' (' + pkg.duration + ' hr • ' + formatMoney(livePrice) + ')';
+          sel.appendChild(opt);
+        });
+
+        var hasMatch = preservePkgId && list.some(function (p) { return p.id === preservePkgId; });
+        if (hasMatch) {
+          sel.value = preservePkgId;
+        } else if (list.length) {
+          sel.value = list[0].id;
+        }
+        applySelectedPackageBehavior(true);
+      }
+
+      function renderQuickBookAddons() {
+        var grid = $('qbAddonsGrid');
+        var prevChecked = {};
+        grid.querySelectorAll('input[type="checkbox"]:checked').forEach(function (cb) {
+          prevChecked[cb.value] = true;
+        });
+        grid.innerHTML = '';
+
+        ADDON_MASTER_LIST.forEach(function (addon) {
+          var livePrice = getLiveAddonPrice(addon);
+          var lbl = document.createElement('label');
+          lbl.className = 'addon-check' + (prevChecked[addon.id] ? ' is-checked' : '');
+
+          var left = document.createElement('span');
+          left.className = 'addon-check-left';
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = addon.id;
+          cb.checked = Boolean(prevChecked[addon.id]);
+          cb.setAttribute('data-addon-label', addon.label);
+          cb.setAttribute('data-addon-price', String(livePrice));
+          cb.addEventListener('change', function () {
+            lbl.classList.toggle('is-checked', cb.checked);
+            recalculateQuickBookPricing();
+          });
+
+          var nameSpan = document.createElement('span');
+          nameSpan.className = 'addon-check-name';
+          nameSpan.textContent = addon.label;
+
+          left.appendChild(cb);
+          left.appendChild(nameSpan);
+
+          var priceSpan = document.createElement('span');
+          priceSpan.className = 'addon-check-price';
+          priceSpan.textContent = formatMoney(livePrice);
+
+          lbl.appendChild(left);
+          lbl.appendChild(priceSpan);
+          grid.appendChild(lbl);
+        });
+      }
+
+      function getSelectedQuickBookAddons() {
+        var selected = [];
+        $('qbAddonsGrid').querySelectorAll('input[type="checkbox"]:checked').forEach(function (cb) {
+          selected.push({
+            id: cb.value,
+            name: cb.getAttribute('data-addon-label') || cb.value,
+            price: Math.max(0, Number(cb.getAttribute('data-addon-price')) || 0)
+          });
+        });
+        return selected;
+      }
+
+      function applySelectedPackageBehavior(resetPersonsToBase) {
+        var pkg = getSelectedQuickBookPackage();
+        if (!pkg) return;
+
+        $('qbDuration').value = String(pkg.duration);
+        $('qbPersons').min = String(pkg.baseGuests);
+        if (resetPersonsToBase || Number($('qbPersons').value) < pkg.baseGuests) {
+          $('qbPersons').value = String(pkg.baseGuests);
+        }
+        $('qbPackageHint').textContent = 'Base: ' + pkg.baseGuests + ' guests included • Extra guest: ' + formatMoney(pkg.extraGuest) + '/person';
+        recalculateQuickBookPricing();
+      }
+
+      function recalculateQuickBookPricing() {
+        var pkg = getSelectedQuickBookPackage();
+        var packagePrice = pkg ? getLivePackagePrice(pkg) : 0;
+        var baseGuests = pkg ? pkg.baseGuests : 1;
+        var extraGuestPrice = pkg ? pkg.extraGuest : 0;
+        var selectedPersons = Math.max(1, Number($('qbPersons').value) || baseGuests);
+        var extraGuests = Math.max(0, selectedPersons - baseGuests);
+        var extraGuestCharges = extraGuests * extraGuestPrice;
+
+        var selectedAddons = getSelectedQuickBookAddons();
+        var addonsTotal = selectedAddons.reduce(function (sum, a) { return sum + a.price; }, 0);
+        var autoTotal = Math.max(0, Math.round(packagePrice + extraGuestCharges + addonsTotal));
+
+        if (!state.qbManualTotalOverride) {
+          $('qbTotal').value = String(autoTotal);
+        }
+
+        var finalTotal = Math.max(0, Number($('qbTotal').value) || 0);
         var adv = Math.max(0, Number($('qbAdvance').value) || 0);
-        var bal = Math.max(0, total - adv);
+        var bal = Math.max(0, finalTotal - adv);
         $('qbBalance').value = formatMoney(bal);
+
+        $('qbOverrideBadge').hidden = !state.qbManualTotalOverride;
+        $('qbRestoreAutoBtn').hidden = !state.qbManualTotalOverride;
+
+        var parts = ['Package: ' + formatMoney(packagePrice)];
+        if (extraGuests > 0) parts.push('Extra Guests (' + extraGuests + '): ' + formatMoney(extraGuestCharges));
+        if (addonsTotal > 0) parts.push('Add-ons (' + selectedAddons.length + '): ' + formatMoney(addonsTotal));
+        parts.push('Auto Total: ' + formatMoney(autoTotal));
+        $('qbCalcBreakdown').textContent = parts.join(' + ');
+
+        return {
+          pkg: pkg,
+          packagePrice: packagePrice,
+          extraGuests: extraGuests,
+          extraGuestCharges: extraGuestCharges,
+          selectedAddons: selectedAddons,
+          addonsTotal: addonsTotal,
+          autoTotal: autoTotal,
+          finalTotal: finalTotal,
+          advance: adv,
+          balance: bal
+        };
+      }
+
+      function refreshQuickBookLivePrices() {
+        var prevPkgId = $('qbPackageSelect').value;
+        populateQuickBookPackages(prevPkgId);
+        renderQuickBookAddons();
+        recalculateQuickBookPricing();
       }
 
       function openQuickBookModal(prefillBranch, prefillDate, prefillHour, prefillRoom) {
         $('quickBookForm').reset();
+        state.qbManualTotalOverride = false;
         $('qbBranch').value = prefillBranch || state.slotBranch || 'Kurla';
-        $('qbRoom').value = normalizeRoomType(prefillRoom) || normalizeRoomType(state.slotRoom) || 'couples';
+        syncQuickBookRoomOptions(normalizeRoomType(prefillRoom) || normalizeRoomType(state.slotRoom) || 'couples');
+        $('qbBookingSource').value = 'Walk-In';
         $('qbDate').value = prefillDate || state.slotDate || getKolkataTodayISO();
         $('qbDate').min = getKolkataTodayISO();
         $('qbStartHour').value = String(prefillHour || 18);
-        $('qbDuration').value = prefillHour && prefillHour >= 22 ? String(24 - prefillHour) : '3';
         $('qbAdvance').value = '750';
-        $('qbPersons').value = '4';
         $('qbNote').hidden = true;
         $('qbWhatsappBtn').hidden = true;
         $('qbSubmitBtn').disabled = false;
-        $('qbSubmitBtn').textContent = 'Confirm & Lock Slots';
-        updateQuickBookBalance();
+        syncQuickBookSourceUI(false);
+
+        renderQuickBookAddons();
+        populateQuickBookPackages(null);
         $('quickBookModal').hidden = false;
       }
 
-      $('qbTotal').addEventListener('input', updateQuickBookBalance);
-      $('qbAdvance').addEventListener('input', updateQuickBookBalance);
+      function syncQuickBookSourceUI(adjustAdvance) {
+        var source = $('qbBookingSource').value;
+        var isOnline = source === 'Online';
+        $('qbSubmitBtn').textContent = isOnline ? 'Confirm & Pay (Razorpay)' : 'Confirm & Lock Slots';
+        if (adjustAdvance) {
+          var curAdv = Number($('qbAdvance').value);
+          if (isOnline && (isNaN(curAdv) || curAdv === 750 || curAdv === 0)) {
+            $('qbAdvance').value = String(ONLINE_PAYMENT_AMOUNT);
+          } else if (!isOnline && curAdv === ONLINE_PAYMENT_AMOUNT) {
+            $('qbAdvance').value = '750';
+          }
+          recalculateQuickBookPricing();
+        }
+      }
+
+      $('qbBranch').addEventListener('change', function () {
+        syncQuickBookRoomOptions(null);
+        populateQuickBookPackages(null);
+      });
+      $('qbRoom').addEventListener('change', function () {
+        populateQuickBookPackages(null);
+      });
+      $('qbBookingSource').addEventListener('change', function () {
+        syncQuickBookSourceUI(true);
+      });
+      $('qbPackageSelect').addEventListener('change', function () {
+        applySelectedPackageBehavior(true);
+      });
+      $('qbPersons').addEventListener('input', recalculateQuickBookPricing);
+      $('qbAdvance').addEventListener('input', recalculateQuickBookPricing);
+      $('qbTotal').addEventListener('input', function () {
+        state.qbManualTotalOverride = true;
+        recalculateQuickBookPricing();
+      });
+      $('qbRestoreAutoBtn').addEventListener('click', function () {
+        state.qbManualTotalOverride = false;
+        recalculateQuickBookPricing();
+      });
+
       $('openQuickBookBtn').addEventListener('click', function () {
         openQuickBookModal(state.branchFilter === 'Vashi' ? 'Vashi' : 'Kurla', state.slotDate || getKolkataTodayISO(), 18);
       });
@@ -2310,30 +3811,42 @@
 
         var branch = $('qbBranch').value;
         var roomType = $('qbRoom').value;
+        var allowedRooms = getAvailableRoomsForBranch(branch);
+        var bookingSource = $('qbBookingSource').value;
         var date = $('qbDate').value;
         var startHour = Number($('qbStartHour').value);
         var duration = Number($('qbDuration').value);
         var name = $('qbName').value.trim().replace(/\s+/g, ' ');
         var whatsapp = normalizePhone10($('qbWhatsapp').value);
-        var pkg = $('qbPackage').value.trim();
+        var email = $('qbEmail').value.trim();
         var persons = Number($('qbPersons').value);
-        var total = Number($('qbTotal').value);
-        var advance = Number($('qbAdvance').value);
+        var totalRaw = $('qbTotal').value.trim();
+        var advanceRaw = $('qbAdvance').value.trim();
+        var total = Number(totalRaw);
+        var advance = Number(advanceRaw);
+        var calc = recalculateQuickBookPricing();
 
         if (BRANCHES.indexOf(branch) === -1) return showFormErr('Please select a valid branch (Kurla or Vashi).');
-        if (ROOMS.indexOf(roomType) === -1) return showFormErr('Please select a valid room (Couples Room or Family Room).');
+        if (allowedRooms.indexOf(roomType) === -1) return showFormErr('Selected room is not available for ' + branch + '.');
+        if (!calc.pkg) return showFormErr('Please select a valid package.');
+        if (['Walk-In', 'WhatsApp', 'Online'].indexOf(bookingSource) === -1) return showFormErr('Please select a valid Booking Source (Walk-In, WhatsApp, or Online).');
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < getKolkataTodayISO()) return showFormErr('Please select today or a future booking date.');
         if (isNaN(startHour) || startHour < 9 || startHour > 23) return showFormErr('Start hour must be between 09:00 AM and 11:00 PM.');
         if ([1, 2, 3].indexOf(duration) === -1) return showFormErr('Duration must be 1, 2, or 3 hours.');
         if (startHour + duration > 24) return showFormErr('Selected duration exceeds 12:00 AM closing time. Choose an earlier start hour or shorter duration.');
         if (name.length < 2) return showFormErr('Please enter the customer name.');
         if (!whatsapp) return showFormErr('Please enter a valid 10-digit Indian WhatsApp number.');
-        if (pkg.length < 2) return showFormErr('Please enter a package name.');
-        if (isNaN(persons) || persons < 1) return showFormErr('Total persons must be at least 1.');
-        if (isNaN(total) || total < 0) return showFormErr('Please enter a valid total amount.');
-        if (isNaN(advance) || advance < 0) return showFormErr('Please enter a valid advance amount.');
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showFormErr('Please enter a valid email address or leave it blank.');
+        if (isNaN(persons) || persons < calc.pkg.baseGuests) return showFormErr('Total persons must be at least ' + calc.pkg.baseGuests + ' for ' + calc.pkg.name + '.');
+        if (totalRaw === '' || isNaN(total) || total < 0 || !isFinite(total)) return showFormErr('Please enter a valid total amount.');
+        if (advanceRaw === '' || isNaN(advance) || advance < 0 || !isFinite(advance)) return showFormErr('Please enter a valid advance amount.');
+        if (bookingSource === 'Online' && Math.round(advance) < 1) return showFormErr('Online Razorpay checkout requires an advance amount of at least ₹1.');
 
-        var balanceAtVenue = Math.max(0, total - advance);
+        var amountInRupees = Math.round(advance);
+        var venueAdvanceCredit = (bookingSource === 'Online' && amountInRupees === ONLINE_PAYMENT_AMOUNT)
+          ? VENUE_ADVANCE_CREDIT
+          : amountInRupees;
+        var balanceAtVenue = Math.max(0, Math.round(total) - venueAdvanceCredit);
         var bookingId = generateBookingId(branch);
         var record = {
           bookingId: bookingId,
@@ -2343,7 +3856,8 @@
           customerName: name,
           contactNumber: whatsapp,
           whatsappNumber: whatsapp,
-          celebrationType: 'WhatsApp / Walk-In',
+          customerEmail: email,
+          celebrationType: bookingSource,
           bookingDate: date,
           date: date,
           startHour: startHour,
@@ -2351,22 +3865,140 @@
           endTime: formatHour12(startHour + duration),
           slot: formatRange12(startHour, duration),
           durationHours: duration,
-          packageName: pkg,
-          packagePrice: total,
+          packageId: calc.pkg.id,
+          packageName: calc.pkg.name + ' (' + duration + ' Hr' + (duration > 1 ? 's' : '') + ')',
+          packagePrice: calc.packagePrice,
           totalPersons: persons,
-          extraGuests: 0,
-          extraGuestCharge: 0,
-          selectedAddons: [],
-          addonsTotal: 0,
-          totalBookingValue: total,
-          venueAdvance: advance,
-          onlinePaymentAmount: 0,
+          extraGuests: calc.extraGuests,
+          extraGuestCharge: calc.extraGuestCharges,
+          selectedAddons: calc.selectedAddons,
+          addonsTotal: calc.addonsTotal,
+          totalBookingValue: Math.round(total),
+          manualTotalOverride: state.qbManualTotalOverride,
+          venueAdvance: venueAdvanceCredit,
+          onlinePaymentAmount: bookingSource === 'Online' ? amountInRupees : 0,
           balanceAtVenue: balanceAtVenue,
+          venuePaymentMode: 'pending',
+          venuePaymentStatus: 'pending',
           bookingStatus: 'confirmed',
           status: 'confirmed',
-          source: 'WhatsApp / Walk-In',
+          bookingSource: bookingSource,
+          source: bookingSource,
           createdAt: new Date().toISOString()
         };
+
+        if (bookingSource === 'Online') {
+          if (typeof window.Razorpay !== 'function') {
+            return showFormErr('Razorpay Checkout failed to load. Please check your internet connection and refresh the page.');
+          }
+
+          state.submittingBooking = true;
+          $('qbSubmitBtn').disabled = true;
+          $('qbSubmitBtn').textContent = 'Reserving Hold…';
+          noteEl.className = 'modal-note';
+          noteEl.textContent = 'Reserving temporary 5-minute slot hold before opening Razorpay…';
+          noteEl.hidden = false;
+
+          acquireAdminSlotHold(branch, roomType, date, startHour, duration, bookingId)
+            .then(function () {
+              $('qbSubmitBtn').textContent = 'Opening Razorpay…';
+              noteEl.textContent = 'Slot hold reserved. Complete Razorpay payment to confirm & lock slots.';
+
+              var paymentHandled = false;
+              var rzpOptions = {
+                key: getActiveRazorpayKeyId(),
+                amount: amountInRupees * 100,
+                currency: 'INR',
+                name: 'Blink Events',
+                description: branch + ' • ' + getRoomLabel(roomType) + ' • ' + date + ' (' + formatRange12(startHour, duration) + ')',
+                prefill: {
+                  name: name,
+                  email: email || '',
+                  contact: whatsapp
+                },
+                notes: {
+                  booking_id: bookingId,
+                  branch: branch,
+                  room_type: roomType,
+                  booking_date: date,
+                  slot: formatRange12(startHour, duration)
+                },
+                theme: {
+                  color: RAZORPAY_THEME_COLOR
+                },
+                handler: function (response) {
+                  paymentHandled = true;
+                  var paymentId = response && response.razorpay_payment_id ? String(response.razorpay_payment_id) : '';
+                  record.paymentId = paymentId;
+                  record.razorpayPaymentId = paymentId;
+
+                  $('qbSubmitBtn').textContent = 'Confirming Slot & Saving…';
+                  noteEl.className = 'modal-note';
+                  noteEl.textContent = 'Payment received (' + paymentId + '). Confirming slot lock and saving booking…';
+
+                  confirmAdminSlotHoldAndSaveBooking(record).then(function () {
+                    noteEl.className = 'modal-note is-ok';
+                    noteEl.textContent = 'Confirmed! Booking ID: ' + bookingId + ' | Razorpay Payment ID: ' + paymentId + '. All ' + duration + ' hour(s) are now locked.';
+                    var waBtn = $('qbWhatsappBtn');
+                    waBtn.href = buildWhatsAppUrl(record);
+                    waBtn.hidden = false;
+                    showToast('Online booking ' + bookingId + ' confirmed (' + paymentId + ').', 'ok');
+                  }).catch(function (err) {
+                    var msg = err && err.code === 'SLOT_CONFLICT'
+                      ? 'Payment captured (' + paymentId + '), but the slot hold expired or was taken. Please resolve manually or issue refund.'
+                      : 'Payment captured (' + paymentId + '), but failed to save booking: ' + (err && err.message ? err.message : 'Database error');
+                    showFormErr(msg);
+                    $('qbSubmitBtn').disabled = false;
+                  }).then(function () {
+                    state.submittingBooking = false;
+                    syncQuickBookSourceUI(false);
+                  });
+                },
+                modal: {
+                  ondismiss: function () {
+                    if (paymentHandled) return;
+                    releaseAdminSlotHold(branch, roomType, date, startHour, duration, bookingId);
+                    state.submittingBooking = false;
+                    $('qbSubmitBtn').disabled = false;
+                    syncQuickBookSourceUI(false);
+                    showFormErr('Payment window closed before completion. Slot hold released and no unpaid booking was saved.');
+                    showToast('Razorpay checkout dismissed — slot hold released.', 'warn');
+                  }
+                }
+              };
+
+              try {
+                var rzp = new window.Razorpay(rzpOptions);
+                rzp.on('payment.failed', function (resp) {
+                  paymentHandled = true;
+                  releaseAdminSlotHold(branch, roomType, date, startHour, duration, bookingId);
+                  state.submittingBooking = false;
+                  $('qbSubmitBtn').disabled = false;
+                  syncQuickBookSourceUI(false);
+                  var errDesc = (resp && resp.error && resp.error.description) ? resp.error.description : 'Payment could not be completed.';
+                  showFormErr('Payment failed: ' + errDesc + ' Slot hold released.');
+                  showToast('Razorpay payment failed.', 'err');
+                });
+                rzp.open();
+              } catch (rzpErr) {
+                releaseAdminSlotHold(branch, roomType, date, startHour, duration, bookingId);
+                state.submittingBooking = false;
+                $('qbSubmitBtn').disabled = false;
+                syncQuickBookSourceUI(false);
+                showFormErr('Unable to launch Razorpay Checkout: ' + (rzpErr && rzpErr.message ? rzpErr.message : 'Unknown error'));
+              }
+            })
+            .catch(function (holdErr) {
+              state.submittingBooking = false;
+              $('qbSubmitBtn').disabled = false;
+              syncQuickBookSourceUI(false);
+              var msg = holdErr && holdErr.code === 'SLOT_CONFLICT'
+                ? 'Booking Conflict! One or more selected hours are already booked or temporarily held. Please choose another available time.'
+                : 'Could not reserve slot hold: ' + (holdErr && holdErr.message ? holdErr.message : 'Database error');
+              showFormErr(msg);
+            });
+          return;
+        }
 
         state.submittingBooking = true;
         $('qbSubmitBtn').disabled = true;
@@ -2377,25 +4009,25 @@
 
         commitAtomicBooking(record).then(function () {
           noteEl.className = 'modal-note is-ok';
-          noteEl.textContent = 'Confirmed! Booking ID: ' + bookingId + '. All ' + duration + ' hour(s) are now locked on the customer website.';
+          noteEl.textContent = 'Confirmed! Booking ID: ' + bookingId + ' (' + bookingSource + '). All ' + duration + ' hour(s) are now locked on the customer website.';
           var waBtn = $('qbWhatsappBtn');
           waBtn.href = buildWhatsAppUrl(record);
           waBtn.hidden = false;
           showToast('Booking ' + bookingId + ' confirmed for ' + name + '.', 'ok');
         }).catch(function (err) {
           var msg = err && err.code === 'SLOT_CONFLICT'
-            ? 'Conflict: One or more hours in this window were just booked. Please pick another time.'
+            ? 'Booking Conflict! One or more selected hours are already booked or temporarily held. Please choose another available time.'
             : 'Failed to save booking: ' + (err && err.message ? err.message : 'Database error');
           showFormErr(msg);
           $('qbSubmitBtn').disabled = false;
         }).then(function () {
           state.submittingBooking = false;
-          $('qbSubmitBtn').textContent = 'Confirm & Lock Slots';
+          syncQuickBookSourceUI(false);
         });
       });
 
       /* =====================================================================
-         13. SLOT INSPECT / OFFLINE BLOCK MODAL
+         14. SLOT INSPECT / OFFLINE BLOCK MODAL
          ===================================================================== */
       function openSlotActionModal(hour24, lock, linkedBooking) {
         var modal = $('slotActionModal');
@@ -2461,7 +4093,7 @@
           var bookBtn = document.createElement('button');
           bookBtn.type = 'button';
           bookBtn.className = 'btn btn--gold';
-          bookBtn.textContent = '➕ Add WhatsApp Booking';
+          bookBtn.textContent = '➕ Add WhatsApp / Walk-In';
           bookBtn.addEventListener('click', function () {
             var chosenRoom = roomSel.value || state.slotRoom || 'couples';
             modal.hidden = true;
@@ -2494,11 +4126,15 @@
           addRow('Booking ID', lock.bookingId || 'N/A');
           if (linkedBooking) {
             addRow('Room', linkedBooking.roomLabel || 'Room Not Set');
+            addRow('Source', linkedBooking.bookingSource || linkedBooking.source || 'N/A');
             addRow('Customer', linkedBooking.customerName);
             addRow('WhatsApp', linkedBooking.whatsappNumber ? '+91 ' + linkedBooking.whatsappNumber : 'N/A');
             addRow('Full Window', linkedBooking.slot + ' (' + linkedBooking.durationHours + ' hr)');
             addRow('Package', linkedBooking.packageName);
             addRow('Total / Venue Bal.', formatMoney(linkedBooking.totalBookingValue) + ' / ' + formatMoney(linkedBooking.balanceAtVenue));
+            addRow('Venue Payment', linkedBooking.venuePaymentStatus === 'completed'
+              ? ('PAID (' + linkedBooking.venuePaymentMode.toUpperCase() + ')')
+              : 'PENDING');
           } else {
             addRow('Record Note', 'Orphaned or external lock (no matching booking document found).');
           }
@@ -2589,16 +4225,24 @@
       }
 
       /* =====================================================================
-         14. IN-PAGE CONFIRMATION DIALOG (NO WINDOW.CONFIRM)
+         15. IN-PAGE CONFIRMATION DIALOG
          ===================================================================== */
       var pendingConfirmAction = null;
+      function openConfirmModal(titleText, messageText, confirmBtnLabel, onConfirm) {
+        $('cmTitle').textContent = titleText;
+        $('cmMessage').textContent = messageText;
+        $('cmConfirmBtn').textContent = confirmBtnLabel || 'Proceed';
+        pendingConfirmAction = onConfirm;
+        $('confirmModal').hidden = false;
+      }
+
       function promptCancelBooking(booking) {
-        $('cmTitle').textContent = booking.isOfflineBlock ? 'Release Offline Block?' : 'Cancel Booking & Release Slots?';
-        $('cmMessage').textContent = booking.isOfflineBlock
+        var title = booking.isOfflineBlock ? 'Release Offline Block?' : 'Cancel Booking & Release Slots?';
+        var msg = booking.isOfflineBlock
           ? 'Release the offline block for ' + booking.branch + ' on ' + formatPrettyDate(booking.bookingDate) + ' (' + booking.slot + ')?'
           : 'Cancel booking ' + booking.bookingId + ' for ' + booking.customerName + ' (' + booking.branch + ', ' + formatPrettyDate(booking.bookingDate) + ', ' + booking.slot + ')? All ' + booking.durationHours + ' locked hour(s) will be released on the customer website.';
 
-        pendingConfirmAction = function () {
+        openConfirmModal(title, msg, 'Proceed', function () {
           $('cmConfirmBtn').disabled = true;
           $('cmConfirmBtn').textContent = 'Updating…';
           cancelBookingAndReleaseLocks(booking).then(function () {
@@ -2610,8 +4254,7 @@
             $('cmConfirmBtn').disabled = false;
             $('cmConfirmBtn').textContent = 'Proceed';
           });
-        };
-        $('confirmModal').hidden = false;
+        });
       }
 
       $('cmConfirmBtn').addEventListener('click', function () {
@@ -2623,8 +4266,21 @@
       });
 
       /* =====================================================================
-         15. FILTER & MODAL EVENT WIRING
+         16. MODULE NAVIGATION, FILTER & MODAL EVENT WIRING
          ===================================================================== */
+      document.querySelectorAll('[data-module-tab]').forEach(function (tabBtn) {
+        tabBtn.addEventListener('click', function () {
+          var mod = tabBtn.getAttribute('data-module-tab');
+          state.activeModule = mod;
+          document.querySelectorAll('[data-module-tab]').forEach(function (b) {
+            b.classList.toggle('is-active', b === tabBtn);
+          });
+          $('moduleOperations').hidden = mod !== 'operations';
+          $('moduleRates').hidden = mod !== 'rates';
+          $('modulePhotos').hidden = mod !== 'photos';
+        });
+      });
+
       document.querySelectorAll('[data-branch-filter]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           state.branchFilter = btn.getAttribute('data-branch-filter');
@@ -2670,6 +4326,7 @@
           document.querySelectorAll('[data-slot-branch]').forEach(function (b) {
             b.classList.toggle('is-active', b === btn);
           });
+          syncSlotRoomButtons();
           renderSlotGrid();
         });
       });
@@ -2677,9 +4334,7 @@
       document.querySelectorAll('[data-slot-room]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           state.slotRoom = normalizeRoomType(btn.getAttribute('data-slot-room')) || 'couples';
-          document.querySelectorAll('[data-slot-room]').forEach(function (b) {
-            b.classList.toggle('is-active', b === btn);
-          });
+          syncSlotRoomButtons();
           renderSlotGrid();
         });
       });
@@ -2712,10 +4367,12 @@
         renderAnalytics();
         renderSlotGrid();
         renderBookingsTable();
+        renderRatesManager();
+        renderGalleryManager();
       }
 
       /* =====================================================================
-         15B. SEQUENTIAL EDIT TIME, SLOT EXTENSION & BILL SYNCHRONIZATION
+         17. SEQUENTIAL EDIT TIME, SLOT EXTENSION & BILL SYNCHRONIZATION
          ===================================================================== */
       var activeEditingBookingId = null;
       var isSavingEdit = false;
@@ -2964,7 +4621,6 @@
           bookingUpdates.additionalHoursCharge = bill.extraAmount;
         }
 
-        /* Step 1: Stale Booking Protection */
         return state.db.ref(BOOKINGS_PATH + '/' + snap._key).once('value').then(function (bSnap) {
           if (!bSnap.exists()) throw new Error('Booking record no longer exists in Firebase.');
           var liveRaw = bSnap.val();
@@ -2981,14 +4637,12 @@
             throw new Error('This booking was modified by another administrator. Please close, refresh, and reopen.');
           }
 
-          /* Verify no conflicting legacy lock at destination */
           return hasLegacyHourConflict(newBranch, newRoomType, newDate, newHours, snap.bookingId);
         }).then(function (legacyConflict) {
           if (legacyConflict) {
             throw new Error('Slot clash with Booking ID ' + legacyConflict.bookingId + ' at ' + formatHour12(legacyConflict.hour) + '. Shift that booking first, then retry.');
           }
 
-          /* Step 2A: Same Branch, Same Room & Same Date -> Single atomic transaction */
           if (sameLocation) {
             var sameRef = state.db.ref(SLOT_LOCKS_PATH + '/' + newBranch + '/' + newRoomType + '/' + newDate);
             var txConflictMsg = null;
@@ -3028,7 +4682,6 @@
             });
           }
 
-          /* Step 2B: Cross-Room, Cross-Branch, or Cross-Date -> Safe 2-Phase Migration with Compensation */
           var newRef = state.db.ref(SLOT_LOCKS_PATH + '/' + newBranch + '/' + newRoomType + '/' + newDate);
           var oldPath = snap.roomType
             ? (SLOT_LOCKS_PATH + '/' + snap.branch + '/' + snap.roomType + '/' + snap.bookingDate)
@@ -3121,7 +4774,7 @@
         executeSafeSlotAndBookingUpdate(currentEditSnapshot, newBranch, newRoomType, newDate, newStartHour, newDuration, bill, extraRate)
           .then(function (updatedBooking) {
             isSavingEdit = false;
-            activeEditingBookingId = null; /* Release sequential edit lock on success */
+            activeEditingBookingId = null;
             noteEl.className = 'modal-note is-ok';
             noteEl.textContent = 'Booking updated successfully! New time slots and revised bill have been saved.';
             $('etSaveBtn').textContent = 'Saved ✓';
@@ -3143,11 +4796,609 @@
       });
 
       /* =====================================================================
-         16. BOOTSTRAP
+         18. RATES & LINKS MANAGER (site_settings)
+         ===================================================================== */
+      function buildMergedPriceMap(defaultsObj, liveObj) {
+        var merged = {};
+        Object.keys(defaultsObj).forEach(function (k) {
+          merged[k] = {
+            label: defaultsObj[k].label,
+            price: defaultsObj[k].price
+          };
+        });
+        if (liveObj && typeof liveObj === 'object') {
+          Object.keys(liveObj).forEach(function (k) {
+            var val = liveObj[k];
+            if (typeof val === 'number') {
+              merged[k] = {
+                label: merged[k] ? merged[k].label : k.replace(/_/g, ' '),
+                price: val
+              };
+            } else if (val && typeof val === 'object' && val.price !== undefined) {
+              merged[k] = {
+                label: val.label || (merged[k] ? merged[k].label : k.replace(/_/g, ' ')),
+                price: Number(val.price)
+              };
+            }
+          });
+        }
+        return merged;
+      }
+
+      function renderPriceList(containerEl, priceMap, groupAttr) {
+        containerEl.innerHTML = '';
+        Object.keys(priceMap).forEach(function (key) {
+          var item = priceMap[key];
+          var row = document.createElement('div');
+          row.className = 'rate-item';
+
+          var lbl = document.createElement('label');
+          lbl.setAttribute('for', groupAttr + '_' + key);
+          lbl.textContent = item.label;
+          var code = document.createElement('small');
+          code.textContent = key;
+          lbl.appendChild(code);
+
+          var inp = document.createElement('input');
+          inp.type = 'number';
+          inp.min = '0';
+          inp.step = '1';
+          inp.id = groupAttr + '_' + key;
+          inp.setAttribute('data-rate-group', groupAttr);
+          inp.setAttribute('data-rate-key', key);
+          inp.setAttribute('data-rate-label', item.label);
+          inp.value = String(Number(item.price) || 0);
+
+          row.appendChild(lbl);
+          row.appendChild(inp);
+          containerEl.appendChild(row);
+        });
+      }
+
+      function renderRatesManager() {
+        var pkgMap = buildMergedPriceMap(DEFAULT_PACKAGE_PRICES, state.siteSettings.packagePrices);
+        var addonMap = buildMergedPriceMap(DEFAULT_ADDON_PRICES, state.siteSettings.addonPrices);
+        renderPriceList($('packageRatesList'), pkgMap, 'packagePrices');
+        renderPriceList($('addonRatesList'), addonMap, 'addonPrices');
+
+        var reels = state.siteSettings.instagramReels || DEFAULT_REELS;
+        $('reelUrlKurlaCouples').value = reels.kurla_couples || DEFAULT_REELS.kurla_couples;
+        $('reelUrlKurlaFamily').value = reels.kurla_family || DEFAULT_REELS.kurla_family;
+        $('reelUrlVashiCouples').value = reels.vashi_couples || DEFAULT_REELS.vashi_couples;
+        $('reelUrlVashiFamily').value = reels.vashi_family || DEFAULT_REELS.vashi_family;
+        $('reelUrlVashiHeaven').value = reels.vashi_heaven || DEFAULT_REELS.vashi_heaven;
+        $('razorpayKeyId').value = (state.siteSettings && state.siteSettings.razorpayKeyId) || DEFAULT_RAZORPAY_KEY_ID;
+      }
+
+      function getActiveRazorpayKeyId() {
+        var key = (state.siteSettings && state.siteSettings.razorpayKeyId) ? String(state.siteSettings.razorpayKeyId).trim() : '';
+        return /^rzp_(test|live)_[A-Za-z0-9]+$/.test(key) ? key : DEFAULT_RAZORPAY_KEY_ID;
+      }
+
+      function isValidInstagramUrl(url) {
+        try {
+          var parsed = new URL(url);
+          return parsed.protocol === 'https:' && /instagram\.com$/i.test(parsed.hostname.replace(/^www\./i, ''));
+        } catch (e) {
+          return false;
+        }
+      }
+
+      $('saveRatesBtn').addEventListener('click', function () {
+        if (!state.authenticated || !state.db) {
+          showToast('Authorization required to save settings.', 'err');
+          return;
+        }
+        var fb = $('ratesFeedback');
+        function showRatesErr(msg) {
+          fb.className = 'modal-note is-err';
+          fb.textContent = msg;
+          fb.hidden = false;
+        }
+
+        var pkgUpdates = {};
+        var addonUpdates = {};
+        var inputs = document.querySelectorAll('#ratesForm [data-rate-group]');
+        for (var i = 0; i < inputs.length; i++) {
+          var inp = inputs[i];
+          var group = inp.getAttribute('data-rate-group');
+          var key = inp.getAttribute('data-rate-key');
+          var rawVal = inp.value.trim();
+          var num = Number(rawVal);
+          if (rawVal === '' || isNaN(num) || num < 0 || !isFinite(num)) {
+            inp.focus();
+            return showRatesErr('Invalid price for "' + inp.getAttribute('data-rate-label') + '". Prices must be 0 or greater.');
+          }
+          if (group === 'packagePrices') pkgUpdates[key] = Math.round(num);
+          else addonUpdates[key] = Math.round(num);
+        }
+
+        var kurlaCouplesUrl = $('reelUrlKurlaCouples').value.trim();
+        var kurlaFamilyUrl = $('reelUrlKurlaFamily').value.trim();
+        var vashiCouplesUrl = $('reelUrlVashiCouples').value.trim();
+        var vashiFamilyUrl = $('reelUrlVashiFamily').value.trim();
+        var vashiHeavenUrl = $('reelUrlVashiHeaven').value.trim();
+
+        if (!isValidInstagramUrl(kurlaCouplesUrl)) return showRatesErr('Please enter a valid https://www.instagram.com/... URL for Kurla Couples.');
+        if (!isValidInstagramUrl(kurlaFamilyUrl)) return showRatesErr('Please enter a valid https://www.instagram.com/... URL for Kurla Family.');
+        if (!isValidInstagramUrl(vashiCouplesUrl)) return showRatesErr('Please enter a valid https://www.instagram.com/... URL for Vashi Couples.');
+        if (!isValidInstagramUrl(vashiFamilyUrl)) return showRatesErr('Please enter a valid https://www.instagram.com/... URL for Vashi Family.');
+        if (!isValidInstagramUrl(vashiHeavenUrl)) return showRatesErr('Please enter a valid https://www.instagram.com/... URL for Vashi Heaven.');
+
+        var rzpKeyId = $('razorpayKeyId').value.trim();
+        if (!/^rzp_(test|live)_[A-Za-z0-9]+$/.test(rzpKeyId)) {
+          $('razorpayKeyId').focus();
+          return showRatesErr('Please enter a valid Razorpay public Key ID (starting with rzp_test_ or rzp_live_).');
+        }
+
+        var btn = $('saveRatesBtn');
+        btn.disabled = true;
+        btn.textContent = 'Saving…';
+
+        var multiPathUpdate = {};
+        Object.keys(pkgUpdates).forEach(function (k) {
+          multiPathUpdate[SITE_SETTINGS_PATH + '/packagePrices/' + k] = pkgUpdates[k];
+        });
+        Object.keys(addonUpdates).forEach(function (k) {
+          multiPathUpdate[SITE_SETTINGS_PATH + '/addonPrices/' + k] = addonUpdates[k];
+        });
+        multiPathUpdate[SITE_SETTINGS_PATH + '/instagramReels/kurla_couples'] = kurlaCouplesUrl;
+        multiPathUpdate[SITE_SETTINGS_PATH + '/instagramReels/kurla_family'] = kurlaFamilyUrl;
+        multiPathUpdate[SITE_SETTINGS_PATH + '/instagramReels/vashi_couples'] = vashiCouplesUrl;
+        multiPathUpdate[SITE_SETTINGS_PATH + '/instagramReels/vashi_family'] = vashiFamilyUrl;
+        multiPathUpdate[SITE_SETTINGS_PATH + '/instagramReels/vashi_heaven'] = vashiHeavenUrl;
+        multiPathUpdate[SITE_SETTINGS_PATH + '/razorpayKeyId'] = rzpKeyId;
+        multiPathUpdate[SITE_SETTINGS_PATH + '/updatedAt'] = new Date().toISOString();
+
+        state.db.ref().update(multiPathUpdate).then(function () {
+          fb.className = 'modal-note is-ok';
+          fb.textContent = 'Saved! Package prices, add-on prices, Instagram Reel links, and Razorpay Key ID are now live in site_settings.';
+          fb.hidden = false;
+          showToast('Rates & Reel links saved to Firebase.', 'ok');
+        }).catch(function (err) {
+          showRatesErr('Failed to save settings: ' + (err && err.message ? err.message : 'Database permission error'));
+        }).then(function () {
+          btn.disabled = false;
+          btn.textContent = '💾 Save All Rates & Links';
+        });
+      });
+
+      /* =====================================================================
+         19. PHOTO & GALLERY MANAGER (DIRECT CANVAS COMPRESSION -> RTDB DATA URL)
+         ===================================================================== */
+      function validateImageFile(file) {
+        if (!file) return 'No file selected.';
+        if (file.size === 0) return '"' + file.name + '" is an empty file.';
+        if (ALLOWED_IMAGE_TYPES.indexOf(file.type) === -1) {
+          return '"' + file.name + '" is not a supported format (JPG, JPEG, PNG, WebP only).';
+        }
+        if (file.size > MAX_INPUT_PHOTO_BYTES) {
+          return '"' + file.name + '" exceeds the 15 MB input file limit.';
+        }
+        return '';
+      }
+
+      function readFileAsDataURL(file) {
+        return new Promise(function (resolve, reject) {
+          var reader = new FileReader();
+          reader.onload = function () { resolve(reader.result); };
+          reader.onerror = function () { reject(new Error('Failed to read "' + file.name + '".')); };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function loadImageElement(src, fileName) {
+        return new Promise(function (resolve, reject) {
+          var img = new Image();
+          img.onload = function () { resolve(img); };
+          img.onerror = function () { reject(new Error('Unable to decode image "' + fileName + '".')); };
+          img.src = src;
+        });
+      }
+
+      function canvasToJpegBlob(canvas, quality) {
+        return new Promise(function (resolve, reject) {
+          if (typeof canvas.toBlob === 'function') {
+            canvas.toBlob(function (blob) {
+              if (!blob) reject(new Error('JPEG compression failed.'));
+              else resolve(blob);
+            }, 'image/jpeg', quality);
+          } else {
+            try {
+              var dataUrl = canvas.toDataURL('image/jpeg', quality);
+              var bin = atob(dataUrl.split(',')[1]);
+              var arr = new Uint8Array(bin.length);
+              for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+              resolve(new Blob([arr], { type: 'image/jpeg' }));
+            } catch (err) {
+              reject(err);
+            }
+          }
+        });
+      }
+
+      function blobToDataURL(blob) {
+        return new Promise(function (resolve, reject) {
+          var reader = new FileReader();
+          reader.onload = function () { resolve(reader.result); };
+          reader.onerror = function () { reject(new Error('Failed to convert compressed image to Data URL.')); };
+          reader.readAsDataURL(blob);
+        });
+      }
+
+      async function compressImageToDataURL(file) {
+        var rawSrc = await readFileAsDataURL(file);
+        var img = await loadImageElement(rawSrc, file.name);
+        var origW = img.naturalWidth || img.width;
+        var origH = img.naturalHeight || img.height;
+        if (!origW || !origH) {
+          throw new Error('Invalid image dimensions for "' + file.name + '".');
+        }
+
+        var targetW = origW > 1080 ? 1080 : origW;
+        var targetH = origW > 1080 ? Math.round(origH * (1080 / origW)) : origH;
+
+        var canvas = document.createElement('canvas');
+        canvas.width = targetW;
+        canvas.height = targetH;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('Canvas 2D context is unavailable.');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, targetW, targetH);
+        ctx.drawImage(img, 0, 0, targetW, targetH);
+
+        var qualities = [0.78, 0.68, 0.56];
+        var finalDataUrl = '';
+        for (var qIdx = 0; qIdx < qualities.length; qIdx++) {
+          var blob = await canvasToJpegBlob(canvas, qualities[qIdx]);
+          var candidate = await blobToDataURL(blob);
+          finalDataUrl = candidate;
+          if (candidate.length <= 360 * 1024) break;
+        }
+
+        if (!finalDataUrl || finalDataUrl.indexOf('data:image/jpeg;base64,') !== 0) {
+          throw new Error('Image conversion produced an invalid Data URL.');
+        }
+        if (finalDataUrl.length > MAX_RTDB_DATA_URL_BYTES) {
+          throw new Error('Compressed image "' + file.name + '" (' + Math.round(finalDataUrl.length / 1024) + ' KB) is too large for Realtime Database.');
+        }
+        return finalDataUrl;
+      }
+
+      function getSortedGalleryItems(category) {
+        var rawCat = (state.siteSettings.gallery && state.siteSettings.gallery[category]) || {};
+        return Object.keys(rawCat).map(function (id) {
+          var item = rawCat[id];
+          if (!item || typeof item !== 'object' || !item.url) return null;
+          return {
+            id: id,
+            category: category,
+            url: item.url,
+            order: Number(item.order) || 999
+          };
+        }).filter(Boolean).sort(function (a, b) {
+          if (a.order !== b.order) return a.order - b.order;
+          return a.id < b.id ? -1 : 1;
+        });
+      }
+
+      function generatePhotoSlotId(category) {
+        var existing = (state.siteSettings.gallery && state.siteSettings.gallery[category]) || {};
+        for (var n = 1; n <= 99; n++) {
+          var cand = category + '_' + pad2(n);
+          if (!existing[cand]) return cand;
+        }
+        return category + '_' + Date.now().toString(36);
+      }
+
+      $('galleryUploadInput').addEventListener('change', function () {
+        var strip = $('uploadPreviewStrip');
+        strip.innerHTML = '';
+        var files = Array.prototype.slice.call(this.files || []);
+        if (!files.length) {
+          strip.hidden = true;
+          return;
+        }
+        strip.hidden = false;
+        files.forEach(function (file) {
+          var err = validateImageFile(file);
+          var box = document.createElement('div');
+          box.className = 'preview-thumb';
+          if (err) {
+            box.style.borderColor = 'var(--danger)';
+            box.style.padding = '8px 4px';
+            box.textContent = err;
+          } else {
+            var img = document.createElement('img');
+            img.alt = file.name;
+            img.src = URL.createObjectURL(file);
+            img.onload = function () { URL.revokeObjectURL(img.src); };
+            var cap = document.createElement('div');
+            cap.textContent = file.name.slice(0, 14);
+            box.appendChild(img);
+            box.appendChild(cap);
+          }
+          strip.appendChild(box);
+        });
+      });
+
+      $('uploadPhotosBtn').addEventListener('click', async function () {
+        if (!state.authenticated || !state.db) {
+          showToast('Database or authentication is unavailable.', 'err');
+          return;
+        }
+        if (state.isUploadingPhotos) return;
+
+        var category = $('uploadCategorySelect').value;
+        if (GALLERY_CATEGORIES.indexOf(category) === -1) return;
+
+        var files = Array.prototype.slice.call($('galleryUploadInput').files || []);
+        var fb = $('uploadFeedback');
+        if (!files.length) {
+          fb.className = 'modal-note is-err';
+          fb.textContent = 'Please select one or more image files first.';
+          fb.hidden = false;
+          return;
+        }
+        for (var i = 0; i < files.length; i++) {
+          var vErr = validateImageFile(files[i]);
+          if (vErr) {
+            fb.className = 'modal-note is-err';
+            fb.textContent = vErr;
+            fb.hidden = false;
+            return;
+          }
+        }
+
+        var btn = $('uploadPhotosBtn');
+        var progWrap = $('uploadProgressWrap');
+        var progBar = $('uploadProgressBar');
+        state.isUploadingPhotos = true;
+        btn.disabled = true;
+        btn.textContent = 'Compressing & Saving…';
+        progWrap.hidden = false;
+        progBar.style.width = '5%';
+        fb.hidden = true;
+
+        var existingList = getSortedGalleryItems(category);
+        var nextOrder = existingList.length ? (existingList[existingList.length - 1].order + 1) : 1;
+        var completed = 0;
+
+        try {
+          for (var idx = 0; idx < files.length; idx++) {
+            var file = files[idx];
+            var slotId = generatePhotoSlotId(category);
+            var orderNum = nextOrder++;
+            var dataUrl = await compressImageToDataURL(file);
+            progBar.style.width = Math.round(((idx + 0.6) / files.length) * 100) + '%';
+
+            await state.db.ref(SITE_SETTINGS_PATH + '/gallery/' + category + '/' + slotId).set({
+              url: dataUrl,
+              order: orderNum,
+              updatedAt: new Date().toISOString()
+            });
+
+            completed += 1;
+            progBar.style.width = Math.round((completed / files.length) * 100) + '%';
+          }
+
+          $('galleryUploadInput').value = '';
+          $('uploadPreviewStrip').innerHTML = '';
+          $('uploadPreviewStrip').hidden = true;
+          fb.className = 'modal-note is-ok';
+          fb.textContent = 'Saved ' + completed + ' compressed photograph(s) to ' + category + ' gallery.';
+          fb.hidden = false;
+          showToast('Saved ' + completed + ' photo(s) to ' + category + '.', 'ok');
+        } catch (err) {
+          fb.className = 'modal-note is-err';
+          fb.textContent = 'Upload failed: ' + (err && err.message ? err.message : 'Compression or database write error.');
+          fb.hidden = false;
+          showToast('Photo upload failed.', 'err');
+        } finally {
+          state.isUploadingPhotos = false;
+          btn.disabled = false;
+          btn.textContent = '⬆️ Upload to Gallery';
+        }
+      });
+
+      /* Replace Photo Workflow */
+      $('replacePhotoInput').addEventListener('change', function () {
+        var file = this.files && this.files[0];
+        if (!file || !state.replaceTarget) return;
+        var vErr = validateImageFile(file);
+        if (vErr) {
+          showToast(vErr, 'err');
+          this.value = '';
+          return;
+        }
+        state.replaceTarget.file = file;
+        $('rpSubtitle').textContent = 'Category: ' + state.replaceTarget.category.toUpperCase() + ' • Slot ID: ' + state.replaceTarget.id;
+        $('rpPreviewImg').src = URL.createObjectURL(file);
+        $('rpFileMeta').textContent = file.name + ' (' + Math.round(file.size / 1024) + ' KB)';
+        $('rpNote').hidden = true;
+        $('rpConfirmBtn').disabled = false;
+        $('rpConfirmBtn').textContent = 'Compress & Replace';
+        $('replacePhotoModal').hidden = false;
+      });
+
+      $('rpConfirmBtn').addEventListener('click', async function () {
+        if (!state.replaceTarget || !state.replaceTarget.file || !state.db) return;
+        if (state.isReplacingPhoto) return;
+
+        var target = state.replaceTarget;
+        var file = target.file;
+        var btn = $('rpConfirmBtn');
+        var note = $('rpNote');
+        state.isReplacingPhoto = true;
+        btn.disabled = true;
+        btn.textContent = 'Compressing & Saving…';
+        note.className = 'modal-note';
+        note.textContent = 'Compressing photograph and saving to Realtime Database…';
+        note.hidden = false;
+
+        try {
+          var newDataUrl = await compressImageToDataURL(file);
+          await state.db.ref(SITE_SETTINGS_PATH + '/gallery/' + target.category + '/' + target.id).update({
+            url: newDataUrl,
+            order: target.order,
+            updatedAt: new Date().toISOString()
+          });
+          $('replacePhotoModal').hidden = true;
+          $('replacePhotoInput').value = '';
+          state.replaceTarget = null;
+          showToast('Replaced ' + target.id + ' in ' + target.category + ' gallery.', 'ok');
+        } catch (err) {
+          note.className = 'modal-note is-err';
+          note.textContent = 'Replace failed: ' + (err && err.message ? err.message : 'Error');
+        } finally {
+          state.isReplacingPhoto = false;
+          btn.disabled = false;
+          btn.textContent = 'Compress & Replace';
+        }
+      });
+
+      function reorderGalleryPhoto(category, index, delta) {
+        var items = getSortedGalleryItems(category);
+        var swapIdx = index + delta;
+        if (swapIdx < 0 || swapIdx >= items.length || !state.db) return;
+
+        var temp = items[index];
+        items[index] = items[swapIdx];
+        items[swapIdx] = temp;
+
+        var updates = {};
+        items.forEach(function (it, idx) {
+          updates[SITE_SETTINGS_PATH + '/gallery/' + category + '/' + it.id + '/order'] = idx + 1;
+        });
+
+        state.db.ref().update(updates).then(function () {
+          showToast('Updated display order in ' + category + ' gallery.', 'ok');
+        }).catch(function (err) {
+          showToast('Failed to reorder: ' + (err && err.message ? err.message : 'Error'), 'err');
+        });
+      }
+
+      function promptDeleteGalleryPhoto(item) {
+        openConfirmModal(
+          'Delete Gallery Photograph?',
+          'Permanently delete "' + item.id + '" from ' + item.category.toUpperCase() + ' gallery?',
+          'Delete Photo',
+          async function () {
+            $('cmConfirmBtn').disabled = true;
+            $('cmConfirmBtn').textContent = 'Deleting…';
+            try {
+              await state.db.ref(SITE_SETTINGS_PATH + '/gallery/' + item.category + '/' + item.id).remove();
+              $('confirmModal').hidden = true;
+              showToast('Deleted ' + item.id + ' from ' + item.category + ' gallery.', 'ok');
+            } catch (err) {
+              showToast('Failed to delete photo: ' + (err && err.message ? err.message : 'Error'), 'err');
+            } finally {
+              $('cmConfirmBtn').disabled = false;
+              $('cmConfirmBtn').textContent = 'Proceed';
+            }
+          }
+        );
+      }
+
+      function renderGalleryManager() {
+        GALLERY_CATEGORIES.forEach(function (cat) {
+          var grid = $('gallery-' + cat);
+          var countEl = $('count-' + cat);
+          if (!grid || !countEl) return;
+
+          var items = getSortedGalleryItems(cat);
+          countEl.textContent = items.length + ' photo' + (items.length === 1 ? '' : 's');
+          grid.innerHTML = '';
+
+          if (!items.length) {
+            var empty = document.createElement('div');
+            empty.className = 'state-box';
+            empty.style.gridColumn = '1 / -1';
+            empty.style.padding = '22px 14px';
+            empty.textContent = 'No photographs uploaded in ' + cat + ' gallery yet.';
+            grid.appendChild(empty);
+            return;
+          }
+
+          items.forEach(function (item, idx) {
+            var card = document.createElement('div');
+            card.className = 'photo-card';
+
+            var thumbWrap = document.createElement('div');
+            thumbWrap.className = 'photo-thumb-wrap';
+            var img = document.createElement('img');
+            img.src = item.url;
+            img.alt = item.category + ' - ' + item.id;
+            img.loading = 'lazy';
+            var badge = document.createElement('span');
+            badge.className = 'photo-order-badge';
+            badge.textContent = '#' + (idx + 1);
+            thumbWrap.appendChild(img);
+            thumbWrap.appendChild(badge);
+
+            var body = document.createElement('div');
+            body.className = 'photo-card-body';
+
+            var idEl = document.createElement('div');
+            idEl.className = 'photo-id';
+            idEl.textContent = item.id;
+
+            var actions = document.createElement('div');
+            actions.className = 'photo-actions';
+
+            var upBtn = document.createElement('button');
+            upBtn.type = 'button';
+            upBtn.className = 'btn btn--outline btn--xs';
+            upBtn.textContent = '◀';
+            upBtn.title = 'Move Earlier';
+            upBtn.disabled = idx === 0;
+            upBtn.addEventListener('click', function () { reorderGalleryPhoto(cat, idx, -1); });
+
+            var downBtn = document.createElement('button');
+            downBtn.type = 'button';
+            downBtn.className = 'btn btn--outline btn--xs';
+            downBtn.textContent = '▶';
+            downBtn.title = 'Move Later';
+            downBtn.disabled = idx === items.length - 1;
+            downBtn.addEventListener('click', function () { reorderGalleryPhoto(cat, idx, 1); });
+
+            var repBtn = document.createElement('button');
+            repBtn.type = 'button';
+            repBtn.className = 'btn btn--outline btn--xs';
+            repBtn.textContent = '🔄 Replace';
+            repBtn.addEventListener('click', function () {
+              state.replaceTarget = item;
+              $('replacePhotoInput').value = '';
+              $('replacePhotoInput').click();
+            });
+
+            var delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.className = 'btn btn--danger btn--xs';
+            delBtn.textContent = '🗑️ Delete';
+            delBtn.addEventListener('click', function () { promptDeleteGalleryPhoto(item); });
+
+            actions.appendChild(upBtn);
+            actions.appendChild(downBtn);
+            actions.appendChild(repBtn);
+            actions.appendChild(delBtn);
+
+            body.appendChild(idEl);
+            body.appendChild(actions);
+            card.appendChild(thumbWrap);
+            card.appendChild(body);
+            grid.appendChild(card);
+          });
+        });
+      }
+
+      /* =====================================================================
+         20. BOOTSTRAP
          ===================================================================== */
       initCrests();
       populateStartHourOptions();
       populateEditStartHourOptions();
+      syncSlotRoomButtons();
       state.slotDate = getKolkataTodayISO();
       $('slotDateInput').value = state.slotDate;
       state.authenticated = getStoredSession();
