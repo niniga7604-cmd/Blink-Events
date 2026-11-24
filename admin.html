@@ -3033,18 +3033,22 @@
 
       function hasBookingRecordConflict(branch, roomType, date, startHour, durationHours, excludeBookingId) {
         var list = (state && Array.isArray(state.bookings)) ? state.bookings : [];
-        var endHour = startHour + durationHours;
+        var reqStart = Number(startHour);
+        var reqDur = Number(durationHours);
+        if (!isFinite(reqStart) || !isFinite(reqDur) || reqDur < 1) return null;
+        var endHour = reqStart + reqDur;
         for (var i = 0; i < list.length; i++) {
           var b = list[i];
-          if (!b || b.bookingStatus !== 'confirmed') continue;
+          if (!b || String(b.bookingStatus || '').toLowerCase() !== 'confirmed') continue;
           if (excludeBookingId && b.bookingId === excludeBookingId) continue;
           if ((b.branch || 'Kurla') !== branch) continue;
           if ((b.bookingDate || b.date) !== date) continue;
           var bRoom = b.roomType || 'couples';
           if (roomType && bRoom !== roomType) continue;
           var bStart = Number(b.startHour);
-          var bDur = Number(b.durationHours) || 1;
-          if (!isNaN(bStart) && startHour < (bStart + bDur) && endHour > bStart) {
+          var bDur = Number(b.durationHours);
+          if (!isFinite(bDur) || bDur < 1) bDur = 1;
+          if (isFinite(bStart) && reqStart < (bStart + bDur) && endHour > bStart) {
             return b;
           }
         }
@@ -3183,21 +3187,45 @@
       }
 
       function hasLegacyHourConflict(branch, roomType, date, requiredHours, excludeBookingId) {
-        return state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + date).once('value').then(function (snap) {
-          var legacy = snap.val();
-          if (!legacy || typeof legacy !== 'object') return null;
-          var now = Date.now();
-          for (var i = 0; i < requiredHours.length; i++) {
-            var hh = requiredHours[i];
-            var l = legacy[hh];
-            if (l && isActiveSlotLock(l, now) && l.bookingId !== excludeBookingId) {
-              var linked = l.bookingId ? findBookingById(l.bookingId) : null;
-              if (!linked || !linked.roomType || linked.roomType === roomType) {
-                return { hour: Number(hh), bookingId: l.bookingId || 'LEGACY' };
+        var reqHours = requiredHours.map(Number);
+        return state.db.ref(BOOKINGS_PATH).once('value').then(function (bSnap) {
+          var found = null;
+          bSnap.forEach(function (child) {
+            if (found) return;
+            var raw = child.val();
+            if (!raw || typeof raw !== 'object') return;
+            var b = normalizeBookingRecord(child.key, raw);
+            if (b.bookingStatus !== 'confirmed') return;
+            if (excludeBookingId && b.bookingId === excludeBookingId) return;
+            if (b.branch !== branch || b.bookingDate !== date) return;
+            if ((b.roomType || 'couples') !== roomType) return;
+            var bStart = Number(b.startHour);
+            var bDur = Number(b.durationHours);
+            if (!isFinite(bStart) || !isFinite(bDur) || bDur < 1) return;
+            for (var r = 0; r < reqHours.length; r++) {
+              if (reqHours[r] >= bStart && reqHours[r] < bStart + bDur) {
+                found = { hour: reqHours[r], bookingId: b.bookingId };
+                return;
               }
             }
-          }
-          return null;
+          });
+          if (found) return found;
+          return state.db.ref(SLOT_LOCKS_PATH + '/' + branch + '/' + date).once('value').then(function (snap) {
+            var legacy = snap.val();
+            if (!legacy || typeof legacy !== 'object') return null;
+            var now = Date.now();
+            for (var i = 0; i < requiredHours.length; i++) {
+              var hh = requiredHours[i];
+              var l = legacy[hh];
+              if (l && isActiveSlotLock(l, now) && l.bookingId !== excludeBookingId) {
+                var linked = l.bookingId ? findBookingById(l.bookingId) : null;
+                if (!linked || !linked.roomType || linked.roomType === roomType) {
+                  return { hour: Number(hh), bookingId: l.bookingId || 'LEGACY' };
+                }
+              }
+            }
+            return null;
+          });
         });
       }
 
@@ -4480,8 +4508,14 @@
         for (var i = 0; i < duration; i++) {
           var hr = startHour + i;
           var lock = getSlotLock(branch, roomType, date, hr);
-          if (lock && (lock.status === 'confirmed' || lock.status === 'hold') && lock.bookingId !== currentEditSnapshot.bookingId) {
+          if (lock && isActiveSlotLock(lock, Date.now()) && lock.bookingId !== currentEditSnapshot.bookingId) {
             conflicts.push('Slot clash with Booking ID ' + (lock.bookingId || 'UNKNOWN') + ' at ' + formatHour12(hr) + '. Shift that booking first, then retry.');
+          }
+        }
+        if (conflicts.length === 0) {
+          var recClash = hasBookingRecordConflict(branch, roomType, date, startHour, duration, currentEditSnapshot.bookingId);
+          if (recClash) {
+            conflicts.push('Slot clash with Booking ID ' + (recClash.bookingId || 'UNKNOWN') + '. Shift that booking first, then retry.');
           }
         }
 
@@ -4637,6 +4671,11 @@
             throw new Error('This booking was modified by another administrator. Please close, refresh, and reopen.');
           }
 
+          var recClash = hasBookingRecordConflict(newBranch, newRoomType, newDate, newStartHour, newDuration, snap.bookingId);
+          if (recClash) {
+            throw new Error('Slot clash with Booking ID ' + (recClash.bookingId || 'UNKNOWN') + '. Shift that booking first, then retry.');
+          }
+
           return hasLegacyHourConflict(newBranch, newRoomType, newDate, newHours, snap.bookingId);
         }).then(function (legacyConflict) {
           if (legacyConflict) {
@@ -4647,11 +4686,12 @@
             var sameRef = state.db.ref(SLOT_LOCKS_PATH + '/' + newBranch + '/' + newRoomType + '/' + newDate);
             var txConflictMsg = null;
             return sameRef.transaction(function (current) {
+              var nowTs = Date.now();
               var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
               for (var i = 0; i < newHours.length; i++) {
                 var hh = newHours[i];
                 var existing = node[hh];
-                if (existing && (existing.status === 'confirmed' || existing.status === 'hold') && existing.bookingId !== snap.bookingId) {
+                if (existing && isActiveSlotLock(existing, nowTs) && existing.bookingId !== snap.bookingId) {
                   txConflictMsg = 'Slot clash with Booking ID ' + (existing.bookingId || 'UNKNOWN') + ' at ' + formatHour12(Number(hh)) + '. Shift that booking first, then retry.';
                   return undefined;
                 }
@@ -4660,11 +4700,11 @@
                 if (node[k] && node[k].bookingId === snap.bookingId) delete node[k];
               });
               newHours.forEach(function (hh) {
-                node[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+                node[hh] = { status: 'confirmed', bookingId: snap.bookingId, roomType: newRoomType };
               });
               return node;
             }).then(function (txRes) {
-              if (!txRes.committed) {
+              if (!txRes || txRes.committed !== true) {
                 throw new Error(txConflictMsg || 'Concurrent slot conflict detected. Transaction aborted safely.');
               }
               return state.db.ref(BOOKINGS_PATH + '/' + snap._key).update(bookingUpdates).catch(function (writeErr) {
@@ -4674,7 +4714,7 @@
                     if (n[k] && n[k].bookingId === snap.bookingId) delete n[k];
                   });
                   origHours.forEach(function (hh) {
-                    n[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+                    n[hh] = { status: 'confirmed', bookingId: snap.bookingId, roomType: snap.roomType };
                   });
                   return n;
                 }).then(function () { throw writeErr; }, function () { throw writeErr; });
@@ -4692,21 +4732,22 @@
           var oldLocksRemoved = false;
 
           return newRef.transaction(function (current) {
+            var nowTs = Date.now();
             var node = (current && typeof current === 'object') ? Object.assign({}, current) : {};
             for (var i = 0; i < newHours.length; i++) {
               var hh = newHours[i];
               var existing = node[hh];
-              if (existing && (existing.status === 'confirmed' || existing.status === 'hold') && existing.bookingId !== snap.bookingId) {
+              if (existing && isActiveSlotLock(existing, nowTs) && existing.bookingId !== snap.bookingId) {
                 crossConflictMsg = 'Slot clash with Booking ID ' + (existing.bookingId || 'UNKNOWN') + ' at ' + formatHour12(Number(hh)) + '. Shift that booking first, then retry.';
                 return undefined;
               }
             }
             newHours.forEach(function (hh) {
-              node[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+              node[hh] = { status: 'confirmed', bookingId: snap.bookingId, roomType: newRoomType };
             });
             return node;
           }).then(function (newTx) {
-            if (!newTx.committed) {
+            if (!newTx || newTx.committed !== true) {
               throw new Error(crossConflictMsg || 'Target slot was just claimed by another booking. Migration aborted.');
             }
             newLocksSecured = true;
@@ -4735,7 +4776,10 @@
               recoveryOps.push(oldRef.transaction(function (curr) {
                 var n = (curr && typeof curr === 'object') ? Object.assign({}, curr) : {};
                 origHours.forEach(function (hh) {
-                  if (!n[hh]) n[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+                  if (!n[hh]) {
+                    n[hh] = { status: 'confirmed', bookingId: snap.bookingId };
+                    if (snap.roomType) n[hh].roomType = snap.roomType;
+                  }
                 });
                 return n;
               }));
